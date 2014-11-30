@@ -10,7 +10,7 @@ Guild Wars 2 API bindings for Go.
 
 ###V1
 
-* Development complete
+* Development ongoing
 
 ###V2
 
