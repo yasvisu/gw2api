@@ -29,6 +29,11 @@ with v2 functions replacing v1. For pure v1 and v2, check /v1 and /v2.
 
 ###[V2](http://wiki.guildwars2.com/wiki/API:2)
 
-* Not started
-
-
+* Development ongoing
+* Done:
+* To do:
+ * Wrap all endpoints
+ * Write tests
+ * Write usage samples
+ * Get feedback
+ * Merge with v1 for a common version
