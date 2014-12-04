@@ -344,11 +344,16 @@ type ItemInfusionSlots struct {
 //BagItem to get bag-specific fields.
 type BagItem struct {
 	Item
+	Bag BagItemDetails `json:"bag"`
+}
+
+//Bag item details field.
+type BagItemDetails struct {
 	NoSellOrSort string `json:"no_sell_or_sort"`
 	Size         string `json:"size"`
 }
 
-//BagItem to get consumable-specific fields.
+//ConsumableItem to get consumable-specific fields.
 type ConsumableItem struct {
 	Item
 	Consumable ConsumableItemDetails `json:"consumable"`
