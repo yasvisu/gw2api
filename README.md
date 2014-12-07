@@ -39,4 +39,3 @@ but the latest version of this package will nonetheless be V2.
 * To do:
   * Write usage samples
   * Get feedback
-  * Merge with v1 for a common version
