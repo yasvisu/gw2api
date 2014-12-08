@@ -1,26 +1,35 @@
 # gw2api
 
 ##[Guild Wars 2](https://www.guildwars2.com/en-gb/) - [API](http://wiki.guildwars2.com/wiki/API:Main) bindings for [Go](http://golang.org/).
+[![GoDoc](https://godoc.org/github.com/yasvisu/gw2api?status.png)](https://godoc.org/github.com/yasvisu/gw2api)
 
-The latest version of this package will be put here. 
-ArenaNet has not finished development on [V2](http://wiki.guildwars2.com/wiki/API:2) yet, 
-but the latest version of this package will nonetheless be V2.
+Note:
+
+ArenaNet has not finished development on [V2](http://wiki.guildwars2.com/wiki/API:2) yet.
 
 ## Requirements
 
-* Developed with Go 1.3.3. 
+* Developed with [Go](http://golang.org/) 1.3.3. 
 
 ## Installation
-To get the gw2api package, simply hit:
+To get the gw2api package, simply hit in your console of choice:
 
     go get github.com/yasvisu/gw2api
 
+Make sure you have [Go installed](http://golang.org/doc/install)!
 
 ## Documentation
-Documentation and examples hosted in [GoDoc](http://godoc.org/).
+Documentation and examples hosted in [GoDoc](http://godoc.org/github.com/yasvisu/gw2api).
 
 
 ## Development state
+###[V2](http://wiki.guildwars2.com/wiki/API:2)
+
+* Base release complete
+* Polishing and debugging ongoing by default
+* To do:
+  * Get feedback
+
 
 ###[V1](http://wiki.guildwars2.com/wiki/API:1)
 
@@ -35,17 +44,4 @@ Documentation and examples hosted in [GoDoc](http://godoc.org/).
   * Make more thorough tests
    * Check for deep struct Unmarshalling
   * Write usage examples
-  * Get feedback
-
-###[V2](http://wiki.guildwars2.com/wiki/API:2)
-
-* Development complete
-* Polishing and debugging ongoing by default
-* Done:
-  * Wrapped all endpoints
-  * Tests complete
-   * Thorough tests complete
-  * Documented code
-* To do:
-  * Write usage samples
   * Get feedback
