@@ -10,6 +10,16 @@ but the latest version of this package will nonetheless be V2.
 
 * Developed with Go 1.3.3. 
 
+## Installation
+To get the gw2api package, simply hit:
+
+    go get github.com/yasvisu/gw2api
+
+
+## Documentation
+Documentation and examples hosted in [GoDoc](http://godoc.org/).
+
+
 ## Development state
 
 ###[V1](http://wiki.guildwars2.com/wiki/API:1)
