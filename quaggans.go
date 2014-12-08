@@ -1,9 +1,9 @@
 package gw2api
 
 import (
-"bytes"
-"encoding/json"
-"errors"
+	"bytes"
+	"encoding/json"
+	"errors"
 )
 
 //Parent type for all Quaggan Resources.
@@ -31,7 +31,7 @@ func QuaggansIds(ids ...string) ([]QuagganResource, error) {
 	if ids == nil {
 		return nil, errors.New("Required ids parameters nil. Consider using Quaggans() instead?")
 	}
-	
+
 	var appendix bytes.Buffer
 	ver := "v2"
 	tag := "quaggans"

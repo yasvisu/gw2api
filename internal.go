@@ -2,8 +2,8 @@ package gw2api
 
 import (
 	"io/ioutil"
-	"net/http"
 	"net"
+	"net/http"
 	"time"
 )
 
@@ -25,9 +25,8 @@ func init() {
 	client := http.Client{
 		Transport: &transport,
 	}
-	client=client
+	client = client
 }
-
 
 //Fetcher function to return only the body of a HTTP request.
 //Parameters: version, tag, appendix strings.

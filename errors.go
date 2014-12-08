@@ -1,6 +1,5 @@
 package gw2api
 
-
 //GW2ApiError for API errors to unmarshal into.
 type GW2ApiError struct {
 	Text string `json:"text"`

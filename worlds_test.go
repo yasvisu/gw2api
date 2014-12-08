@@ -1,15 +1,15 @@
 package gw2api
 
 import (
-"fmt"
-"testing"
+	"fmt"
+	"testing"
 )
 
 func ExampleWorlds() {
 	//get list of world id's
 	i, _ := Worlds("")
 	fmt.Println(i[0:2])
-	
+
 	// Output:
 	// [1001 1002]
 }
@@ -17,11 +17,11 @@ func ExampleWorlds() {
 func ExampleWorldsIds() {
 	//get specific worlds by their id's, in Spanish
 	i, _ := WorldsIds("es", 1001, 1014, 2206, 13371337)
-	
+
 	for _, val := range i {
 		fmt.Printf("%d - %s\n", val.ID, val.Name)
 	}
-	
+
 	// Output:
 	// 1001 - Roca del Yunque
 	// 1014 - Desierto de Cristal

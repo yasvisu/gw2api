@@ -1,8 +1,8 @@
 package gw2api
 
 import (
-"fmt"
-"testing"
+	"fmt"
+	"testing"
 )
 
 //OK

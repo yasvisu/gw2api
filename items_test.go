@@ -1,8 +1,8 @@
 package gw2api
 
 import (
-"fmt"
-"testing"
+	"fmt"
+	"testing"
 )
 
 func ExampleItems() {
@@ -16,7 +16,7 @@ func ExampleItems() {
 func ExampleItemsIds() {
 	//get specific items by their id's, in French
 	i, _ := ItemsIds("fr", 12452)
-	
+
 	for _, val := range i {
 		fmt.Printf("ID %d - %s - %s\n", val.ID, val.Type, val.Name)
 	}
@@ -26,8 +26,8 @@ func ExampleItemsIds() {
 
 func ExampleItemsPages() {
 	//get specific items by their pages
-	i, _ := ItemsPages(3, 1, "")	//get page 3 with page_size 1, in English
-	
+	i, _ := ItemsPages(3, 1, "") //get page 3 with page_size 1, in English
+
 	for _, val := range i {
 		fmt.Printf("%s - %s\n", val.Name, val.Icon)
 	}

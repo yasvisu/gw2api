@@ -1,10 +1,10 @@
 package gw2api
 
 import (
-"bytes"
-"encoding/json"
-"errors"
-"strconv"
+	"bytes"
+	"encoding/json"
+	"errors"
+	"strconv"
 )
 
 //Parent type for all -Names endpoints.
@@ -38,7 +38,7 @@ func WorldsIds(lang string, ids ...int) ([]Name, error) {
 	if ids == nil {
 		return nil, errors.New("Required ids parameters nil. Consider using Worlds() instead?")
 	}
-	
+
 	var appendix bytes.Buffer
 	ver := "v2"
 	tag := "worlds"

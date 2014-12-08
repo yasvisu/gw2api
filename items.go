@@ -1,10 +1,10 @@
 package gw2api
 
 import (
-"bytes"
-"encoding/json"
-"errors"
-"strconv"
+	"bytes"
+	"encoding/json"
+	"errors"
+	"strconv"
 )
 
 /* ITEMS */

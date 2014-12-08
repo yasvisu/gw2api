@@ -1,15 +1,15 @@
 package gw2api
 
 import (
-	"testing"
 	"fmt"
+	"testing"
 )
 
 func ExampleQuaggans() {
 	//get list of quaggan id's
 	i, _ := Quaggans()
 	fmt.Println(i[0:2])
-	
+
 	// Output:
 	// [404 aloha]
 }
@@ -17,11 +17,11 @@ func ExampleQuaggans() {
 func ExampleQuaggansIds() {
 	//get specific quaggans by their id's
 	i, _ := QuaggansIds("404", "aloha")
-	
+
 	for _, val := range i {
 		fmt.Printf("%s - %s\n", val.ID, val.URL)
 	}
-	
+
 	// Output:
 	// 404 - https://static.staticwars.com/quaggans/404.jpg
 	// aloha - https://static.staticwars.com/quaggans/aloha.jpg

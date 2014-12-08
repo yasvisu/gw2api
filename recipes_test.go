@@ -1,8 +1,8 @@
 package gw2api
 
 import (
-	"testing"
 	"fmt"
+	"testing"
 )
 
 func ExampleRecipes() {
@@ -16,7 +16,7 @@ func ExampleRecipes() {
 func ExampleRecipesIds() {
 	//get specific recipes by their id's, in Spanish
 	i, _ := RecipesIds("es", 7319)
-	
+
 	for _, val := range i {
 		fmt.Printf("%s - %d\n", val.Type, val.OutputItemID)
 	}
@@ -26,8 +26,8 @@ func ExampleRecipesIds() {
 
 func ExampleRecipeSearch() {
 	//search specific recipes by their id's, in Spanish
-	i, _ := RecipesSearchInput("es", 46731)	//recipes taking id 46731 as input, in Spanish
-	j, _ := RecipesSearchOutput("", 50065)		//recipes producing id 50065 as output, in English
+	i, _ := RecipesSearchInput("es", 46731) //recipes taking id 46731 as input, in Spanish
+	j, _ := RecipesSearchOutput("", 50065)  //recipes producing id 50065 as output, in English
 	fmt.Printf("46731 - %d\n", i)
 	fmt.Printf("50065 - %d\n", j)
 	// Output:

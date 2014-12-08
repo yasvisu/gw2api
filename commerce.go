@@ -1,10 +1,10 @@
 package gw2api
 
 import (
-"bytes"
-"encoding/json"
-"errors"
-"strconv"
+	"bytes"
+	"encoding/json"
+	"errors"
+	"strconv"
 )
 
 //Returns article ids.
@@ -106,8 +106,6 @@ func CommerceListingsPages(page int, pageSize int) ([]ArticleListings, error) {
 	}
 	return res, err
 }
-
-
 
 //COMMERCE/EXCHANGE
 //Returns coins and gems exchange information.

@@ -1,14 +1,14 @@
 package gw2api
 
 import (
-"fmt"
-"testing"
+	"fmt"
+	"testing"
 )
 
 func ExampleCommerceExchangeGems() {
 	//get current coin-to-gem exchange ratio
-	i, _ := CommerceExchangeCoins(2000000)	//make sure to include a big enough quantity of coins
-	i = i //do something with i
+	i, _ := CommerceExchangeCoins(2000000) //make sure to include a big enough quantity of coins
+	i = i                                  //do something with i
 	fmt.Printf("Coins per gem - Quantity of coins\n")
 	// Output:
 	// Coins per gem - Quantity of coins
@@ -17,7 +17,7 @@ func ExampleCommerceExchangeGems() {
 func ExampleCommerceExchangeCoins() {
 	//get current gem-to-coin exchange ratio
 	i, _ := CommerceExchangeCoins(1000)
-	i = i	//do something with i
+	i = i //do something with i
 	fmt.Printf("Coins per gem - Quantity of gems\n")
 	// Output:
 	// Coins per gem - Quantity of gems
@@ -26,7 +26,7 @@ func ExampleCommerceExchangeCoins() {
 func ExampleCommerceListings() {
 	//get list of listings id's
 	i, _ := CommerceListings()
-	i = i	//do something with i
+	i = i //do something with i
 	fmt.Println("Listings")
 	// Output:
 	// Listings
@@ -35,7 +35,7 @@ func ExampleCommerceListings() {
 func ExampleCommerceListingsIds() {
 	//get specific listings by their id's
 	i, _ := CommerceListingsIds(24, 68, 69)
-	i = i	//do something with i
+	i = i //do something with i
 	fmt.Println("Listings")
 	// Output:
 	// Listings
@@ -43,8 +43,8 @@ func ExampleCommerceListingsIds() {
 
 func ExampleCommerceListingsPages() {
 	//get specific listings by their pages
-	i, _ := CommerceListingsPages(3, 2)	//get page 3 with page_size 2
-	i = i	//do something with i
+	i, _ := CommerceListingsPages(3, 2) //get page 3 with page_size 2
+	i = i                               //do something with i
 	fmt.Println("Listings")
 	// Output:
 	// Listings
@@ -53,7 +53,7 @@ func ExampleCommerceListingsPages() {
 func ExampleCommercePrices() {
 	//get list of prices id's
 	i, _ := CommercePrices()
-	i = i	//do something with i
+	i = i //do something with i
 	fmt.Println("Listings")
 	// Output:
 	// Listings
@@ -62,7 +62,7 @@ func ExampleCommercePrices() {
 func ExampleCommercePricesIds() {
 	//get specific prices by their id's
 	i, _ := CommercePricesIds(24, 68, 69)
-	i = i	//do something with i
+	i = i //do something with i
 	fmt.Println("Prices")
 	// Output:
 	// Prices

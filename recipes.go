@@ -2,9 +2,9 @@ package gw2api
 
 import (
 	"bytes"
-"encoding/json"
-"errors"
-"strconv"
+	"encoding/json"
+	"errors"
+	"strconv"
 )
 
 //Parent type for all Recipes endpoints.
@@ -98,12 +98,12 @@ func recipesSearch(mode string, lang string, n int) ([]int, error) {
 	ver := "v2"
 	tag := "recipes/search"
 	concatenator := "?"
-	
+
 	appendix.WriteString(concatenator)
 	appendix.WriteString(mode)
 	appendix.WriteString("=")
 	appendix.WriteString(strconv.Itoa(n))
-	
+
 	if lang != "" {
 		appendix.WriteString(concatenator)
 		appendix.WriteString("lang=")
