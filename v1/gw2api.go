@@ -22,14 +22,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-/* 
-Written by Yasen Visulchev - Sofia University FMI/Golang
-	20141130
-	
-GW2 API Wrapper for Go
-
-For GW2 API Version 1
-*/
+//Package gw2api provides bindings for the Guild Wars 2 API.
+//
+//This is for v1 of the GW2 API only. See me at github if you want support for any of these features.
+//
+//Using this package is as simple as calling its functions.
+//
+//   func main() {
+//     i := gw2api.Items()
+//     fmt.Println(i)
+//   }
 package gw2api
 
 import (
