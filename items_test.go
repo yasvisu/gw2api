@@ -2,9 +2,9 @@ package gw2api
 
 import (
 	"fmt"
-	"testing"
-	"net/http"
 	"io/ioutil"
+	"net/http"
+	"testing"
 )
 
 func ExampleItems() {
@@ -30,8 +30,8 @@ func ExampleItemsIds_icons() {
 	//get a specific icon off the API
 	i, _ := Items("")
 	j, _ := ItemsIds("", i[0:3]...)
-	resp, _ := http.Get(j[0].Icon)	//get the http response
-	blob, _ := ioutil.ReadAll(resp.Body)	//read all the bytes into a blob []byte
+	resp, _ := http.Get(j[0].Icon)       //get the http response
+	blob, _ := ioutil.ReadAll(resp.Body) //read all the bytes into a blob []byte
 	//do interesting things!
 	blob = blob
 }
