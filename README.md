@@ -16,7 +16,11 @@ To get the gw2api package, simply hit in your console of choice:
 
     go get github.com/yasvisu/gw2api
 
-Make sure you have [Go installed](http://golang.org/doc/install)!
+Make sure you have [Go installed](http://golang.org/doc/install) and set up!
+
+In your code, with your import path in mind:
+
+    import "github.com/yasvisu/gw2api"
 
 ## Documentation
 Documentation and examples hosted in [GoDoc](http://godoc.org/github.com/yasvisu/gw2api).
