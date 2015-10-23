@@ -49,7 +49,7 @@ Documentation and examples hosted in [GoDoc](http://godoc.org/github.com/yasvisu
   * [x] Recipes
     * [ ] Search
   * [x] Items
-  * [x] Skins (PR #4)
+  * [ ] Skins (PR #4)
 * [ ] World vs World
   * [ ] Matches (PR #2)
   * [ ] Objectives (PR #2)
