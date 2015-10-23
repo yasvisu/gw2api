@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"strconv"
 )
 
 //Parent type for all Quaggan Resources.
@@ -136,4 +137,22 @@ func WorldsIds(lang string, ids ...int) ([]Name, error) {
 		return nil, gwerr
 	}
 	return res, err
+}
+
+func Version() (v int, err error) {
+	ver := "v2"
+	tag := "build"
+
+	data, err := fetchJSON(ver, tag, "")
+	if err != nil {
+		return 0, err
+	}
+
+	type JsonVersion struct {
+		ID int `json:"id"`
+	}
+
+	var res JsonVersion
+	err = json.Unmarshal(data, &res)
+	return res.ID, nil
 }
