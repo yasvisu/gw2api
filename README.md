@@ -53,6 +53,12 @@ Documentation and examples hosted in [GoDoc](http://godoc.org/github.com/yasvisu
 * [ ] World vs World
   * [ ] Matches (PR #2)
   * [ ] Objectives (PR #2)
+* [ ] Game Mechanics
+  * [ ] Traits
+  * [ ] Specializations
+* [ ] Map Information
+  * [ ] Continents
+  * [ ] Maps
 * [ ] Misc
   * [ ] Achievements
   * [ ] Build
