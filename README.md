@@ -47,7 +47,7 @@ Documentation and examples hosted in [GoDoc](http://godoc.org/github.com/yasvisu
   * [ ] Games (Auth)
 * [ ] Items
   * [x] Recipes
-    * [ ] Search
+    * [x] Search
   * [x] Items
   * [ ] Skins (PR #4)
 * [ ] World vs World
