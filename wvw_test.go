@@ -7,7 +7,7 @@ import (
 
 func TestMatches(t *testing.T) {
 	//t.Skip()
-	id := "Matches"
+	id := "WvWMatches"
 
 	i, err := Matches()
 	if err != nil {
@@ -15,7 +15,7 @@ func TestMatches(t *testing.T) {
 	} else if i == nil {
 		t.Errorf("Empty output for %s!", id)
 	}
-	fmt.Printf("\t-%s\t\t\t", id)
+	fmt.Printf("\t-%s\t\t", id)
 	if !t.Failed() {
 		fmt.Printf("OK\n")
 	} else {
@@ -25,7 +25,7 @@ func TestMatches(t *testing.T) {
 
 func TestMatchIds(t *testing.T) {
 	//t.Skip()
-	id := "MatchIds"
+	id := "WvWMatchIds"
 
 	i, err := MatchIds("2-1", "1-1")
 	if err != nil {
@@ -43,7 +43,7 @@ func TestMatchIds(t *testing.T) {
 
 func TestObjectives(t *testing.T) {
 	//t.Skip()
-	id := "Objectives"
+	id := "WvWObjectives"
 
 	i, err := Objectives()
 	if err != nil {
@@ -51,7 +51,7 @@ func TestObjectives(t *testing.T) {
 	} else if i == nil {
 		t.Errorf("Empty output for %s!", id)
 	}
-	fmt.Printf("\t-%s\t\t\t", id)
+	fmt.Printf("\t-%s\t\t", id)
 	if !t.Failed() {
 		fmt.Printf("OK\n")
 	} else {
@@ -61,7 +61,7 @@ func TestObjectives(t *testing.T) {
 
 func TestObjectiveIds(t *testing.T) {
 	//t.Skip()
-	id := "ObjectiveIds"
+	id := "WvWObjectiveIds"
 	_, err := ObjectiveIds("de")
 	if err == nil {
 		t.Errorf("No error calling %s with only lang!", id)
@@ -73,7 +73,7 @@ func TestObjectiveIds(t *testing.T) {
 	} else if i[0].Name == "" {
 		t.Errorf("Empty output for %s in German with multiple parameters!")
 	}
-	fmt.Printf("\t-%s\t\t", id)
+	fmt.Printf("\t-%s\t", id)
 	if !t.Failed() {
 		fmt.Printf("OK\n")
 	} else {
