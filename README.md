@@ -29,10 +29,43 @@ Documentation and examples hosted in [GoDoc](http://godoc.org/github.com/yasvisu
 ## Development state
 ###[V2](http://wiki.guildwars2.com/wiki/API:2)
 
-* Base release complete
 * Polishing and debugging ongoing by default
-* To do:
-  * Get feedback
+* Missing authentication feature
+* [ ] Account
+  * [ ] Bank (Auth)
+  * [ ] Dyes (Auth)
+  * [ ] Materials (Auth)
+  * [ ] Skins (Auth)
+  * [ ] Characters (Auth)
+* [ ] Commerce
+  * [x] Listings
+  * [x] Exchange
+  * [x] Prices
+  * [ ] Transactions (Auth)
+* [ ] PvP
+  * [ ] Stats (Auth)
+  * [ ] Games (Auth)
+* [ ] Items
+  * [x] Recipes
+    * [x] Search
+  * [x] Items
+  * [ ] Skins (PR #4)
+* [ ] World vs World
+  * [ ] Matches (PR #2)
+  * [ ] Objectives (PR #2)
+* [ ] Game Mechanics
+  * [ ] Traits
+  * [ ] Specializations
+* [ ] Map Information
+  * [ ] Continents
+  * [ ] Maps
+* [ ] Misc
+  * [ ] Achievements
+  * [ ] Build
+  * [ ] Colors
+  * [ ] Currencies
+  * [x] Quaggans
+  * [x] Worlds
 
 
 ###[V1](http://wiki.guildwars2.com/wiki/API:1)
