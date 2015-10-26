@@ -58,7 +58,7 @@ Documentation and examples hosted in [GoDoc](http://godoc.org/github.com/yasvisu
   * [ ] Specializations
 * [ ] Map Information
   * [ ] Continents
-  * [ ] Maps
+  * [x] Maps
 * [ ] Misc
   * [ ] Achievements
   * [ ] Build
