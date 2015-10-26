@@ -139,7 +139,7 @@ func WorldsIds(lang string, ids ...int) ([]Name, error) {
 	return res, err
 }
 
-func Version() (v int, err error) {
+func Build() (v int, err error) {
 	ver := "v2"
 	tag := "build"
 
@@ -155,4 +155,277 @@ func Version() (v int, err error) {
 	var res JsonVersion
 	err = json.Unmarshal(data, &res)
 	return res.ID, nil
+}
+
+func Achievements(lang string) (res []string, err error) {
+	var appendix bytes.Buffer
+	ver := "v2"
+	tag := "achievements"
+
+	if lang != "" {
+		appendix.WriteString("?lang=")
+		appendix.WriteString(lang)
+	}
+
+	data, err := fetchJSON(ver, tag, appendix.String())
+	if err != nil {
+		return nil, err
+	}
+
+	err = json.Unmarshal(data, &res)
+	return
+}
+
+type Achievement struct {
+	ID          int      `json:"id"`
+	Icon        string   `json:"icon"`
+	Name        string   `json:"name"`
+	Description string   `json:"description"`
+	Requirement string   `json:"requirement"`
+	Type        string   `json:"type"`
+	Flags       []string `json:"flags"`
+}
+
+func AchievmentIds(lang string, ids ...int) ([]Achievement, error) {
+	if ids == nil {
+		return nil, errors.New("Required ids parameters nil. Consider using Achievements() instead?")
+	}
+
+	var appendix bytes.Buffer
+	ver := "v2"
+	tag := "achievements"
+
+	if lang != "" {
+		appendix.WriteString("?lang=")
+		appendix.WriteString(lang)
+		appendix.WriteString("&ids=")
+	} else {
+		appendix.WriteString("?ids=")
+	}
+
+	for i, id := range ids {
+		if i > 0 {
+			appendix.WriteString(",")
+		}
+		appendix.WriteString(strconv.Itoa(id))
+	}
+
+	data, err := fetchJSON(ver, tag, appendix.String())
+	if err != nil {
+		return nil, err
+	}
+
+	var res []Achievement
+	err = json.Unmarshal(data, &res)
+	if err != nil {
+		var gwerr GW2ApiError
+		err = json.Unmarshal(data, &gwerr)
+		if err != nil {
+			return nil, err
+		}
+		return nil, gwerr
+	}
+	return res, err
+}
+
+func Colors(lang string) (res []string, err error) {
+	var appendix bytes.Buffer
+	ver := "v2"
+	tag := "colors"
+
+	if lang != "" {
+		appendix.WriteString("?lang=")
+		appendix.WriteString(lang)
+	}
+
+	data, err := fetchJSON(ver, tag, appendix.String())
+	if err != nil {
+		return nil, err
+	}
+
+	err = json.Unmarshal(data, &res)
+	return
+}
+
+type ColorDetail struct {
+	Brightness int     `json:"brightness"`
+	Contrast   float32 `json:"contrast"`
+	Hue        int     `json:"hue"`
+	Saturation float32 `json:"saturation"`
+	Lightness  float32 `json:"lightness"`
+	RGB        [3]int  `json:"rgb"`
+}
+
+type Color struct {
+	ID      int         `json:"id"`
+	Name    string      `json:"name"`
+	BaseRGB [3]int      `json:"base_rgb"`
+	Cloth   ColorDetail `json:"cloth"`
+	Leather ColorDetail `json:"leather"`
+	Metal   ColorDetail `json:"metal"`
+}
+
+func ColorIds(lang string, ids ...int) ([]Color, error) {
+	if ids == nil {
+		return nil, errors.New("Required ids parameters nil. Consider using Colors() instead?")
+	}
+
+	var appendix bytes.Buffer
+	ver := "v2"
+	tag := "colors"
+
+	if lang != "" {
+		appendix.WriteString("?lang=")
+		appendix.WriteString(lang)
+		appendix.WriteString("&ids=")
+	} else {
+		appendix.WriteString("?ids=")
+	}
+
+	for i, id := range ids {
+		if i > 0 {
+			appendix.WriteString(",")
+		}
+		appendix.WriteString(strconv.Itoa(id))
+	}
+
+	data, err := fetchJSON(ver, tag, appendix.String())
+	if err != nil {
+		return nil, err
+	}
+
+	var res []Color
+	err = json.Unmarshal(data, &res)
+	if err != nil {
+		var gwerr GW2ApiError
+		err = json.Unmarshal(data, &gwerr)
+		if err != nil {
+			return nil, err
+		}
+		return nil, gwerr
+	}
+	return res, err
+}
+
+func Currencies(lang string) (res []string, err error) {
+	var appendix bytes.Buffer
+	ver := "v2"
+	tag := "currencies"
+
+	if lang != "" {
+		appendix.WriteString("?lang=")
+		appendix.WriteString(lang)
+	}
+
+	data, err := fetchJSON(ver, tag, appendix.String())
+	if err != nil {
+		return nil, err
+	}
+
+	err = json.Unmarshal(data, &res)
+	return
+}
+
+type Currency struct {
+	ID          int    `json:"id"`
+	Name        string `json:"name"`
+	Description string `json:"description"`
+	Icon        string `json:"icon"`
+	Order       int    `json:"order"`
+}
+
+func CurrencyIds(lang string, ids ...int) ([]Currency, error) {
+	if ids == nil {
+		return nil, errors.New("Required ids parameters nil. Consider using Currencies() instead?")
+	}
+
+	var appendix bytes.Buffer
+	ver := "v2"
+	tag := "colors"
+
+	if lang != "" {
+		appendix.WriteString("?lang=")
+		appendix.WriteString(lang)
+		appendix.WriteString("&ids=")
+	} else {
+		appendix.WriteString("?ids=")
+	}
+
+	for i, id := range ids {
+		if i > 0 {
+			appendix.WriteString(",")
+		}
+		appendix.WriteString(strconv.Itoa(id))
+	}
+
+	data, err := fetchJSON(ver, tag, appendix.String())
+	if err != nil {
+		return nil, err
+	}
+
+	var res []Currency
+	err = json.Unmarshal(data, &res)
+	if err != nil {
+		var gwerr GW2ApiError
+		err = json.Unmarshal(data, &gwerr)
+		if err != nil {
+			return nil, err
+		}
+		return nil, gwerr
+	}
+	return res, err
+}
+
+func Files() (res []string, err error) {
+	ver := "v2"
+	tag := "files"
+
+	data, err := fetchJSON(ver, tag, "")
+	if err != nil {
+		return nil, err
+	}
+
+	err = json.Unmarshal(data, &res)
+	return
+}
+
+type File struct {
+	ID   string `json:"id"`
+	Icon string `json:"icon"`
+}
+
+func FileIds(ids ...string) ([]File, error) {
+	if ids == nil {
+		return nil, errors.New("Required ids parameters nil. Consider using Currencies() instead?")
+	}
+
+	var appendix bytes.Buffer
+	ver := "v2"
+	tag := "files"
+
+	appendix.WriteString("?ids=")
+
+	for i, id := range ids {
+		if i > 0 {
+			appendix.WriteString(",")
+		}
+		appendix.WriteString(id)
+	}
+
+	data, err := fetchJSON(ver, tag, appendix.String())
+	if err != nil {
+		return nil, err
+	}
+
+	var res []File
+	err = json.Unmarshal(data, &res)
+	if err != nil {
+		var gwerr GW2ApiError
+		err = json.Unmarshal(data, &gwerr)
+		if err != nil {
+			return nil, err
+		}
+		return nil, gwerr
+	}
+	return res, err
 }

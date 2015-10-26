@@ -59,11 +59,11 @@ Documentation and examples hosted in [GoDoc](http://godoc.org/github.com/yasvisu
 * [ ] Map Information
   * [ ] Continents
   * [ ] Maps
-* [ ] Misc
-  * [ ] Achievements
-  * [ ] Build
-  * [ ] Colors
-  * [ ] Currencies
+* [x] Misc
+  * [x] Achievements
+  * [x] Build
+  * [x] Colors
+  * [x] Currencies
   * [x] Quaggans
   * [x] Worlds
 
