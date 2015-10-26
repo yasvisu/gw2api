@@ -8,18 +8,18 @@ import (
 )
 
 type Map struct {
-	ID            int
-	Name          string
-	MinLevel      int
-	MaxLevel      int
-	DefaultFloor  int
-	Floors        []int
-	RegionId      int
-	RegionName    string
-	ContinentId   int
-	ContinentName string
-	MapRect       [2][2]int
-	ContinentRect [2][2]int
+	ID            int       `json:"id"`
+	Name          string    `json:"name"`
+	MinLevel      int       `json:"min_level"`
+	MaxLevel      int       `json:"max_level"`
+	DefaultFloor  int       `json:"default_floor"`
+	Floors        []int     `json:"floors"`
+	RegionId      int       `json:"region_id"`
+	RegionName    string    `json:"region_name"`
+	ContinentId   int       `json:"continent_id"`
+	ContinentName string    `json:"continent_name"`
+	MapRect       [2][2]int `json:"map_rect"`
+	ContinentRect [2][2]int `json:"continent_rect"`
 }
 
 // Returns a list of all current skin ids
