@@ -49,7 +49,6 @@ Documentation and examples hosted in [GoDoc](http://godoc.org/github.com/yasvisu
   * [x] Recipes
     * [x] Search
   * [x] Items
-
   * [x] Skins
 * [x] World vs World
   * [x] Matches
@@ -59,7 +58,7 @@ Documentation and examples hosted in [GoDoc](http://godoc.org/github.com/yasvisu
   * [x] Specializations
 * [ ] Map Information
   * [ ] Continents
-  * [ ] Maps
+  * [x] Maps
 * [x] Misc
   * [x] Achievements
   * [x] Build

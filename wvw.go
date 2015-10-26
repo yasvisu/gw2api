@@ -30,7 +30,7 @@ type MatchObjective struct {
 }
 
 // One of the four maps and their status
-type Map struct {
+type MapWvW struct {
 	ID         int              `json:"id"`
 	Type       string           `json:"type"`
 	Scores     TeamAssoc        `json:"scores"`
@@ -49,7 +49,7 @@ type Match struct {
 	Worlds    TeamAssoc `json:"worlds"`
 	Deaths    TeamAssoc `json:"deaths"`
 	Kills     TeamAssoc `json:"kills"`
-	Maps      []Map     `json:"maps"`
+	Maps      []MapWvW  `json:"maps"`
 }
 
 // Returns a list of all current match ids in the form of %d-%d
