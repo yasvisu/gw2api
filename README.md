@@ -45,14 +45,14 @@ Documentation and examples hosted in [GoDoc](http://godoc.org/github.com/yasvisu
 * [ ] PvP
   * [ ] Stats (Auth)
   * [ ] Games (Auth)
-* [ ] Items
+* [x] Items
   * [x] Recipes
     * [x] Search
   * [x] Items
-  * [ ] Skins (PR #4)
-* [ ] World vs World
-  * [ ] Matches (PR #2)
-  * [ ] Objectives (PR #2)
+  * [x] Skins
+* [x] World vs World
+  * [x] Matches
+  * [x] Objectives
 * [ ] Game Mechanics
   * [ ] Traits
   * [ ] Specializations
