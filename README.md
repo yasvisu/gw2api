@@ -53,17 +53,17 @@ Documentation and examples hosted in [GoDoc](http://godoc.org/github.com/yasvisu
 * [x] World vs World
   * [x] Matches
   * [x] Objectives
-* [ ] Game Mechanics
-  * [ ] Traits
-  * [ ] Specializations
+* [x] Game Mechanics
+  * [x] Traits
+  * [x] Specializations
 * [ ] Map Information
   * [ ] Continents
   * [ ] Maps
-* [ ] Misc
-  * [ ] Achievements
-  * [ ] Build
-  * [ ] Colors
-  * [ ] Currencies
+* [x] Misc
+  * [x] Achievements
+  * [x] Build
+  * [x] Colors
+  * [x] Currencies
   * [x] Quaggans
   * [x] Worlds
 
