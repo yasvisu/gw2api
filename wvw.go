@@ -57,11 +57,7 @@ func Matches() (res []string, err error) {
 	ver := "v2"
 	tag := "wvw/matches"
 
-	var data []byte
-	if data, err = fetchJSON(ver, tag, ""); err != nil {
-		return nil, err
-	}
-	err = json.Unmarshal(data, &res)
+	err = fetchEndpoint(ver, tag, "", &res)
 	return
 }
 
@@ -107,12 +103,7 @@ type Objective struct {
 func Objectives() (res []string, err error) {
 	ver := "v2"
 	tag := "wvw/objectives"
-
-	var data []byte
-	if data, err = fetchJSON(ver, tag, ""); err != nil {
-		return
-	}
-	err = json.Unmarshal(data, &res)
+	err = fetchEndpoint(ver, tag, "", &res)
 	return
 }
 

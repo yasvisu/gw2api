@@ -17,13 +17,7 @@ type QuagganResource struct {
 func Quaggans() (res []string, err error) {
 	ver := "v2"
 	tag := "quaggans"
-
-	data, err := fetchJSON(ver, tag, "")
-	if err != nil {
-		return nil, err
-	}
-
-	err = json.Unmarshal(data, &res)
+	err = fetchEndpoint(ver, tag, "", &res)
 	return
 }
 
@@ -75,21 +69,9 @@ type Name struct {
 
 //Returns list of world ids.
 func Worlds(lang string) (res []int, err error) {
-	var appendix bytes.Buffer
 	ver := "v2"
 	tag := "worlds"
-
-	if lang != "" {
-		appendix.WriteString("?lang=")
-		appendix.WriteString(lang)
-	}
-
-	data, err := fetchJSON(ver, tag, appendix.String())
-	if err != nil {
-		return nil, err
-	}
-
-	err = json.Unmarshal(data, &res)
+	err = fetchEndpoint(ver, tag, lang, &res)
 	return
 }
 
@@ -139,40 +121,25 @@ func WorldsIds(lang string, ids ...int) ([]Name, error) {
 	return res, err
 }
 
+type Version struct {
+	ID int `json:"id"`
+}
+
 func Build() (v int, err error) {
 	ver := "v2"
 	tag := "build"
 
-	data, err := fetchJSON(ver, tag, "")
-	if err != nil {
+	var res Version
+	if err = fetchEndpoint(ver, tag, "", &res); err != nil {
 		return 0, err
 	}
-
-	type JsonVersion struct {
-		ID int `json:"id"`
-	}
-
-	var res JsonVersion
-	err = json.Unmarshal(data, &res)
 	return res.ID, nil
 }
 
 func Achievements(lang string) (res []string, err error) {
-	var appendix bytes.Buffer
 	ver := "v2"
 	tag := "achievements"
-
-	if lang != "" {
-		appendix.WriteString("?lang=")
-		appendix.WriteString(lang)
-	}
-
-	data, err := fetchJSON(ver, tag, appendix.String())
-	if err != nil {
-		return nil, err
-	}
-
-	err = json.Unmarshal(data, &res)
+	err = fetchEndpoint(ver, tag, lang, &res)
 	return
 }
 
@@ -229,21 +196,10 @@ func AchievmentIds(lang string, ids ...int) ([]Achievement, error) {
 }
 
 func Colors(lang string) (res []string, err error) {
-	var appendix bytes.Buffer
 	ver := "v2"
 	tag := "colors"
 
-	if lang != "" {
-		appendix.WriteString("?lang=")
-		appendix.WriteString(lang)
-	}
-
-	data, err := fetchJSON(ver, tag, appendix.String())
-	if err != nil {
-		return nil, err
-	}
-
-	err = json.Unmarshal(data, &res)
+	err = fetchEndpoint(ver, tag, lang, &res)
 	return
 }
 
@@ -308,21 +264,9 @@ func ColorIds(lang string, ids ...int) ([]Color, error) {
 }
 
 func Currencies(lang string) (res []string, err error) {
-	var appendix bytes.Buffer
 	ver := "v2"
 	tag := "currencies"
-
-	if lang != "" {
-		appendix.WriteString("?lang=")
-		appendix.WriteString(lang)
-	}
-
-	data, err := fetchJSON(ver, tag, appendix.String())
-	if err != nil {
-		return nil, err
-	}
-
-	err = json.Unmarshal(data, &res)
+	err = fetchEndpoint(ver, tag, "", &res)
 	return
 }
 
@@ -379,13 +323,7 @@ func CurrencyIds(lang string, ids ...int) ([]Currency, error) {
 func Files() (res []string, err error) {
 	ver := "v2"
 	tag := "files"
-
-	data, err := fetchJSON(ver, tag, "")
-	if err != nil {
-		return nil, err
-	}
-
-	err = json.Unmarshal(data, &res)
+	err = fetchEndpoint(ver, tag, "", &res)
 	return
 }
 

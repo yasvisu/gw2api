@@ -28,21 +28,9 @@ type Item struct {
 
 //Returns list of item ids.
 func Items(lang string) (res []int, err error) {
-	var appendix bytes.Buffer
 	ver := "v2"
 	tag := "items"
-
-	if lang != "" {
-		appendix.WriteString("?lang=")
-		appendix.WriteString(lang)
-	}
-
-	data, err := fetchJSON(ver, tag, appendix.String())
-	if err != nil {
-		return nil, err
-	}
-
-	err = json.Unmarshal(data, &res)
+	err = fetchEndpoint(ver, tag, lang, &res)
 	return
 }
 

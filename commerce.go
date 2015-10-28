@@ -11,13 +11,7 @@ import (
 func CommerceListings() (res []int, err error) {
 	ver := "v2"
 	tag := "commerce/listings"
-
-	data, err := fetchJSON(ver, tag, "")
-	if err != nil {
-		return nil, err
-	}
-
-	err = json.Unmarshal(data, &res)
+	err = fetchEndpoint(ver, tag, "", &res)
 	return
 }
 
@@ -198,13 +192,7 @@ type Price struct {
 func CommercePrices() (res []int, err error) {
 	ver := "v2"
 	tag := "commerce/prices"
-
-	data, err := fetchJSON(ver, tag, "")
-	if err != nil {
-		return nil, err
-	}
-
-	err = json.Unmarshal(data, &res)
+	err = fetchEndpoint(ver, tag, "", &res)
 	return
 }
 

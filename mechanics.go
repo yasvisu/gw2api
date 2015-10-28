@@ -90,21 +90,9 @@ type Fact struct {
 type TraitedFact Fact
 
 func Traits(lang string) (res []int, err error) {
-	var appendix bytes.Buffer
 	ver := "v2"
 	tag := "traits"
-
-	if lang != "" {
-		appendix.WriteString("?lang=")
-		appendix.WriteString(lang)
-	}
-
-	data, err := fetchJSON(ver, tag, appendix.String())
-	if err != nil {
-		return nil, err
-	}
-
-	err = json.Unmarshal(data, &res)
+	err = fetchEndpoint(ver, tag, lang, &res)
 	return
 }
 
@@ -157,21 +145,9 @@ type Specialization struct {
 }
 
 func Specializations(lang string) (res []string, err error) {
-	var appendix bytes.Buffer
 	ver := "v2"
 	tag := "specializations"
-
-	if lang != "" {
-		appendix.WriteString("?lang=")
-		appendix.WriteString(lang)
-	}
-
-	data, err := fetchJSON(ver, tag, appendix.String())
-	if err != nil {
-		return nil, err
-	}
-
-	err = json.Unmarshal(data, &res)
+	err = fetchEndpoint(ver, tag, lang, &res)
 	return
 }
 

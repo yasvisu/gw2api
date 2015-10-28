@@ -29,12 +29,7 @@ type Skin struct {
 func Skins() (res []int, err error) {
 	ver := "v2"
 	tag := "skins"
-
-	var data []byte
-	if data, err = fetchJSON(ver, tag, ""); err != nil {
-		return nil, err
-	}
-	err = json.Unmarshal(data, &res)
+	err = fetchEndpoint(ver, tag, "", &res)
 	return
 }
 

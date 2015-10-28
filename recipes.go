@@ -28,21 +28,9 @@ type RecipeIngredient struct {
 
 //Returns list of recipe ids.
 func Recipes(lang string) (res []int, err error) {
-	var appendix bytes.Buffer
 	ver := "v2"
 	tag := "recipes"
-
-	if lang != "" {
-		appendix.WriteString("?lang=")
-		appendix.WriteString(lang)
-	}
-
-	data, err := fetchJSON(ver, tag, appendix.String())
-	if err != nil {
-		return nil, err
-	}
-
-	err = json.Unmarshal(data, &res)
+	err = fetchEndpoint(ver, tag, lang, &res)
 	return
 }
 
