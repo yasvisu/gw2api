@@ -30,41 +30,11 @@ type Listing struct {
 }
 
 //Returns list of articles.
-func CommerceListingsIds(ids ...int) ([]ArticleListings, error) {
-	if ids == nil {
-		return nil, errors.New("Required ids parameters nil. Consider using CommerceListings() instead?")
-	}
-
-	var appendix bytes.Buffer
+func CommerceListingsIds(ids ...int) (articles []ArticleListings, err error) {
 	ver := "v2"
 	tag := "commerce/listings"
-
-	appendix.WriteString("?ids=")
-	concatenator := ""
-	for _, i := range ids {
-		appendix.WriteString(concatenator)
-		appendix.WriteString(strconv.Itoa(i))
-		if concatenator == "" {
-			concatenator = ","
-		}
-	}
-
-	data, err := fetchJSON(ver, tag, appendix.String())
-	if err != nil {
-		return nil, err
-	}
-
-	var res []ArticleListings
-	err = json.Unmarshal(data, &res)
-	if err != nil {
-		var gwerr GW2ApiError
-		err = json.Unmarshal(data, &gwerr)
-		if err != nil {
-			return nil, err
-		}
-		return nil, gwerr
-	}
-	return res, err
+	err = fetchDetailEndpoint(ver, tag, "", stringSlice(ids), &articles)
+	return
 }
 
 //Returns page of articles.
@@ -197,39 +167,9 @@ func CommercePrices() (res []int, err error) {
 }
 
 //Returns list of articles.
-func CommercePricesIds(ids ...int) ([]ArticlePrices, error) {
-	if ids == nil {
-		return nil, errors.New("Required ids parameters nil. Consider using CommerceListings() instead?")
-	}
-
-	var appendix bytes.Buffer
+func CommercePricesIds(ids ...int) (artprices []ArticlePrices, err error) {
 	ver := "v2"
 	tag := "commerce/prices"
-
-	appendix.WriteString("?ids=")
-	concatenator := ""
-	for _, i := range ids {
-		appendix.WriteString(concatenator)
-		appendix.WriteString(strconv.Itoa(i))
-		if concatenator == "" {
-			concatenator = ","
-		}
-	}
-
-	data, err := fetchJSON(ver, tag, appendix.String())
-	if err != nil {
-		return nil, err
-	}
-
-	var res []ArticlePrices
-	err = json.Unmarshal(data, &res)
-	if err != nil {
-		var gwerr GW2ApiError
-		err = json.Unmarshal(data, &gwerr)
-		if err != nil {
-			return nil, err
-		}
-		return nil, gwerr
-	}
-	return res, err
+	err = fetchDetailEndpoint(ver, tag, "", stringSlice(ids), &artprices)
+	return
 }

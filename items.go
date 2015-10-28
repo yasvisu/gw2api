@@ -46,49 +46,11 @@ func ItemsDetails(page int, pageSize int, lang string, ids ...int) ([]Item, erro
 }
 
 //Returns list of items.
-func ItemsIds(lang string, ids ...int) ([]Item, error) {
-	if ids == nil {
-		return nil, errors.New("Required ids parameters nil. Consider using Items() instead?")
-	}
-
-	var appendix bytes.Buffer
+func ItemsIds(lang string, ids ...int) (items []Item, err error) {
 	ver := "v2"
 	tag := "items"
-	concatenator := "?"
-
-	if lang != "" {
-		appendix.WriteString(concatenator)
-		appendix.WriteString("lang=")
-		appendix.WriteString(lang)
-		concatenator = "&"
-	}
-	appendix.WriteString(concatenator)
-	appendix.WriteString("ids=")
-	concatenator = ""
-	for _, i := range ids {
-		appendix.WriteString(concatenator)
-		appendix.WriteString(strconv.Itoa(i))
-		if concatenator == "" {
-			concatenator = ","
-		}
-	}
-
-	data, err := fetchJSON(ver, tag, appendix.String())
-	if err != nil {
-		return nil, err
-	}
-
-	var res []Item
-	err = json.Unmarshal(data, &res)
-	if err != nil {
-		var gwerr GW2ApiError
-		err = json.Unmarshal(data, &gwerr)
-		if err != nil {
-			return nil, err
-		}
-		return nil, gwerr
-	}
-	return res, err
+	err = fetchDetailEndpoint(ver, tag, lang, stringSlice(ids), &items)
+	return
 }
 
 //Returns page of items.

@@ -1,12 +1,5 @@
 package gw2api
 
-import (
-	"bytes"
-	"encoding/json"
-	"errors"
-	"strconv"
-)
-
 type Trait struct {
 	ID             int           `json:"id"`
 	Name           string        `json:"icon"`
@@ -97,41 +90,10 @@ func Traits(lang string) (res []int, err error) {
 }
 
 func TraitIds(lang string, ids ...int) (traits []Trait, err error) {
-	if ids == nil {
-		return nil, errors.New("Required ids parameters nil. Consider using Traits() instead?")
-	}
-
-	var appendix bytes.Buffer
 	ver := "v2"
 	tag := "traits"
-
-	if lang != "" {
-		appendix.WriteString("?lang=")
-		appendix.WriteString(lang)
-		appendix.WriteString("&ids=")
-	} else {
-		appendix.WriteString("?ids=")
-	}
-	for i, id := range ids {
-		if i > 0 {
-			appendix.WriteString(",")
-		}
-		appendix.WriteString(strconv.Itoa(id))
-	}
-
-	data, err := fetchJSON(ver, tag, appendix.String())
-	if err != nil {
-		return nil, err
-	}
-
-	if err = json.Unmarshal(data, &traits); err != nil {
-		var gwerr GW2ApiError
-		if err = json.Unmarshal(data, &gwerr); err != nil {
-			return nil, err
-		}
-		return nil, gwerr
-	}
-	return traits, err
+	err = fetchDetailEndpoint(ver, tag, lang, stringSlice(ids), &traits)
+	return
 }
 
 type Specialization struct {
@@ -152,39 +114,8 @@ func Specializations(lang string) (res []string, err error) {
 }
 
 func SpecializationIds(lang string, ids ...int) (specs []Specialization, err error) {
-	if ids == nil {
-		return nil, errors.New("Required ids parameters nil. Consider using Specializations() instead?")
-	}
-
-	var appendix bytes.Buffer
 	ver := "v2"
 	tag := "specializations"
-
-	if lang != "" {
-		appendix.WriteString("?lang=")
-		appendix.WriteString(lang)
-		appendix.WriteString("&ids=")
-	} else {
-		appendix.WriteString("?ids=")
-	}
-	for i, id := range ids {
-		if i > 0 {
-			appendix.WriteString(",")
-		}
-		appendix.WriteString(strconv.Itoa(id))
-	}
-
-	data, err := fetchJSON(ver, tag, appendix.String())
-	if err != nil {
-		return nil, err
-	}
-
-	if err = json.Unmarshal(data, &specs); err != nil {
-		var gwerr GW2ApiError
-		if err = json.Unmarshal(data, &gwerr); err != nil {
-			return nil, err
-		}
-		return nil, gwerr
-	}
-	return specs, err
+	err = fetchDetailEndpoint(ver, tag, lang, stringSlice(ids), &specs)
+	return
 }

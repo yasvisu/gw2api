@@ -3,9 +3,11 @@ package gw2api
 import (
 	"bytes"
 	"encoding/json"
+	"errors"
 	"io/ioutil"
 	"net"
 	"net/http"
+	"strconv"
 	"time"
 )
 
@@ -64,4 +66,48 @@ func fetchEndpoint(ver, tag, lang string, objects interface{}) (err error) {
 		return gwerr
 	}
 	return
+}
+
+func fetchDetailEndpoint(ver, tag, lang string, ids []string, result interface{}) (err error) {
+	var appendix bytes.Buffer
+	if ids == nil {
+		return errors.New("Required parameter ids is missing")
+	}
+
+	if lang != "" {
+		appendix.WriteString("?lang=")
+		appendix.WriteString(lang)
+		appendix.WriteString("&ids=")
+	} else {
+		appendix.WriteString("?ids=")
+	}
+
+	for i, id := range ids {
+		if i > 0 {
+			appendix.WriteString(",")
+		}
+		appendix.WriteString(id)
+	}
+
+	var data []byte
+	if data, err = fetchJSON(ver, tag, appendix.String()); err != nil {
+		return err
+	}
+	err = json.Unmarshal(data, &result)
+	if err != nil {
+		var gwerr GW2ApiError
+		if err = json.Unmarshal(data, &gwerr); err != nil {
+			return err
+		}
+		return gwerr
+	}
+	return
+}
+
+func stringSlice(ids []int) []string {
+	newIds := make([]string, len(ids))
+	for i, id := range ids {
+		newIds[i] = strconv.Itoa(id)
+	}
+	return newIds
 }

@@ -3,7 +3,6 @@ package gw2api
 import (
 	"bytes"
 	"encoding/json"
-	"errors"
 	"strconv"
 )
 
@@ -35,49 +34,11 @@ func Recipes(lang string) (res []int, err error) {
 }
 
 //Returns list of recipes.
-func RecipesIds(lang string, ids ...int) ([]Recipe, error) {
-	if ids == nil {
-		return nil, errors.New("Required ids parameters nil. Consider using Recipes() instead?")
-	}
-
-	var appendix bytes.Buffer
+func RecipesIds(lang string, ids ...int) (recipes []Recipe, err error) {
 	ver := "v2"
 	tag := "recipes"
-	concatenator := "?"
-
-	if lang != "" {
-		appendix.WriteString(concatenator)
-		appendix.WriteString("lang=")
-		appendix.WriteString(lang)
-		concatenator = "&"
-	}
-	appendix.WriteString(concatenator)
-	appendix.WriteString("ids=")
-	concatenator = ""
-	for _, i := range ids {
-		appendix.WriteString(concatenator)
-		appendix.WriteString(strconv.Itoa(i))
-		if concatenator == "" {
-			concatenator = ","
-		}
-	}
-
-	data, err := fetchJSON(ver, tag, appendix.String())
-	if err != nil {
-		return nil, err
-	}
-
-	var res []Recipe
-	err = json.Unmarshal(data, &res)
-	if err != nil {
-		var gwerr GW2ApiError
-		err = json.Unmarshal(data, &gwerr)
-		if err != nil {
-			return nil, err
-		}
-		return nil, gwerr
-	}
-	return res, err
+	err = fetchDetailEndpoint(ver, tag, lang, stringSlice(ids), &recipes)
+	return
 }
 
 //Internal recipes search (combined)

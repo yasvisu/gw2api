@@ -1,11 +1,5 @@
 package gw2api
 
-import (
-	"bytes"
-	"encoding/json"
-	"errors"
-)
-
 // Points/Kills/Deaths per team
 type TeamAssoc struct {
 	Green int `json:"green"`
@@ -56,7 +50,6 @@ type Match struct {
 func Matches() (res []string, err error) {
 	ver := "v2"
 	tag := "wvw/matches"
-
 	err = fetchEndpoint(ver, tag, "", &res)
 	return
 }
@@ -64,26 +57,9 @@ func Matches() (res []string, err error) {
 // Returns matches as per requested by ids in the form
 // provided by Matches(). Use special id `all` for every match in US/EU
 func MatchIds(ids ...string) (match []Match, err error) {
-	if ids == nil {
-		return nil, errors.New("Required ids parameters nil.")
-	}
-	var appendix bytes.Buffer
 	ver := "v2"
 	tag := "wvw/matches"
-
-	appendix.WriteString("?ids=")
-	for i, id := range ids {
-		if i > 0 {
-			appendix.WriteString(",")
-		}
-		appendix.WriteString(id)
-	}
-
-	var data []byte
-	if data, err = fetchJSON(ver, tag, appendix.String()); err != nil {
-		return nil, err
-	}
-	err = json.Unmarshal(data, &match)
+	err = fetchDetailEndpoint(ver, tag, "", ids, &match)
 	return
 }
 
@@ -110,30 +86,8 @@ func Objectives() (res []string, err error) {
 // Returns a list of objectives as request by ids. Use special id `all` to request
 // all objectives
 func ObjectiveIds(lang string, ids ...string) (objs []Objective, err error) {
-	if ids == nil {
-		return nil, errors.New("Required ids parameters nil.")
-	}
-	var appendix bytes.Buffer
 	ver := "v2"
 	tag := "wvw/objectives"
-
-	if lang != "" {
-		appendix.WriteString("?lang=")
-		appendix.WriteString(lang)
-		appendix.WriteString("&ids=")
-	} else {
-		appendix.WriteString("?ids=")
-	}
-	for i, id := range ids {
-		if i > 0 {
-			appendix.WriteString(",")
-		}
-		appendix.WriteString(id)
-	}
-	var data []byte
-	if data, err = fetchJSON(ver, tag, appendix.String()); err != nil {
-		return nil, err
-	}
-	err = json.Unmarshal(data, &objs)
+	err = fetchDetailEndpoint(ver, tag, lang, ids, &objs)
 	return
 }
