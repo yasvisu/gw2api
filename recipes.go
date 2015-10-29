@@ -1,8 +1,7 @@
 package gw2api
 
 import (
-	"bytes"
-	"encoding/json"
+	"net/url"
 	"strconv"
 )
 
@@ -27,9 +26,10 @@ type RecipeIngredient struct {
 
 //Returns list of recipe ids.
 func Recipes(lang string) (res []int, err error) {
+	_ = lang
 	ver := "v2"
 	tag := "recipes"
-	err = fetchEndpoint(ver, tag, lang, &res)
+	err = fetchEndpoint(ver, tag, nil, &res)
 	return
 }
 
@@ -37,44 +37,27 @@ func Recipes(lang string) (res []int, err error) {
 func RecipesIds(lang string, ids ...int) (recipes []Recipe, err error) {
 	ver := "v2"
 	tag := "recipes"
-	err = fetchDetailEndpoint(ver, tag, lang, stringSlice(ids), &recipes)
+	params := url.Values{}
+	if lang != "" {
+		params.Add("lang", lang)
+	}
+	params.Add("ids", commaList(stringSlice(ids)))
+	err = fetchEndpoint(ver, tag, params, &recipes)
 	return
 }
 
 //Internal recipes search (combined)
-func recipesSearch(mode string, lang string, n int) ([]int, error) {
-	var appendix bytes.Buffer
+func recipesSearch(mode string, lang string, n int) (res []int, err error) {
 	ver := "v2"
 	tag := "recipes/search"
-	concatenator := "?"
 
-	appendix.WriteString(concatenator)
-	appendix.WriteString(mode)
-	appendix.WriteString("=")
-	appendix.WriteString(strconv.Itoa(n))
-
+	params := url.Values{}
 	if lang != "" {
-		appendix.WriteString(concatenator)
-		appendix.WriteString("lang=")
-		appendix.WriteString(lang)
-		concatenator = "&"
+		params.Add("lang", lang)
 	}
-	data, err := fetchJSON(ver, tag, appendix.String())
-	if err != nil {
-		return nil, err
-	}
-
-	var res []int
-	err = json.Unmarshal(data, &res)
-	if err != nil {
-		var gwerr GW2ApiError
-		err = json.Unmarshal(data, &gwerr)
-		if err != nil {
-			return nil, err
-		}
-		return nil, gwerr
-	}
-	return res, err
+	params.Add(mode, strconv.Itoa(n))
+	err = fetchEndpoint(ver, tag, params, &res)
+	return
 }
 
 //A search interface for recipes - by input.

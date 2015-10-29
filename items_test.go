@@ -131,7 +131,7 @@ func TestItemsUnmarshalling(t *testing.T) {
 	id := "ItemsUnmarshalling"
 	i, err := ItemsIds("", 162)
 	if err != nil {
-		t.Errorf("Error getting data for %s!", id)
+		t.Errorf("Error getting data for %s: !", id, err)
 	}
 	if i[0].Name == "" {
 		t.Errorf("%s: Empty Name!", id)

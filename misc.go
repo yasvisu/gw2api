@@ -1,5 +1,7 @@
 package gw2api
 
+import "net/url"
+
 //Parent type for all Quaggan Resources.
 type QuagganResource struct {
 	ID  string `json:"id"`
@@ -10,7 +12,7 @@ type QuagganResource struct {
 func Quaggans() (res []string, err error) {
 	ver := "v2"
 	tag := "quaggans"
-	err = fetchEndpoint(ver, tag, "", &res)
+	err = fetchEndpoint(ver, tag, nil, &res)
 	return
 }
 
@@ -18,7 +20,9 @@ func Quaggans() (res []string, err error) {
 func QuaggansIds(ids ...string) (quag []QuagganResource, err error) {
 	ver := "v2"
 	tag := "quaggans"
-	err = fetchDetailEndpoint(ver, tag, "", ids, &quag)
+	params := url.Values{}
+	params.Add("ids", commaList(ids))
+	err = fetchEndpoint(ver, tag, params, &quag)
 	return
 }
 
@@ -30,9 +34,10 @@ type Name struct {
 
 //Returns list of world ids.
 func Worlds(lang string) (res []int, err error) {
+	_ = lang
 	ver := "v2"
 	tag := "worlds"
-	err = fetchEndpoint(ver, tag, lang, &res)
+	err = fetchEndpoint(ver, tag, nil, &res)
 	return
 }
 
@@ -40,7 +45,12 @@ func Worlds(lang string) (res []int, err error) {
 func WorldsIds(lang string, ids ...int) (worlds []Name, err error) {
 	ver := "v2"
 	tag := "worlds"
-	err = fetchDetailEndpoint(ver, tag, lang, stringSlice(ids), &worlds)
+	params := url.Values{}
+	if lang != "" {
+		params.Add("lang", lang)
+	}
+	params.Add("ids", commaList(stringSlice(ids)))
+	err = fetchEndpoint(ver, tag, params, &worlds)
 	return
 }
 
@@ -53,16 +63,16 @@ func Build() (v int, err error) {
 	tag := "build"
 
 	var res Version
-	if err = fetchEndpoint(ver, tag, "", &res); err != nil {
+	if err = fetchEndpoint(ver, tag, nil, &res); err != nil {
 		return 0, err
 	}
 	return res.ID, nil
 }
 
-func Achievements(lang string) (res []string, err error) {
+func Achievements() (res []string, err error) {
 	ver := "v2"
 	tag := "achievements"
-	err = fetchEndpoint(ver, tag, lang, &res)
+	err = fetchEndpoint(ver, tag, nil, &res)
 	return
 }
 
@@ -79,14 +89,19 @@ type Achievement struct {
 func AchievmentIds(lang string, ids ...int) (achievs []Achievement, err error) {
 	ver := "v2"
 	tag := "achievements"
-	err = fetchDetailEndpoint(ver, tag, lang, stringSlice(ids), &achievs)
+	params := url.Values{}
+	if lang != "" {
+		params.Add("lang", lang)
+	}
+	params.Add("ids", commaList(stringSlice(ids)))
+	err = fetchEndpoint(ver, tag, params, &achievs)
 	return
 }
 
-func Colors(lang string) (res []string, err error) {
+func Colors() (res []int, err error) {
 	ver := "v2"
 	tag := "colors"
-	err = fetchEndpoint(ver, tag, lang, &res)
+	err = fetchEndpoint(ver, tag, nil, &res)
 	return
 }
 
@@ -111,14 +126,19 @@ type Color struct {
 func ColorIds(lang string, ids ...int) (colors []Color, err error) {
 	ver := "v2"
 	tag := "colors"
-	err = fetchDetailEndpoint(ver, tag, lang, stringSlice(ids), &colors)
+	params := url.Values{}
+	if lang != "" {
+		params.Add("lang", lang)
+	}
+	params.Add("ids", commaList(stringSlice(ids)))
+	err = fetchEndpoint(ver, tag, params, &colors)
 	return
 }
 
-func Currencies(lang string) (res []string, err error) {
+func Currencies() (res []string, err error) {
 	ver := "v2"
 	tag := "currencies"
-	err = fetchEndpoint(ver, tag, "", &res)
+	err = fetchEndpoint(ver, tag, nil, &res)
 	return
 }
 
@@ -133,14 +153,19 @@ type Currency struct {
 func CurrencyIds(lang string, ids ...int) (currencies []Currency, err error) {
 	ver := "v2"
 	tag := "colors"
-	err = fetchDetailEndpoint(ver, tag, lang, stringSlice(ids), &currencies)
+	params := url.Values{}
+	if lang != "" {
+		params.Add("lang", lang)
+	}
+	params.Add("ids", commaList(stringSlice(ids)))
+	err = fetchEndpoint(ver, tag, params, &currencies)
 	return
 }
 
 func Files() (res []string, err error) {
 	ver := "v2"
 	tag := "files"
-	err = fetchEndpoint(ver, tag, "", &res)
+	err = fetchEndpoint(ver, tag, nil, &res)
 	return
 }
 
@@ -152,6 +177,8 @@ type File struct {
 func FileIds(ids ...string) (files []File, err error) {
 	ver := "v2"
 	tag := "files"
-	err = fetchDetailEndpoint(ver, tag, "", ids, &files)
+	params := url.Values{}
+	params.Add("ids", commaList(ids))
+	err = fetchEndpoint(ver, tag, params, &files)
 	return
 }

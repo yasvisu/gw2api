@@ -1,5 +1,7 @@
 package gw2api
 
+import "net/url"
+
 type Map struct {
 	ID            int       `json:"id"`
 	Name          string    `json:"name"`
@@ -19,7 +21,7 @@ type Map struct {
 func Maps() (res []int, err error) {
 	ver := "v2"
 	tag := "skins"
-	err = fetchEndpoint(ver, tag, "", &res)
+	err = fetchEndpoint(ver, tag, nil, &res)
 	return
 }
 
@@ -28,6 +30,11 @@ func Maps() (res []int, err error) {
 func MapIds(lang string, ids ...int) (maps []Map, err error) {
 	ver := "v2"
 	tag := "maps"
-	err = fetchDetailEndpoint(ver, tag, lang, stringSlice(ids), &maps)
+	params := url.Values{}
+	if lang != "" {
+		params.Add("lang", lang)
+	}
+	params.Add("ids", commaList(stringSlice(ids)))
+	err = fetchEndpoint(ver, tag, params, &maps)
 	return
 }

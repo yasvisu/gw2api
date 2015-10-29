@@ -1,9 +1,8 @@
 package gw2api
 
 import (
-	"bytes"
-	"encoding/json"
 	"errors"
+	"net/url"
 	"strconv"
 )
 
@@ -11,7 +10,7 @@ import (
 func CommerceListings() (res []int, err error) {
 	ver := "v2"
 	tag := "commerce/listings"
-	err = fetchEndpoint(ver, tag, "", &res)
+	err = fetchEndpoint(ver, tag, nil, &res)
 	return
 }
 
@@ -33,42 +32,27 @@ type Listing struct {
 func CommerceListingsIds(ids ...int) (articles []ArticleListings, err error) {
 	ver := "v2"
 	tag := "commerce/listings"
-	err = fetchDetailEndpoint(ver, tag, "", stringSlice(ids), &articles)
+	params := url.Values{}
+	params.Add("ids", commaList(stringSlice(ids)))
+	err = fetchEndpoint(ver, tag, params, &articles)
 	return
 }
 
 //Returns page of articles.
-func CommerceListingsPages(page int, pageSize int) ([]ArticleListings, error) {
+func CommerceListingsPages(page int, pageSize int) (res []ArticleListings, err error) {
 	if page < 0 {
 		return nil, errors.New("Page parameter cannot be a negative number!")
 	}
 
-	var appendix bytes.Buffer
 	ver := "v2"
 	tag := "commerce/listings"
-	appendix.WriteString("?page=")
-	appendix.WriteString(strconv.Itoa(page))
+	params := url.Values{}
+	params.Add("page", strconv.Itoa(page))
 	if pageSize >= 0 {
-		appendix.WriteString("&page_size=")
-		appendix.WriteString(strconv.Itoa(pageSize))
+		params.Add("page_size", strconv.Itoa(pageSize))
 	}
-
-	data, err := fetchJSON(ver, tag, appendix.String())
-	if err != nil {
-		return nil, err
-	}
-
-	var res []ArticleListings
-	err = json.Unmarshal(data, &res)
-	if err != nil {
-		var gwerr GW2ApiError
-		err = json.Unmarshal(data, &gwerr)
-		if err != nil {
-			return nil, err
-		}
-		return nil, gwerr
-	}
-	return res, err
+	err = fetchEndpoint(ver, tag, params, &res)
+	return
 }
 
 //COMMERCE/EXCHANGE
@@ -81,65 +65,31 @@ type Exchange struct {
 }
 
 //Returns gem exchange prices.
-func CommerceExchangeGems(quantity int) (Exchange, error) {
-	var res Exchange
+func CommerceExchangeGems(quantity int) (res Exchange, err error) {
 	if quantity < 1 {
 		return res, errors.New("Required parameter too low.")
 	}
 
-	var appendix bytes.Buffer
 	ver := "v2"
 	tag := "commerce/exchange/gems"
-
-	appendix.WriteString("?quantity=")
-	appendix.WriteString(strconv.Itoa(quantity))
-
-	data, err := fetchJSON(ver, tag, appendix.String())
-	if err != nil {
-		return res, err
-	}
-
-	err = json.Unmarshal(data, &res)
-	if err != nil {
-		var gwerr GW2ApiError
-		err = json.Unmarshal(data, &gwerr)
-		if err != nil {
-			return res, err
-		}
-		return res, gwerr
-	}
-	return res, err
+	params := url.Values{}
+	params.Add("quantity", strconv.Itoa(quantity))
+	err = fetchEndpoint(ver, tag, params, &res)
+	return
 }
 
 //Returns coin exchange prices.
-func CommerceExchangeCoins(quantity int64) (Exchange, error) {
-	var res Exchange
+func CommerceExchangeCoins(quantity int64) (res Exchange, err error) {
 	if quantity < 1 {
 		return res, errors.New("Required parameter too low.")
 	}
 
-	var appendix bytes.Buffer
 	ver := "v2"
 	tag := "commerce/exchange/coins"
-
-	appendix.WriteString("?quantity=")
-	appendix.WriteString(strconv.FormatInt(quantity, 10))
-
-	data, err := fetchJSON(ver, tag, appendix.String())
-	if err != nil {
-		return res, err
-	}
-
-	err = json.Unmarshal(data, &res)
-	if err != nil {
-		var gwerr GW2ApiError
-		err = json.Unmarshal(data, &gwerr)
-		if err != nil {
-			return res, err
-		}
-		return res, gwerr
-	}
-	return res, err
+	params := url.Values{}
+	params.Add("quantity", strconv.FormatInt(quantity, 10))
+	err = fetchEndpoint(ver, tag, params, &res)
+	return
 }
 
 //COMMERCE/PRICES
@@ -162,7 +112,7 @@ type Price struct {
 func CommercePrices() (res []int, err error) {
 	ver := "v2"
 	tag := "commerce/prices"
-	err = fetchEndpoint(ver, tag, "", &res)
+	err = fetchEndpoint(ver, tag, nil, &res)
 	return
 }
 
@@ -170,6 +120,8 @@ func CommercePrices() (res []int, err error) {
 func CommercePricesIds(ids ...int) (artprices []ArticlePrices, err error) {
 	ver := "v2"
 	tag := "commerce/prices"
-	err = fetchDetailEndpoint(ver, tag, "", stringSlice(ids), &artprices)
+	params := url.Values{}
+	params.Add("ids", commaList(stringSlice(ids)))
+	err = fetchEndpoint(ver, tag, params, &artprices)
 	return
 }

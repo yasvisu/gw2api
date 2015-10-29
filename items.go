@@ -1,9 +1,8 @@
 package gw2api
 
 import (
-	"bytes"
-	"encoding/json"
 	"errors"
+	"net/url"
 	"strconv"
 )
 
@@ -28,9 +27,10 @@ type Item struct {
 
 //Returns list of item ids.
 func Items(lang string) (res []int, err error) {
+	_ = lang
 	ver := "v2"
 	tag := "items"
-	err = fetchEndpoint(ver, tag, lang, &res)
+	err = fetchEndpoint(ver, tag, nil, &res)
 	return
 }
 
@@ -49,48 +49,31 @@ func ItemsDetails(page int, pageSize int, lang string, ids ...int) ([]Item, erro
 func ItemsIds(lang string, ids ...int) (items []Item, err error) {
 	ver := "v2"
 	tag := "items"
-	err = fetchDetailEndpoint(ver, tag, lang, stringSlice(ids), &items)
+	params := url.Values{}
+	if lang != "" {
+		params.Add("lang", lang)
+	}
+	params.Add("ids", commaList(stringSlice(ids)))
+	err = fetchEndpoint(ver, tag, params, &items)
 	return
 }
 
 //Returns page of items.
-func ItemsPages(page int, pageSize int, lang string) ([]Item, error) {
+func ItemsPages(page int, pageSize int, lang string) (items []Item, err error) {
 	if page < 0 {
 		return nil, errors.New("Page parameter cannot be a negative number!")
 	}
 
-	var appendix bytes.Buffer
 	ver := "v2"
 	tag := "items"
-	appendix.WriteString("?")
-	concatenator := ""
+	params := url.Values{}
 	if lang != "" {
-		appendix.WriteString("lang=")
-		appendix.WriteString(lang)
-		concatenator = "&"
+		params.Add("lang", lang)
 	}
-	appendix.WriteString(concatenator)
-	appendix.WriteString("page=")
-	appendix.WriteString(strconv.Itoa(page))
+	params.Add("page", strconv.Itoa(page))
 	if pageSize >= 0 {
-		appendix.WriteString("&page_size=")
-		appendix.WriteString(strconv.Itoa(pageSize))
+		params.Add("page_size", strconv.Itoa(pageSize))
 	}
-
-	data, err := fetchJSON(ver, tag, appendix.String())
-	if err != nil {
-		return nil, err
-	}
-
-	var res []Item
-	err = json.Unmarshal(data, &res)
-	if err != nil {
-		var gwerr GW2ApiError
-		err = json.Unmarshal(data, &gwerr)
-		if err != nil {
-			return nil, err
-		}
-		return nil, gwerr
-	}
-	return res, err
+	err = fetchEndpoint(ver, tag, params, &items)
+	return
 }

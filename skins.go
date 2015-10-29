@@ -1,5 +1,7 @@
 package gw2api
 
+import "net/url"
+
 // Either WeightClass(Armor) or DamageType(Weapon) is set
 type SkinDetails struct {
 	Type        string `json:"type"`
@@ -22,7 +24,7 @@ type Skin struct {
 func Skins() (res []int, err error) {
 	ver := "v2"
 	tag := "skins"
-	err = fetchEndpoint(ver, tag, "", &res)
+	err = fetchEndpoint(ver, tag, nil, &res)
 	return
 }
 
@@ -31,6 +33,11 @@ func Skins() (res []int, err error) {
 func SkinIds(lang string, ids ...int) (skins []Skin, err error) {
 	ver := "v2"
 	tag := "skins"
-	err = fetchDetailEndpoint(ver, tag, lang, stringSlice(ids), &skins)
+	params := url.Values{}
+	if lang != "" {
+		params.Add("lang", lang)
+	}
+	params.Add("ids", commaList(stringSlice(ids)))
+	err = fetchEndpoint(ver, tag, params, &skins)
 	return
 }

@@ -1,5 +1,7 @@
 package gw2api
 
+import "net/url"
+
 type Trait struct {
 	ID             int           `json:"id"`
 	Name           string        `json:"icon"`
@@ -82,17 +84,22 @@ type Fact struct {
 
 type TraitedFact Fact
 
-func Traits(lang string) (res []int, err error) {
+func Traits() (res []int, err error) {
 	ver := "v2"
 	tag := "traits"
-	err = fetchEndpoint(ver, tag, lang, &res)
+	err = fetchEndpoint(ver, tag, nil, &res)
 	return
 }
 
 func TraitIds(lang string, ids ...int) (traits []Trait, err error) {
 	ver := "v2"
 	tag := "traits"
-	err = fetchDetailEndpoint(ver, tag, lang, stringSlice(ids), &traits)
+	params := url.Values{}
+	if lang != "" {
+		params.Add("lang", lang)
+	}
+	params.Add("ids", commaList(stringSlice(ids)))
+	err = fetchEndpoint(ver, tag, params, &traits)
 	return
 }
 
@@ -106,16 +113,21 @@ type Specialization struct {
 	MajorTraits []int  `json:"major_traits"`
 }
 
-func Specializations(lang string) (res []string, err error) {
+func Specializations() (res []string, err error) {
 	ver := "v2"
 	tag := "specializations"
-	err = fetchEndpoint(ver, tag, lang, &res)
+	err = fetchEndpoint(ver, tag, nil, &res)
 	return
 }
 
 func SpecializationIds(lang string, ids ...int) (specs []Specialization, err error) {
 	ver := "v2"
 	tag := "specializations"
-	err = fetchDetailEndpoint(ver, tag, lang, stringSlice(ids), &specs)
+	params := url.Values{}
+	if lang != "" {
+		params.Add("lang", lang)
+	}
+	params.Add("ids", commaList(stringSlice(ids)))
+	err = fetchEndpoint(ver, tag, params, &specs)
 	return
 }

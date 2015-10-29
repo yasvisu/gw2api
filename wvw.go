@@ -1,5 +1,7 @@
 package gw2api
 
+import "net/url"
+
 // Points/Kills/Deaths per team
 type TeamAssoc struct {
 	Green int `json:"green"`
@@ -36,7 +38,7 @@ type MapWvW struct {
 
 // Match including overall stats and indivdual maps with stats
 type Match struct {
-	Id        string    `json:"id"`
+	ID        string    `json:"id"`
 	StartTime string    `json:"start_time"`
 	EndTime   string    `json:"end_time"`
 	Scores    TeamAssoc `json:"scores"`
@@ -50,7 +52,7 @@ type Match struct {
 func Matches() (res []string, err error) {
 	ver := "v2"
 	tag := "wvw/matches"
-	err = fetchEndpoint(ver, tag, "", &res)
+	err = fetchEndpoint(ver, tag, nil, &res)
 	return
 }
 
@@ -59,7 +61,9 @@ func Matches() (res []string, err error) {
 func MatchIds(ids ...string) (match []Match, err error) {
 	ver := "v2"
 	tag := "wvw/matches"
-	err = fetchDetailEndpoint(ver, tag, "", ids, &match)
+	params := url.Values{}
+	params.Add("ids", commaList(ids))
+	err = fetchEndpoint(ver, tag, params, &match)
 	return
 }
 
@@ -79,7 +83,7 @@ type Objective struct {
 func Objectives() (res []string, err error) {
 	ver := "v2"
 	tag := "wvw/objectives"
-	err = fetchEndpoint(ver, tag, "", &res)
+	err = fetchEndpoint(ver, tag, nil, &res)
 	return
 }
 
@@ -88,6 +92,11 @@ func Objectives() (res []string, err error) {
 func ObjectiveIds(lang string, ids ...string) (objs []Objective, err error) {
 	ver := "v2"
 	tag := "wvw/objectives"
-	err = fetchDetailEndpoint(ver, tag, lang, ids, &objs)
+	params := url.Values{}
+	if lang != "" {
+		params.Add("lang", lang)
+	}
+	params.Add("ids", commaList(ids))
+	err = fetchEndpoint(ver, tag, params, &objs)
 	return
 }
