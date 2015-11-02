@@ -71,10 +71,10 @@ func MatchIds(ids ...string) (match []Match, err error) {
 type Objective struct {
 	ID       string    `json:"id"`
 	Name     string    `json:"name"`
-	SectorId int       `json:"sector_id"`
+	SectorID int       `json:"sector_id"`
 	Type     string    `json:"type"`
 	MapType  string    `json:"map_type"`
-	MapId    int       `json:"map_id"`
+	MapID    int       `json:"map_id"`
 	Coord    []float32 `json:"coord"`
 	Marker   string    `json:"marker"`
 }

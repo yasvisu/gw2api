@@ -9,9 +9,9 @@ type Map struct {
 	MaxLevel      int       `json:"max_level"`
 	DefaultFloor  int       `json:"default_floor"`
 	Floors        []int     `json:"floors"`
-	RegionId      int       `json:"region_id"`
+	RegionID      int       `json:"region_id"`
 	RegionName    string    `json:"region_name"`
-	ContinentId   int       `json:"continent_id"`
+	ContinentID   int       `json:"continent_id"`
 	ContinentName string    `json:"continent_name"`
 	MapRect       [2][2]int `json:"map_rect"`
 	ContinentRect [2][2]int `json:"continent_rect"`

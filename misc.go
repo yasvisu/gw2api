@@ -86,7 +86,7 @@ type Achievement struct {
 	Flags       []string `json:"flags"`
 }
 
-func AchievmentIds(lang string, ids ...int) (achievs []Achievement, err error) {
+func AchievementIds(lang string, ids ...int) (achievs []Achievement, err error) {
 	ver := "v2"
 	tag := "achievements"
 	params := url.Values{}

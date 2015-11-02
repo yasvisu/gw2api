@@ -61,7 +61,7 @@ func fetchEndpoint(ver, tag string, params url.Values, result interface{}) (err 
 	}
 	err = json.Unmarshal(data, &result)
 	if err != nil {
-		var gwerr GW2ApiError
+		var gwerr Error
 		if err = json.Unmarshal(data, &gwerr); err != nil {
 			return err
 		}

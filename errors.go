@@ -1,11 +1,11 @@
 package gw2api
 
 //GW2ApiError for API errors to unmarshal into.
-type GW2ApiError struct {
+type Error struct {
 	Text string `json:"text"`
 }
 
 //GW2ApiError implements the error interface.
-func (e GW2ApiError) Error() string {
+func (e Error) Error() string {
 	return e.Text
 }
