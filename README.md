@@ -32,10 +32,10 @@ Documentation and examples hosted in [GoDoc](http://godoc.org/github.com/yasvisu
 * Polishing and debugging ongoing by default
 * Missing authentication feature
 * [ ] Account
-  * [ ] Bank (Auth)
-  * [ ] Dyes (Auth)
-  * [ ] Materials (Auth)
-  * [ ] Skins (Auth)
+  * [x] Bank (Auth)
+  * [x] Dyes (Auth)
+  * [x] Materials (Auth)
+  * [x] Skins (Auth)
   * [ ] Characters (Auth)
 * [ ] Commerce
   * [x] Listings
