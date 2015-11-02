@@ -42,9 +42,9 @@ Documentation and examples hosted in [GoDoc](http://godoc.org/github.com/yasvisu
   * [x] Exchange
   * [x] Prices
   * [ ] Transactions (Auth)
-* [ ] PvP
-  * [ ] Stats (Auth)
-  * [ ] Games (Auth)
+* [x] PvP
+  * [x] Stats (Auth)
+  * [x] Games (Auth)
 * [x] Items
   * [x] Recipes
     * [x] Search

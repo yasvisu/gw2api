@@ -58,6 +58,9 @@ func (gw2 *GW2Api) fetchAuthenticatedEndpoint(ver, tag string, perm Permission, 
 		}
 	}
 
+	if params == nil {
+		params = url.Values{}
+	}
 	params.Add("access_token", gw2.auth)
 	return gw2.fetchEndpoint(ver, tag, params, result)
 }
