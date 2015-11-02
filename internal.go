@@ -13,35 +13,8 @@ import (
 )
 
 //Timeout solution adapted from Volker on stackoverflow
-
-type GW2Api struct {
-	timeout   time.Duration
-	client    http.Client
-	auth      string
-	authFlags uint
-}
-
 func (gw2 *GW2Api) dialTimeout(network, addr string) (net.Conn, error) {
 	return net.DialTimeout(network, addr, gw2.timeout)
-}
-
-//Initialize http client (for timeout)
-func NewGW2Api() (api *GW2Api) {
-	api.timeout = time.Duration(15 * time.Second)
-	transport := http.Transport{
-		Dial: api.dialTimeout,
-	}
-
-	api.client = http.Client{
-		Transport: &transport,
-	}
-	return api
-}
-
-func NewAuthenticatedGW2Api(auth string) (api *GW2Api, err error) {
-	api = NewGW2Api()
-	err = api.SetAuthentication(auth)
-	return
 }
 
 //Fetcher function to return only the body of a HTTP request.
@@ -54,29 +27,6 @@ func (gw2 *GW2Api) fetchJSON(ver string, tag string, appendix string) ([]byte, e
 	var jsonBlob []byte
 	jsonBlob, err = ioutil.ReadAll(resp.Body)
 	return jsonBlob, err
-}
-
-//Set the timeout for each HTTP request.
-func (gw2 *GW2Api) SetTimeout(t time.Duration) {
-	gw2.timeout = t
-}
-
-func (gw2 *GW2Api) SetAuthentication(auth string) (err error) {
-	gw2.auth = auth
-	gw2.authFlags = 0
-	var token TokenInfo
-	if token, err = gw2.TokenInfo(); err != nil {
-		gw2.auth = ""
-		return fmt.Errorf("Failed to fetch Token Info")
-	}
-	for _, perm := range token.Permissions {
-		if p, e := PermissionsMapping[perm]; e {
-			flagSet(gw2.authFlags, uint(p))
-		} else {
-			log.Print("Found new permission: ", perm)
-		}
-	}
-	return
 }
 
 func (gw2 *GW2Api) fetchEndpoint(ver, tag string, params url.Values, result interface{}) (err error) {
