@@ -1,7 +1,6 @@
 package gw2api
 
 import (
-	"bytes"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -10,7 +9,6 @@ import (
 	"net"
 	"net/http"
 	"net/url"
-	"strconv"
 	"time"
 )
 
@@ -20,7 +18,7 @@ type GW2Api struct {
 	timeout   time.Duration
 	client    http.Client
 	auth      string
-	authFlags uint64
+	authFlags uint
 }
 
 func (gw2 *GW2Api) dialTimeout(network, addr string) (net.Conn, error) {
@@ -42,7 +40,7 @@ func NewGW2Api() (api *GW2Api) {
 
 func NewAuthenticatedGW2Api(auth string) (api *GW2Api, err error) {
 	api = NewGW2Api()
-	api.SetAuthentication(auth)
+	err = api.SetAuthentication(auth)
 	return
 }
 
@@ -71,19 +69,9 @@ func (gw2 *GW2Api) SetAuthentication(auth string) (err error) {
 		gw2.auth = ""
 		return fmt.Errorf("Failed to fetch Token Info")
 	}
-	mapping := map[string]uint{
-		"account":     PermAccount,
-		"characters":  PermCharacter,
-		"inventories": PermInventory,
-		"tradingpost": PermTradingpost,
-		"wallet":      PermWallet,
-		"unlocks":     PermUnlocks,
-		"pvp":         PermPvP,
-		"builds":      PermBuilds,
-	}
 	for _, perm := range token.Permissions {
-		if p, e := mapping[perm]; e {
-			flagSet(gw2.authFlags, p)
+		if p, e := PermissionsMapping[perm]; e {
+			flagSet(gw2.authFlags, uint(p))
 		} else {
 			log.Print("Found new permission: ", perm)
 		}
@@ -111,29 +99,18 @@ func (gw2 *GW2Api) fetchEndpoint(ver, tag string, params url.Values, result inte
 	return
 }
 
-func (gw2 *GW2Api) fetchAuthenticatedEndpoint(ver, tag string, params url.Values, result interface{}) (err error) {
+func (gw2 *GW2Api) fetchAuthenticatedEndpoint(ver, tag string, perm Permission, params url.Values, result interface{}) (err error) {
 	if len(gw2.auth) < 1 {
 		return fmt.Errorf("API requires authentication")
 	}
+
+	var i uint
+	for i = 0; i < uint(PermSize); i++ {
+		if !flagGet(gw2.authFlags, i) {
+			return fmt.Errorf("Missing permissions for authenticated Endpoint")
+		}
+	}
+
 	params.Add("access_token", gw2.auth)
 	return gw2.fetchEndpoint(ver, tag, params, result)
-}
-
-func stringSlice(ids []int) []string {
-	newIds := make([]string, len(ids))
-	for i, id := range ids {
-		newIds[i] = strconv.Itoa(id)
-	}
-	return newIds
-}
-
-func commaList(ids []string) string {
-	var appendix bytes.Buffer
-	for i, id := range ids {
-		if i > 0 {
-			appendix.WriteString(",")
-		}
-		appendix.WriteString(id)
-	}
-	return appendix.String()
 }

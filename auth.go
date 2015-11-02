@@ -1,7 +1,10 @@
 package gw2api
 
+type Permission uint
+
 const (
-	PermAccount = iota
+	_                      = iota
+	PermAccount Permission = iota
 	PermCharacter
 	PermInventory
 	PermTradingpost
@@ -9,6 +12,20 @@ const (
 	PermUnlocks
 	PermPvP
 	PermBuilds
+	PermSize
+)
+
+var (
+	PermissionsMapping = map[string]Permission{
+		"account":     PermAccount,
+		"characters":  PermCharacter,
+		"inventories": PermInventory,
+		"tradingpost": PermTradingpost,
+		"wallet":      PermWallet,
+		"unlocks":     PermUnlocks,
+		"pvp":         PermPvP,
+		"builds":      PermBuilds,
+	}
 )
 
 type TokenInfo struct {
@@ -20,14 +37,6 @@ type TokenInfo struct {
 func (gw2 *GW2Api) TokenInfo() (token TokenInfo, err error) {
 	ver := "v2"
 	tag := "tokeninfo"
-	err = gw2.fetchAuthenticatedEndpoint(ver, tag, nil, &token)
+	err = gw2.fetchAuthenticatedEndpoint(ver, tag, PermAccount, nil, &token)
 	return
-}
-
-func flagGet(n uint64, pos uint) bool {
-	return n&1<<pos == 0
-}
-
-func flagSet(n uint64, pos uint) {
-	n |= 1 << pos
 }
