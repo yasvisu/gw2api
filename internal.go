@@ -5,11 +5,8 @@ import (
 	"errors"
 	"fmt"
 	"io/ioutil"
-	"log"
 	"net"
-	"net/http"
 	"net/url"
-	"time"
 )
 
 //Timeout solution adapted from Volker on stackoverflow

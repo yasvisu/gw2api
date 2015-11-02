@@ -8,6 +8,13 @@
 //   }
 package gw2api
 
+import (
+	"fmt"
+	"log"
+	"net/http"
+	"time"
+)
+
 type GW2Api struct {
 	timeout   time.Duration
 	client    http.Client
