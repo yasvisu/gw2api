@@ -26,27 +26,27 @@ type Item struct {
 }
 
 //Returns list of item ids.
-func Items(lang string) (res []int, err error) {
+func (gw2 *GW2Api) Items(lang string) (res []int, err error) {
 	_ = lang
 	ver := "v2"
 	tag := "items"
-	err = fetchEndpoint(ver, tag, nil, &res)
+	err = gw2.fetchEndpoint(ver, tag, nil, &res)
 	return
 }
 
 //Returns list of items.
-func ItemsDetails(page int, pageSize int, lang string, ids ...int) ([]Item, error) {
+func (gw2 *GW2Api) ItemsDetails(page int, pageSize int, lang string, ids ...int) ([]Item, error) {
 	if ids != nil {
-		return ItemsIds(lang, ids...)
+		return gw2.ItemsIds(lang, ids...)
 	} else if page >= 0 {
-		return ItemsPages(page, pageSize, lang)
+		return gw2.ItemsPages(page, pageSize, lang)
 	} else {
 		return nil, errors.New("Invalid combination of parameters. Consider using Items() instead?")
 	}
 }
 
 //Returns list of items.
-func ItemsIds(lang string, ids ...int) (items []Item, err error) {
+func (gw2 *GW2Api) ItemsIds(lang string, ids ...int) (items []Item, err error) {
 	ver := "v2"
 	tag := "items"
 	params := url.Values{}
@@ -54,12 +54,12 @@ func ItemsIds(lang string, ids ...int) (items []Item, err error) {
 		params.Add("lang", lang)
 	}
 	params.Add("ids", commaList(stringSlice(ids)))
-	err = fetchEndpoint(ver, tag, params, &items)
+	err = gw2.fetchEndpoint(ver, tag, params, &items)
 	return
 }
 
 //Returns page of items.
-func ItemsPages(page int, pageSize int, lang string) (items []Item, err error) {
+func (gw2 *GW2Api) ItemsPages(page int, pageSize int, lang string) (items []Item, err error) {
 	if page < 0 {
 		return nil, errors.New("Page parameter cannot be a negative number!")
 	}
@@ -74,6 +74,6 @@ func ItemsPages(page int, pageSize int, lang string) (items []Item, err error) {
 	if pageSize >= 0 {
 		params.Add("page_size", strconv.Itoa(pageSize))
 	}
-	err = fetchEndpoint(ver, tag, params, &items)
+	err = gw2.fetchEndpoint(ver, tag, params, &items)
 	return
 }

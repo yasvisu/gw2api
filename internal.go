@@ -13,30 +13,34 @@ import (
 )
 
 //Timeout solution adapted from Volker on stackoverflow
-var timeout time.Duration
-var client http.Client
 
-func dialTimeout(network, addr string) (net.Conn, error) {
-	return net.DialTimeout(network, addr, timeout)
+type GW2Api struct {
+	timeout time.Duration
+	client  http.Client
+}
+
+func (gw2 *GW2Api) dialTimeout(network, addr string) (net.Conn, error) {
+	return net.DialTimeout(network, addr, gw2.timeout)
 }
 
 //Initialize http client (for timeout)
-func init() {
-	timeout = time.Duration(15 * time.Second)
+func NewGW2Api() *GW2Api {
+	var api = &GW2Api{}
+	api.timeout = time.Duration(15 * time.Second)
 	transport := http.Transport{
-		Dial: dialTimeout,
+		Dial: api.dialTimeout,
 	}
 
-	client := http.Client{
+	api.client = http.Client{
 		Transport: &transport,
 	}
-	client = client
+	return api
 }
 
 //Fetcher function to return only the body of a HTTP request.
 //Parameters: version, tag, appendix strings.
-func fetchJSON(ver string, tag string, appendix string) ([]byte, error) {
-	resp, err := client.Get("https://api.guildwars2.com/" + ver + "/" + tag + appendix)
+func (gw2 *GW2Api) fetchJSON(ver string, tag string, appendix string) ([]byte, error) {
+	resp, err := gw2.client.Get("https://api.guildwars2.com/" + ver + "/" + tag + appendix)
 	if err != nil {
 		return nil, err
 	}
@@ -46,17 +50,17 @@ func fetchJSON(ver string, tag string, appendix string) ([]byte, error) {
 }
 
 //Set the timeout for each HTTP request.
-func SetTimeout(t time.Duration) {
-	timeout = t
+func (gw2 *GW2Api) SetTimeout(t time.Duration) {
+	gw2.timeout = t
 }
 
-func fetchEndpoint(ver, tag string, params url.Values, result interface{}) (err error) {
+func (gw2 *GW2Api) fetchEndpoint(ver, tag string, params url.Values, result interface{}) (err error) {
 	var data []byte
 	args := ""
 	if len(params) > 0 {
 		args = "?" + params.Encode()
 	}
-	if data, err = fetchJSON(ver, tag, args); err != nil {
+	if data, err = gw2.fetchJSON(ver, tag, args); err != nil {
 		return err
 	}
 	err = json.Unmarshal(data, &result)

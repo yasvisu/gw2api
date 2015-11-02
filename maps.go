@@ -18,16 +18,16 @@ type Map struct {
 }
 
 // Returns a list of all current skin ids
-func Maps() (res []int, err error) {
+func (gw2 *GW2Api) Maps() (res []int, err error) {
 	ver := "v2"
 	tag := "skins"
-	err = fetchEndpoint(ver, tag, nil, &res)
+	err = gw2.fetchEndpoint(ver, tag, nil, &res)
 	return
 }
 
 // Returns a list of skins as requested by the id parameter.
 // Special id `all` is not permitted on this endpoint
-func MapIds(lang string, ids ...int) (maps []Map, err error) {
+func (gw2 *GW2Api) MapIds(lang string, ids ...int) (maps []Map, err error) {
 	ver := "v2"
 	tag := "maps"
 	params := url.Values{}
@@ -35,6 +35,6 @@ func MapIds(lang string, ids ...int) (maps []Map, err error) {
 		params.Add("lang", lang)
 	}
 	params.Add("ids", commaList(stringSlice(ids)))
-	err = fetchEndpoint(ver, tag, params, &maps)
+	err = gw2.fetchEndpoint(ver, tag, params, &maps)
 	return
 }

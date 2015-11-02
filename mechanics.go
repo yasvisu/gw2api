@@ -84,14 +84,14 @@ type Fact struct {
 
 type TraitedFact Fact
 
-func Traits() (res []int, err error) {
+func (gw2 *GW2Api) Traits() (res []int, err error) {
 	ver := "v2"
 	tag := "traits"
-	err = fetchEndpoint(ver, tag, nil, &res)
+	err = gw2.fetchEndpoint(ver, tag, nil, &res)
 	return
 }
 
-func TraitIds(lang string, ids ...int) (traits []Trait, err error) {
+func (gw2 *GW2Api) TraitIds(lang string, ids ...int) (traits []Trait, err error) {
 	ver := "v2"
 	tag := "traits"
 	params := url.Values{}
@@ -99,7 +99,7 @@ func TraitIds(lang string, ids ...int) (traits []Trait, err error) {
 		params.Add("lang", lang)
 	}
 	params.Add("ids", commaList(stringSlice(ids)))
-	err = fetchEndpoint(ver, tag, params, &traits)
+	err = gw2.fetchEndpoint(ver, tag, params, &traits)
 	return
 }
 
@@ -113,14 +113,14 @@ type Specialization struct {
 	MajorTraits []int  `json:"major_traits"`
 }
 
-func Specializations() (res []string, err error) {
+func (gw2 *GW2Api) Specializations() (res []string, err error) {
 	ver := "v2"
 	tag := "specializations"
-	err = fetchEndpoint(ver, tag, nil, &res)
+	err = gw2.fetchEndpoint(ver, tag, nil, &res)
 	return
 }
 
-func SpecializationIds(lang string, ids ...int) (specs []Specialization, err error) {
+func (gw2 *GW2Api) SpecializationIds(lang string, ids ...int) (specs []Specialization, err error) {
 	ver := "v2"
 	tag := "specializations"
 	params := url.Values{}
@@ -128,6 +128,6 @@ func SpecializationIds(lang string, ids ...int) (specs []Specialization, err err
 		params.Add("lang", lang)
 	}
 	params.Add("ids", commaList(stringSlice(ids)))
-	err = fetchEndpoint(ver, tag, params, &specs)
+	err = gw2.fetchEndpoint(ver, tag, params, &specs)
 	return
 }

@@ -49,21 +49,21 @@ type Match struct {
 }
 
 // Returns a list of all current match ids in the form of %d-%d
-func Matches() (res []string, err error) {
+func (gw2 *GW2Api) Matches() (res []string, err error) {
 	ver := "v2"
 	tag := "wvw/matches"
-	err = fetchEndpoint(ver, tag, nil, &res)
+	err = gw2.fetchEndpoint(ver, tag, nil, &res)
 	return
 }
 
 // Returns matches as per requested by ids in the form
 // provided by Matches(). Use special id `all` for every match in US/EU
-func MatchIds(ids ...string) (match []Match, err error) {
+func (gw2 *GW2Api) MatchIds(ids ...string) (match []Match, err error) {
 	ver := "v2"
 	tag := "wvw/matches"
 	params := url.Values{}
 	params.Add("ids", commaList(ids))
-	err = fetchEndpoint(ver, tag, params, &match)
+	err = gw2.fetchEndpoint(ver, tag, params, &match)
 	return
 }
 
@@ -80,16 +80,16 @@ type Objective struct {
 }
 
 // Returns a list of all objectives on wvw maps
-func Objectives() (res []string, err error) {
+func (gw2 *GW2Api) Objectives() (res []string, err error) {
 	ver := "v2"
 	tag := "wvw/objectives"
-	err = fetchEndpoint(ver, tag, nil, &res)
+	err = gw2.fetchEndpoint(ver, tag, nil, &res)
 	return
 }
 
 // Returns a list of objectives as request by ids. Use special id `all` to request
 // all objectives
-func ObjectiveIds(lang string, ids ...string) (objs []Objective, err error) {
+func (gw2 *GW2Api) ObjectiveIds(lang string, ids ...string) (objs []Objective, err error) {
 	ver := "v2"
 	tag := "wvw/objectives"
 	params := url.Values{}
@@ -97,6 +97,6 @@ func ObjectiveIds(lang string, ids ...string) (objs []Objective, err error) {
 		params.Add("lang", lang)
 	}
 	params.Add("ids", commaList(ids))
-	err = fetchEndpoint(ver, tag, params, &objs)
+	err = gw2.fetchEndpoint(ver, tag, params, &objs)
 	return
 }

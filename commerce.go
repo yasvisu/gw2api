@@ -7,10 +7,10 @@ import (
 )
 
 //Returns article ids.
-func CommerceListings() (res []int, err error) {
+func (gw2 *GW2Api) CommerceListings() (res []int, err error) {
 	ver := "v2"
 	tag := "commerce/listings"
-	err = fetchEndpoint(ver, tag, nil, &res)
+	err = gw2.fetchEndpoint(ver, tag, nil, &res)
 	return
 }
 
@@ -29,17 +29,17 @@ type Listing struct {
 }
 
 //Returns list of articles.
-func CommerceListingsIds(ids ...int) (articles []ArticleListings, err error) {
+func (gw2 *GW2Api) CommerceListingsIds(ids ...int) (articles []ArticleListings, err error) {
 	ver := "v2"
 	tag := "commerce/listings"
 	params := url.Values{}
 	params.Add("ids", commaList(stringSlice(ids)))
-	err = fetchEndpoint(ver, tag, params, &articles)
+	err = gw2.fetchEndpoint(ver, tag, params, &articles)
 	return
 }
 
 //Returns page of articles.
-func CommerceListingsPages(page int, pageSize int) (res []ArticleListings, err error) {
+func (gw2 *GW2Api) CommerceListingsPages(page int, pageSize int) (res []ArticleListings, err error) {
 	if page < 0 {
 		return nil, errors.New("Page parameter cannot be a negative number!")
 	}
@@ -51,7 +51,7 @@ func CommerceListingsPages(page int, pageSize int) (res []ArticleListings, err e
 	if pageSize >= 0 {
 		params.Add("page_size", strconv.Itoa(pageSize))
 	}
-	err = fetchEndpoint(ver, tag, params, &res)
+	err = gw2.fetchEndpoint(ver, tag, params, &res)
 	return
 }
 
@@ -65,7 +65,7 @@ type Exchange struct {
 }
 
 //Returns gem exchange prices.
-func CommerceExchangeGems(quantity int) (res Exchange, err error) {
+func (gw2 *GW2Api) CommerceExchangeGems(quantity int) (res Exchange, err error) {
 	if quantity < 1 {
 		return res, errors.New("Required parameter too low.")
 	}
@@ -74,12 +74,12 @@ func CommerceExchangeGems(quantity int) (res Exchange, err error) {
 	tag := "commerce/exchange/gems"
 	params := url.Values{}
 	params.Add("quantity", strconv.Itoa(quantity))
-	err = fetchEndpoint(ver, tag, params, &res)
+	err = gw2.fetchEndpoint(ver, tag, params, &res)
 	return
 }
 
 //Returns coin exchange prices.
-func CommerceExchangeCoins(quantity int64) (res Exchange, err error) {
+func (gw2 *GW2Api) CommerceExchangeCoins(quantity int64) (res Exchange, err error) {
 	if quantity < 1 {
 		return res, errors.New("Required parameter too low.")
 	}
@@ -88,7 +88,7 @@ func CommerceExchangeCoins(quantity int64) (res Exchange, err error) {
 	tag := "commerce/exchange/coins"
 	params := url.Values{}
 	params.Add("quantity", strconv.FormatInt(quantity, 10))
-	err = fetchEndpoint(ver, tag, params, &res)
+	err = gw2.fetchEndpoint(ver, tag, params, &res)
 	return
 }
 
@@ -109,19 +109,19 @@ type Price struct {
 }
 
 //Returns list of article ids.
-func CommercePrices() (res []int, err error) {
+func (gw2 *GW2Api) CommercePrices() (res []int, err error) {
 	ver := "v2"
 	tag := "commerce/prices"
-	err = fetchEndpoint(ver, tag, nil, &res)
+	err = gw2.fetchEndpoint(ver, tag, nil, &res)
 	return
 }
 
 //Returns list of articles.
-func CommercePricesIds(ids ...int) (artprices []ArticlePrices, err error) {
+func (gw2 *GW2Api) CommercePricesIds(ids ...int) (artprices []ArticlePrices, err error) {
 	ver := "v2"
 	tag := "commerce/prices"
 	params := url.Values{}
 	params.Add("ids", commaList(stringSlice(ids)))
-	err = fetchEndpoint(ver, tag, params, &artprices)
+	err = gw2.fetchEndpoint(ver, tag, params, &artprices)
 	return
 }

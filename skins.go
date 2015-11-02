@@ -21,16 +21,16 @@ type Skin struct {
 }
 
 // Returns a list of all current skin ids
-func Skins() (res []int, err error) {
+func (gw2 *GW2Api) Skins() (res []int, err error) {
 	ver := "v2"
 	tag := "skins"
-	err = fetchEndpoint(ver, tag, nil, &res)
+	err = gw2.fetchEndpoint(ver, tag, nil, &res)
 	return
 }
 
 // Returns a list of skins as requested by the id parameter.
 // Special id `all` is not permitted on this endpoint
-func SkinIds(lang string, ids ...int) (skins []Skin, err error) {
+func (gw2 *GW2Api) SkinIds(lang string, ids ...int) (skins []Skin, err error) {
 	ver := "v2"
 	tag := "skins"
 	params := url.Values{}
@@ -38,6 +38,6 @@ func SkinIds(lang string, ids ...int) (skins []Skin, err error) {
 		params.Add("lang", lang)
 	}
 	params.Add("ids", commaList(stringSlice(ids)))
-	err = fetchEndpoint(ver, tag, params, &skins)
+	err = gw2.fetchEndpoint(ver, tag, params, &skins)
 	return
 }

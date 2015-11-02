@@ -9,20 +9,20 @@ type QuagganResource struct {
 }
 
 //Returns list of quaggan ids.
-func Quaggans() (res []string, err error) {
+func (gw2 *GW2Api) Quaggans() (res []string, err error) {
 	ver := "v2"
 	tag := "quaggans"
-	err = fetchEndpoint(ver, tag, nil, &res)
+	err = gw2.fetchEndpoint(ver, tag, nil, &res)
 	return
 }
 
 //Returns list of quaggan resources.
-func QuaggansIds(ids ...string) (quag []QuagganResource, err error) {
+func (gw2 *GW2Api) QuaggansIds(ids ...string) (quag []QuagganResource, err error) {
 	ver := "v2"
 	tag := "quaggans"
 	params := url.Values{}
 	params.Add("ids", commaList(ids))
-	err = fetchEndpoint(ver, tag, params, &quag)
+	err = gw2.fetchEndpoint(ver, tag, params, &quag)
 	return
 }
 
@@ -33,16 +33,16 @@ type Name struct {
 }
 
 //Returns list of world ids.
-func Worlds(lang string) (res []int, err error) {
+func (gw2 *GW2Api) Worlds(lang string) (res []int, err error) {
 	_ = lang
 	ver := "v2"
 	tag := "worlds"
-	err = fetchEndpoint(ver, tag, nil, &res)
+	err = gw2.fetchEndpoint(ver, tag, nil, &res)
 	return
 }
 
 //Returns list of world names.
-func WorldsIds(lang string, ids ...int) (worlds []Name, err error) {
+func (gw2 *GW2Api) WorldsIds(lang string, ids ...int) (worlds []Name, err error) {
 	ver := "v2"
 	tag := "worlds"
 	params := url.Values{}
@@ -50,7 +50,7 @@ func WorldsIds(lang string, ids ...int) (worlds []Name, err error) {
 		params.Add("lang", lang)
 	}
 	params.Add("ids", commaList(stringSlice(ids)))
-	err = fetchEndpoint(ver, tag, params, &worlds)
+	err = gw2.fetchEndpoint(ver, tag, params, &worlds)
 	return
 }
 
@@ -58,21 +58,21 @@ type Version struct {
 	ID int `json:"id"`
 }
 
-func Build() (v int, err error) {
+func (gw2 *GW2Api) Build() (v int, err error) {
 	ver := "v2"
 	tag := "build"
 
 	var res Version
-	if err = fetchEndpoint(ver, tag, nil, &res); err != nil {
+	if err = gw2.fetchEndpoint(ver, tag, nil, &res); err != nil {
 		return 0, err
 	}
 	return res.ID, nil
 }
 
-func Achievements() (res []string, err error) {
+func (gw2 *GW2Api) Achievements() (res []string, err error) {
 	ver := "v2"
 	tag := "achievements"
-	err = fetchEndpoint(ver, tag, nil, &res)
+	err = gw2.fetchEndpoint(ver, tag, nil, &res)
 	return
 }
 
@@ -86,7 +86,7 @@ type Achievement struct {
 	Flags       []string `json:"flags"`
 }
 
-func AchievementIds(lang string, ids ...int) (achievs []Achievement, err error) {
+func (gw2 *GW2Api) AchievementIds(lang string, ids ...int) (achievs []Achievement, err error) {
 	ver := "v2"
 	tag := "achievements"
 	params := url.Values{}
@@ -94,14 +94,14 @@ func AchievementIds(lang string, ids ...int) (achievs []Achievement, err error) 
 		params.Add("lang", lang)
 	}
 	params.Add("ids", commaList(stringSlice(ids)))
-	err = fetchEndpoint(ver, tag, params, &achievs)
+	err = gw2.fetchEndpoint(ver, tag, params, &achievs)
 	return
 }
 
-func Colors() (res []int, err error) {
+func (gw2 *GW2Api) Colors() (res []int, err error) {
 	ver := "v2"
 	tag := "colors"
-	err = fetchEndpoint(ver, tag, nil, &res)
+	err = gw2.fetchEndpoint(ver, tag, nil, &res)
 	return
 }
 
@@ -123,7 +123,7 @@ type Color struct {
 	Metal   ColorDetail `json:"metal"`
 }
 
-func ColorIds(lang string, ids ...int) (colors []Color, err error) {
+func (gw2 *GW2Api) ColorIds(lang string, ids ...int) (colors []Color, err error) {
 	ver := "v2"
 	tag := "colors"
 	params := url.Values{}
@@ -131,14 +131,14 @@ func ColorIds(lang string, ids ...int) (colors []Color, err error) {
 		params.Add("lang", lang)
 	}
 	params.Add("ids", commaList(stringSlice(ids)))
-	err = fetchEndpoint(ver, tag, params, &colors)
+	err = gw2.fetchEndpoint(ver, tag, params, &colors)
 	return
 }
 
-func Currencies() (res []string, err error) {
+func (gw2 *GW2Api) Currencies() (res []string, err error) {
 	ver := "v2"
 	tag := "currencies"
-	err = fetchEndpoint(ver, tag, nil, &res)
+	err = gw2.fetchEndpoint(ver, tag, nil, &res)
 	return
 }
 
@@ -150,7 +150,7 @@ type Currency struct {
 	Order       int    `json:"order"`
 }
 
-func CurrencyIds(lang string, ids ...int) (currencies []Currency, err error) {
+func (gw2 *GW2Api) CurrencyIds(lang string, ids ...int) (currencies []Currency, err error) {
 	ver := "v2"
 	tag := "colors"
 	params := url.Values{}
@@ -158,14 +158,14 @@ func CurrencyIds(lang string, ids ...int) (currencies []Currency, err error) {
 		params.Add("lang", lang)
 	}
 	params.Add("ids", commaList(stringSlice(ids)))
-	err = fetchEndpoint(ver, tag, params, &currencies)
+	err = gw2.fetchEndpoint(ver, tag, params, &currencies)
 	return
 }
 
-func Files() (res []string, err error) {
+func (gw2 *GW2Api) Files() (res []string, err error) {
 	ver := "v2"
 	tag := "files"
-	err = fetchEndpoint(ver, tag, nil, &res)
+	err = gw2.fetchEndpoint(ver, tag, nil, &res)
 	return
 }
 
@@ -174,11 +174,11 @@ type File struct {
 	Icon string `json:"icon"`
 }
 
-func FileIds(ids ...string) (files []File, err error) {
+func (gw2 *GW2Api) FileIds(ids ...string) (files []File, err error) {
 	ver := "v2"
 	tag := "files"
 	params := url.Values{}
 	params.Add("ids", commaList(ids))
-	err = fetchEndpoint(ver, tag, params, &files)
+	err = gw2.fetchEndpoint(ver, tag, params, &files)
 	return
 }
