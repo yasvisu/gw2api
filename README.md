@@ -30,7 +30,6 @@ Documentation and examples hosted in [GoDoc](http://godoc.org/github.com/yasvisu
 ###[V2](http://wiki.guildwars2.com/wiki/API:2)
 
 * Polishing and debugging ongoing by default
-* Missing authentication feature
 * [x] Account
   * [x] Bank (Auth)
   * [x] Dyes (Auth)
