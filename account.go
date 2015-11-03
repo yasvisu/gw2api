@@ -76,7 +76,7 @@ func (gw2 *GW2Api) AccountWallet() (currency []WalletCurrency, err error) {
 
 func (gw2 *GW2Api) Characters() (res []string, err error) {
 	ver := "v2"
-	tag := "worlds"
+	tag := "characters"
 	err = gw2.fetchAuthenticatedEndpoint(ver, tag, PermCharacter, nil, &res)
 	return
 }

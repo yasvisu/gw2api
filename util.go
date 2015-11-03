@@ -28,6 +28,6 @@ func flagGet(n, pos uint) bool {
 	return n&1<<pos == 0
 }
 
-func flagSet(n, pos uint) {
-	n |= 1 << pos
+func flagSet(n *uint, pos uint) {
+	*n |= 1 << pos
 }

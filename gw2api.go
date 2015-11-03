@@ -22,7 +22,8 @@ type GW2Api struct {
 	authFlags uint
 }
 
-func NewGW2Api() (api *GW2Api) {
+func NewGW2Api() *GW2Api {
+	api := &GW2Api{}
 	api.timeout = time.Duration(15 * time.Second)
 	transport := http.Transport{
 		Dial: api.dialTimeout,
@@ -55,7 +56,7 @@ func (gw2 *GW2Api) SetAuthentication(auth string) (err error) {
 	}
 	for _, perm := range token.Permissions {
 		if p, e := PermissionsMapping[perm]; e {
-			flagSet(gw2.authFlags, uint(p))
+			flagSet(&gw2.authFlags, uint(p))
 		} else {
 			log.Print("Found new permission: ", perm)
 		}
