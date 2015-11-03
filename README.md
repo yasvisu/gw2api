@@ -31,12 +31,12 @@ Documentation and examples hosted in [GoDoc](http://godoc.org/github.com/yasvisu
 
 * Polishing and debugging ongoing by default
 * Missing authentication feature
-* [ ] Account
+* [x] Account
   * [x] Bank (Auth)
   * [x] Dyes (Auth)
   * [x] Materials (Auth)
   * [x] Skins (Auth)
-  * [ ] Characters (Auth)
+  * [x] Characters (Auth)
 * [x] Commerce
   * [x] Listings
   * [x] Exchange

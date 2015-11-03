@@ -1,7 +1,9 @@
 package gw2api
 
 import (
+	"errors"
 	"net/url"
+	"strconv"
 )
 
 type Account struct {
@@ -78,5 +80,78 @@ func (gw2 *GW2Api) Characters() (res []string, err error) {
 	ver := "v2"
 	tag := "characters"
 	err = gw2.fetchAuthenticatedEndpoint(ver, tag, PermCharacter, nil, &res)
+	return
+}
+
+type CraftingDiscipline struct {
+	Discipline string `json:"discipline"`
+	Rating     int    `json:"rating"`
+	Active     bool   `json:"active"`
+}
+type Specalization struct {
+	ID     int   `json:"id"`
+	Traits []int `json:"trait"`
+}
+type Specalizations struct {
+	PvE Specalization `json:"pve"`
+	PvP Specalization `json:"pvp"`
+	WvW Specalization `json:"wvw"`
+}
+type InventoryItem struct {
+	ID    int `json:"id"`
+	Count int `json:"count"`
+}
+type Bag struct {
+	ID        int             `json:"id"`
+	Size      int             `json:"size"`
+	Inventory []InventoryItem `json:"inventory"`
+}
+
+type Equipment struct {
+	ID        int    `json:"id"`
+	Slot      string `json:"slot"`
+	Upgrades  []int  `json:"upgrades"`
+	Infusions []int  `json:"infusions"`
+	Skin      int    `json:"skin"`
+}
+
+type Character struct {
+	Name          string               `json:"name"`
+	Race          string               `json:"race"`
+	Gender        string               `json:"gender"`
+	Profession    string               `json:"profession"`
+	Level         int                  `json:"level"`
+	Guild         string               `json:"guild"`
+	Created       string               `json:"created"`
+	Age           int                  `json:"age"`
+	Deaths        int                  `json:"deaths"`
+	Crafting      []CraftingDiscipline `json:"crafting"`
+	Specalization Specalizations       `json:"specalization"`
+	Bags          []Bag                `json:"bags"`
+	Equipment     []Equipment          `json:"equipment"`
+}
+
+func (gw2 *GW2Api) CharacterIds(ids ...string) (chars []Character, err error) {
+	ver := "v2"
+	tag := "characters"
+	params := url.Values{}
+	params.Add("ids", commaList(ids))
+	err = gw2.fetchAuthenticatedEndpoint(ver, tag, PermCharacter, params, &chars)
+	return
+}
+
+func (gw2 *GW2Api) CharactersPage(page, pageSize int) (chars []Character, err error) {
+	if page < 0 {
+		return nil, errors.New("Page parameter cannot be a negative number!")
+	}
+
+	ver := "v2"
+	tag := "characters"
+	params := url.Values{}
+	params.Add("page", strconv.Itoa(page))
+	if pageSize >= 0 {
+		params.Add("page_size", strconv.Itoa(pageSize))
+	}
+	err = gw2.fetchAuthenticatedEndpoint(ver, tag, PermCharacter, params, &chars)
 	return
 }
