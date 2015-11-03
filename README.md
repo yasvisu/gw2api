@@ -37,11 +37,11 @@ Documentation and examples hosted in [GoDoc](http://godoc.org/github.com/yasvisu
   * [x] Materials (Auth)
   * [x] Skins (Auth)
   * [ ] Characters (Auth)
-* [ ] Commerce
+* [x] Commerce
   * [x] Listings
   * [x] Exchange
   * [x] Prices
-  * [ ] Transactions (Auth)
+  * [x] Transactions (Auth)
 * [x] PvP
   * [x] Stats (Auth)
   * [x] Games (Auth)
