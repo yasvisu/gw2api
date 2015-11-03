@@ -30,6 +30,8 @@ Documentation and examples hosted in [GoDoc](http://godoc.org/github.com/yasvisu
 ###[V2](http://wiki.guildwars2.com/wiki/API:2)
 
 * Polishing and debugging ongoing by default
+* New tests for the updated API
+* Examples for the updated API
 * [x] Account
   * [x] Bank (Auth)
   * [x] Dyes (Auth)
@@ -55,8 +57,8 @@ Documentation and examples hosted in [GoDoc](http://godoc.org/github.com/yasvisu
 * [x] Game Mechanics
   * [x] Traits
   * [x] Specializations
-* [ ] Map Information
-  * [ ] Continents
+* [x] Map Information
+  * [x] Continents
   * [x] Maps
 * [x] Misc
   * [x] Achievements
