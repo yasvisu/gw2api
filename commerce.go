@@ -125,3 +125,40 @@ func (gw2 *GW2Api) CommercePricesIds(ids ...int) (artprices []ArticlePrices, err
 	err = gw2.fetchEndpoint(ver, tag, params, &artprices)
 	return
 }
+
+type Transaction struct {
+	ID        int    `json:"id"`
+	ItemID    int    `json:"item_id"`
+	Price     int    `json:"price"`
+	Quantity  int    `json:"quantity"`
+	Created   string `json:"created"`
+	Purchased string `json:"purchased"`
+}
+
+func (gw2 *GW2Api) CommerceTransactionsCurrentBuys() (trans []Transaction, err error) {
+	ver := "v2"
+	tag := "commerce/transactions/current/buys"
+	err = gw2.fetchAuthenticatedEndpoint(ver, tag, PermTradingpost, nil, &trans)
+	return
+}
+
+func (gw2 *GW2Api) CommerceTransactionsCurrentSells() (trans []Transaction, err error) {
+	ver := "v2"
+	tag := "commerce/transactions/current/sells"
+	err = gw2.fetchAuthenticatedEndpoint(ver, tag, PermTradingpost, nil, &trans)
+	return
+}
+
+func (gw2 *GW2Api) CommerceTransactionsHistoryBuys() (trans []Transaction, err error) {
+	ver := "v2"
+	tag := "commerce/transactions/current/buys"
+	err = gw2.fetchAuthenticatedEndpoint(ver, tag, PermTradingpost, nil, &trans)
+	return
+}
+
+func (gw2 *GW2Api) CommerceTransactionsHistorySells() (trans []Transaction, err error) {
+	ver := "v2"
+	tag := "commerce/transactions/history/sells"
+	err = gw2.fetchAuthenticatedEndpoint(ver, tag, PermTradingpost, nil, &trans)
+	return
+}
