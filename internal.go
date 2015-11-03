@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net"
+	"net/http"
 	"net/url"
 )
 
@@ -14,27 +15,24 @@ func (gw2 *GW2Api) dialTimeout(network, addr string) (net.Conn, error) {
 	return net.DialTimeout(network, addr, gw2.timeout)
 }
 
-//Fetcher function to return only the body of a HTTP request.
-//Parameters: version, tag, appendix strings.
-func (gw2 *GW2Api) fetchJSON(ver string, tag string, appendix string) ([]byte, error) {
-	resp, err := gw2.client.Get("https://api.guildwars2.com/" + ver + "/" + tag + appendix)
-	if err != nil {
-		return nil, err
-	}
-	var jsonBlob []byte
-	jsonBlob, err = ioutil.ReadAll(resp.Body)
-	return jsonBlob, err
-}
-
 func (gw2 *GW2Api) fetchEndpoint(ver, tag string, params url.Values, result interface{}) (err error) {
-	var data []byte
-	args := ""
-	if len(params) > 0 {
-		args = "?" + params.Encode()
+	var endpoint *url.URL
+	endpoint, _ = url.Parse("https://api.guildwars2.com")
+	endpoint.Path += "/" + ver + "/" + tag
+	if params != nil {
+		endpoint.RawQuery = params.Encode()
 	}
-	if data, err = gw2.fetchJSON(ver, tag, args); err != nil {
+
+	var resp *http.Response
+	if resp, err = gw2.client.Get(endpoint.String()); err != nil {
 		return err
 	}
+	var data []byte
+	if data, err = ioutil.ReadAll(resp.Body); err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+
 	err = json.Unmarshal(data, &result)
 	if err != nil {
 		var gwerr Error
