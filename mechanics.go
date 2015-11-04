@@ -72,10 +72,10 @@ type FactType struct {
 }
 
 type Fact struct {
-	Text  string `json:"text"`
-	Icon  string `json:"icon"`
-	Type  string `json:"type"`
-	Facts []Fact `json:"facts"`
+	Text  string     `json:"text"`
+	Icon  string     `json:"icon"`
+	Type  string     `json:"type"`
+	Facts []FactType `json:"facts"`
 
 	// Only as TraitedFact
 	RequiresTrait int `json:"requires_trait"`
