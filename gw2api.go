@@ -12,6 +12,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"regexp"
 	"time"
 )
 
@@ -23,15 +24,10 @@ type GW2Api struct {
 }
 
 func NewGW2Api() *GW2Api {
-	api := &GW2Api{}
-	api.timeout = time.Duration(15 * time.Second)
-	transport := http.Transport{
-		Dial: api.dialTimeout,
+	api := &GW2Api{
+		client: http.Client{},
 	}
-
-	api.client = http.Client{
-		Transport: &transport,
-	}
+	api.SetTimeout(time.Duration(15 * time.Second))
 	return api
 }
 
@@ -44,9 +40,16 @@ func NewAuthenticatedGW2Api(auth string) (api *GW2Api, err error) {
 //Set the timeout for each HTTP request.
 func (gw2 *GW2Api) SetTimeout(t time.Duration) {
 	gw2.timeout = t
+	gw2.client.Transport = &http.Transport{
+		Dial: gw2.dialTimeout,
+	}
 }
 
 func (gw2 *GW2Api) SetAuthentication(auth string) (err error) {
+	if m, err := regexp.Match(`^(?:[A-F\d]{4,20}-?){8,}$`, []byte(auth)); !m {
+		return fmt.Errorf("Provided API Key doesn't match expectations: %s", err)
+	}
+
 	gw2.auth = auth
 	gw2.authFlags = 0
 	var token TokenInfo
