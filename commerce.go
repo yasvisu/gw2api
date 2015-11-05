@@ -1,7 +1,7 @@
 package gw2api
 
 import (
-	"errors"
+	"fmt"
 	"net/url"
 	"strconv"
 )
@@ -41,7 +41,7 @@ func (gw2 *GW2Api) CommerceListingsIds(ids ...int) (articles []ArticleListings, 
 //Returns page of articles.
 func (gw2 *GW2Api) CommerceListingsPages(page int, pageSize int) (res []ArticleListings, err error) {
 	if page < 0 {
-		return nil, errors.New("Page parameter cannot be a negative number!")
+		return nil, fmt.Errorf("Page parameter cannot be a negative number!")
 	}
 
 	ver := "v2"
@@ -67,7 +67,7 @@ type Exchange struct {
 //Returns gem exchange prices.
 func (gw2 *GW2Api) CommerceExchangeGems(quantity int) (res Exchange, err error) {
 	if quantity < 1 {
-		return res, errors.New("Required parameter too low.")
+		return res, fmt.Errorf("Required parameter too low.")
 	}
 
 	ver := "v2"
@@ -81,7 +81,7 @@ func (gw2 *GW2Api) CommerceExchangeGems(quantity int) (res Exchange, err error) 
 //Returns coin exchange prices.
 func (gw2 *GW2Api) CommerceExchangeCoins(quantity int64) (res Exchange, err error) {
 	if quantity < 1 {
-		return res, errors.New("Required parameter too low.")
+		return res, fmt.Errorf("Required parameter too low.")
 	}
 
 	ver := "v2"

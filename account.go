@@ -1,7 +1,7 @@
 package gw2api
 
 import (
-	"errors"
+	"fmt"
 	"net/url"
 	"strconv"
 )
@@ -142,7 +142,7 @@ func (gw2 *GW2Api) CharacterIds(ids ...string) (chars []Character, err error) {
 
 func (gw2 *GW2Api) CharactersPage(page, pageSize int) (chars []Character, err error) {
 	if page < 0 {
-		return nil, errors.New("Page parameter cannot be a negative number!")
+		return nil, fmt.Errorf("Page parameter cannot be a negative number!")
 	}
 
 	ver := "v2"

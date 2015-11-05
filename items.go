@@ -1,7 +1,7 @@
 package gw2api
 
 import (
-	"errors"
+	"fmt"
 	"net/url"
 	"strconv"
 )
@@ -41,7 +41,7 @@ func (gw2 *GW2Api) ItemsDetails(page int, pageSize int, lang string, ids ...int)
 	} else if page >= 0 {
 		return gw2.ItemsPages(page, pageSize, lang)
 	} else {
-		return nil, errors.New("Invalid combination of parameters. Consider using Items() instead?")
+		return nil, fmt.Errorf("Invalid combination of parameters. Consider using Items() instead?")
 	}
 }
 
@@ -61,7 +61,7 @@ func (gw2 *GW2Api) ItemsIds(lang string, ids ...int) (items []Item, err error) {
 //Returns page of items.
 func (gw2 *GW2Api) ItemsPages(page int, pageSize int, lang string) (items []Item, err error) {
 	if page < 0 {
-		return nil, errors.New("Page parameter cannot be a negative number!")
+		return nil, fmt.Errorf("Page parameter cannot be a negative number!")
 	}
 
 	ver := "v2"

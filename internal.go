@@ -2,7 +2,6 @@ package gw2api
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 	"io/ioutil"
 	"net"
@@ -38,7 +37,7 @@ func (gw2 *GW2Api) fetchEndpoint(ver, tag string, params url.Values, result inte
 		if err = json.Unmarshal(data, &gwerr); err != nil {
 			return err
 		}
-		return errors.New("Endpoint returned error: " + gwerr.Error())
+		return fmt.Errorf("Endpoint returned error: %s", gwerr.Error())
 	}
 	return
 }
