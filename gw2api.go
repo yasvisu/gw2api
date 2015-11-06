@@ -1,10 +1,12 @@
-//Package gw2api provides bindings for the Guild Wars 2 API.
+//Package gw2api provides bindings for the Guild Wars 2 v2 API
 //
-//Using this package is as simple as calling its functions.
+//Using this package is as simple as calling the functions on the API struct
+//Further examples can be found with the function definitions
 //
 //   func main() {
-//     i, _ := gw2api.Items()
-//     fmt.Println(i)
+//     api := NewG2Api()
+//     b, _ := api.Build()
+//     fmt.Println(b)
 //   }
 package gw2api
 
@@ -37,7 +39,6 @@ func NewAuthenticatedGW2Api(auth string) (api *GW2Api, err error) {
 	return
 }
 
-//Set the timeout for each HTTP request.
 func (gw2 *GW2Api) SetTimeout(t time.Duration) {
 	gw2.timeout = t
 	gw2.client.Transport = &http.Transport{
@@ -65,4 +66,8 @@ func (gw2 *GW2Api) SetAuthentication(auth string) (err error) {
 		}
 	}
 	return
+}
+
+func (gw2 *GW2Api) HasPermission(p Permission) bool {
+	return len(gw2.auth) > 1 && flagGet(gw2.authFlags, uint(p))
 }
