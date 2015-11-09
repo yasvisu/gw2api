@@ -47,11 +47,8 @@ func (gw2 *GW2Api) fetchAuthenticatedEndpoint(ver, tag string, perm Permission, 
 		return fmt.Errorf("API requires authentication")
 	}
 
-	var i uint
-	for i = 0; i < uint(PermSize); i++ {
-		if !flagGet(gw2.authFlags, i) {
-			return fmt.Errorf("Missing permissions for authenticated Endpoint")
-		}
+	if perm >= PermAccount && !flagGet(gw2.authFlags, uint(perm)) {
+		return fmt.Errorf("Missing permissions for authenticated Endpoint")
 	}
 
 	if params == nil {

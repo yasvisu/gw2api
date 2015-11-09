@@ -56,7 +56,7 @@ func (gw2 *GW2Api) SetAuthentication(auth string) (err error) {
 	var token TokenInfo
 	if token, err = gw2.TokenInfo(); err != nil {
 		gw2.auth = ""
-		return fmt.Errorf("Failed to fetch Token Info")
+		return fmt.Errorf("Failed to fetch Token Info: %s", err)
 	}
 	for _, perm := range token.Permissions {
 		if p, e := PermissionsMapping[perm]; e {

@@ -37,6 +37,6 @@ type TokenInfo struct {
 func (gw2 *GW2Api) TokenInfo() (token TokenInfo, err error) {
 	ver := "v2"
 	tag := "tokeninfo"
-	err = gw2.fetchAuthenticatedEndpoint(ver, tag, PermAccount, nil, &token)
+	err = gw2.fetchAuthenticatedEndpoint(ver, tag, 0, nil, &token)
 	return
 }
