@@ -25,7 +25,7 @@ func commaList(ids []string) string {
 }
 
 func flagGet(n, pos uint) bool {
-	return n&1<<pos == 0
+	return (n>>pos)&1 == 1
 }
 
 func flagSet(n *uint, pos uint) {
