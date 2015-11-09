@@ -92,21 +92,21 @@ func (gw2 *GW2Api) ContinentFloorRegionMaps(continent, floor, region int) (maps 
 
 func (gw2 *GW2Api) ContinentFloorRegionMapSectors(continent, floor, region, mapID int) (sectors []int, err error) {
 	ver := "v2"
-	tag := fmt.Sprintf("continents/%d/floors/%d/regions/%d/maps/%d/sectors", continent, floor, mapID)
+	tag := fmt.Sprintf("continents/%d/floors/%d/regions/%d/maps/%d/sectors", continent, floor, region, mapID)
 	err = gw2.fetchEndpoint(ver, tag, nil, &sectors)
 	return
 }
 
 func (gw2 *GW2Api) ContinentFloorRegionMapPois(continent, floor, region, mapID int) (pois []int, err error) {
 	ver := "v2"
-	tag := fmt.Sprintf("continents/%d/floors/%d/regions/%d/maps/%d/pois", continent, floor, mapID)
+	tag := fmt.Sprintf("continents/%d/floors/%d/regions/%d/maps/%d/pois", continent, floor, region, mapID)
 	err = gw2.fetchEndpoint(ver, tag, nil, &pois)
 	return
 }
 
 func (gw2 *GW2Api) ContinentFloorRegionMapTasks(continent, floor, region, mapID int) (tasks []int, err error) {
 	ver := "v2"
-	tag := fmt.Sprintf("continents/%d/floors/%d/regions/%d/maps/%d/tasks", continent, floor, mapID)
+	tag := fmt.Sprintf("continents/%d/floors/%d/regions/%d/maps/%d/tasks", continent, floor, region, mapID)
 	err = gw2.fetchEndpoint(ver, tag, nil, &tasks)
 	return
 }

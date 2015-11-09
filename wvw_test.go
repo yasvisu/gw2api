@@ -10,9 +10,9 @@ func TestMatches(t *testing.T) {
 	var err error
 	api := NewGW2Api()
 	if matches, err = api.Matches(); err != nil {
-		fmt.Errorf("Failed to fetch matches: %s", err)
+		t.Error("Failed to fetch matches: ", err)
 	} else if len(matches) < 1 {
-		fmt.Errorf("Fetched an unlikely number of matches")
+		t.Error("Fetched an unlikely number of matches")
 	}
 }
 
@@ -21,9 +21,9 @@ func TestMatchIds(t *testing.T) {
 	var err error
 	api := NewGW2Api()
 	if matches, err = api.MatchIds("all"); err != nil {
-		fmt.Errorf("Failed to parse the match data: %s", err)
+		t.Error("Failed to parse the match data: ", err)
 	} else if len(matches) < 1 {
-		fmt.Errorf("Fetched an unlikely number of matches")
+		t.Error("Fetched an unlikely number of matches")
 	}
 }
 
@@ -32,9 +32,9 @@ func TestObjectives(t *testing.T) {
 	var err error
 	api := NewGW2Api()
 	if objectives, err = api.Objectives(); err != nil {
-		fmt.Errorf("Failed to fetch objectives: %s", err)
+		t.Error("Failed to fetch objectives: ", err)
 	} else if len(objectives) < 1 {
-		fmt.Errorf("Fetched an unlikely number of objectives")
+		t.Error("Fetched an unlikely number of objectives")
 	}
 }
 
@@ -43,8 +43,8 @@ func TestObjectiveIds(t *testing.T) {
 	var err error
 	api := NewGW2Api()
 	if objectives, err = api.ObjectiveIds("all"); err != nil {
-		fmt.Errorf("Failed to parse the objective data: %s", err)
+		t.Error("Failed to parse the objective data: ", err)
 	} else if len(objectives) < 1 {
-		fmt.Errorf("Fetched an unlikely number of objectives")
+		t.Error("Fetched an unlikely number of objectives")
 	}
 }

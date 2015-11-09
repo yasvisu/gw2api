@@ -25,12 +25,12 @@ func ExampleNewAuthenticatedGW2Api() {
 	var api *GW2Api
 	var err error
 	if api, err = NewAuthenticatedGW2Api("<APIKEY>"); err != nil {
-		fmt.Errorf("Failed to connect to the API: %s", err)
+		fmt.Printf("Failed to connect to the API: %s", err)
 	}
 	if api.HasPermission(PermAccount) {
 		var acc Account
 		if acc, err = api.Account(); err != nil {
-			fmt.Errorf("API did not answer correctly: ", err)
+			fmt.Printf("API did not answer correctly: %s", err)
 		}
 		fmt.Printf("%s\n", acc.Name)
 	}
