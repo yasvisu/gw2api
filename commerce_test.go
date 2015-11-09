@@ -32,11 +32,11 @@ func TestCommerceExchange(t *testing.T) {
 	api := NewGW2Api()
 
 	var ex Exchange
-	if ex, err = api.CommerceExchangeGems(100); err != nil || int(ex.Quantity/ex.CoinsPerGem) != 100 {
+	if ex, err = api.CommerceExchangeGems(100); err != nil || int(ex.CoinsPerGem) > 0 {
 		t.Error("Failed to fetch gem exchange rate")
 	}
 
-	if ex, err = api.CommerceExchangeCoins(10000); err != nil || int(ex.Quantity*ex.CoinsPerGem) != 10000 {
+	if ex, err = api.CommerceExchangeCoins(10000); err != nil || int(ex.CoinsPerGem) > 0 {
 		t.Error("Failed to fetch coin exchange rate")
 	}
 }
