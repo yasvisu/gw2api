@@ -2,6 +2,7 @@
 
 ##[Guild Wars 2](https://www.guildwars2.com/en-gb/) - [API](http://wiki.guildwars2.com/wiki/API:Main) bindings for [Go](http://golang.org/).
 [![GoDoc](https://godoc.org/github.com/yasvisu/gw2api?status.png)](https://godoc.org/github.com/yasvisu/gw2api)
+[![Travis](https://travis-ci.org/lhw/gw2api.svg)](https://travis-ci.org/lhw/gw2api)
 
 Note:
 
