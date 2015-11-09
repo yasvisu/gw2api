@@ -39,7 +39,7 @@ func TestObjectiveIds(t *testing.T) {
 	var objectives []Objective
 	var err error
 	api := NewGW2Api()
-	if objectives, err = api.ObjectiveIds("all"); err != nil {
+	if objectives, err = api.ObjectiveIds("en", "all"); err != nil {
 		t.Error("Failed to parse the objective data: ", err)
 	} else if len(objectives) < 1 {
 		t.Error("Fetched an unlikely number of objectives")
