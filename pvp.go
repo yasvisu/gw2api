@@ -36,10 +36,10 @@ type PvPStats struct {
 	Ladders     LadderStats     `json:"ladders"`
 }
 
-func (gw2 *GW2Api) PvPStats() (items []BankItem, err error) {
+func (gw2 *GW2Api) PvPStats() (stats PvPStats, err error) {
 	ver := "v2"
 	tag := "pvp/stats"
-	err = gw2.fetchAuthenticatedEndpoint(ver, tag, PermPvP, nil, &items)
+	err = gw2.fetchAuthenticatedEndpoint(ver, tag, PermPvP, nil, &stats)
 	return
 }
 

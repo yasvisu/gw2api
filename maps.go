@@ -42,7 +42,7 @@ func (gw2 *GW2Api) MapIds(lang string, ids ...int) (maps []Map, err error) {
 	return
 }
 
-func (gw2 *GW2Api) Continents() (res []string, err error) {
+func (gw2 *GW2Api) Continents() (res []int, err error) {
 	ver := "v2"
 	tag := "continents"
 	err = gw2.fetchEndpoint(ver, tag, nil, &res)
@@ -58,13 +58,14 @@ type Continent struct {
 	Floors        []int  `json:"floors"`
 }
 
-func (gw2 *GW2Api) ContinentIds(lang string) (conts []Continent, err error) {
+func (gw2 *GW2Api) ContinentIds(lang string, ids ...int) (conts []Continent, err error) {
 	ver := "v2"
 	tag := "continents"
 	params := url.Values{}
 	if lang != "" {
 		params.Add("lang", lang)
 	}
+	params.Add("ids", commaList(stringSlice(ids)))
 	err = gw2.fetchEndpoint(ver, tag, params, &conts)
 	return
 }
@@ -85,7 +86,7 @@ func (gw2 *GW2Api) ContinentFloorRegions(continent, floor int) (regions []int, e
 
 func (gw2 *GW2Api) ContinentFloorRegionMaps(continent, floor, region int) (maps []int, err error) {
 	ver := "v2"
-	tag := fmt.Sprintf("continents/%d/floors/%d/regions/%d/maps", continent, floor, maps)
+	tag := fmt.Sprintf("continents/%d/floors/%d/regions/%d/maps", continent, floor, region)
 	err = gw2.fetchEndpoint(ver, tag, nil, &maps)
 	return
 }
