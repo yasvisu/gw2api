@@ -1,9 +1,6 @@
 package gw2api
 
-import (
-	"fmt"
-	"testing"
-)
+import "testing"
 
 func TestMatches(t *testing.T) {
 	var matches []string
