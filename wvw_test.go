@@ -12,7 +12,7 @@ func TestMatches(t *testing.T) {
 		t.Error("Fetched an unlikely number of matches")
 	}
 	var matches []Match
-	if matches, err = api.MatchIds(testMatches[0], testMatches[1]); err != nil || len(matches) != 2 {
+	if matches, err = api.MatchIds(testMatches[0:2]...); err != nil || len(matches) != 2 {
 		t.Error("Failed to parse the match data: ", err)
 	}
 }
@@ -27,7 +27,7 @@ func TestObjectives(t *testing.T) {
 		t.Error("Fetched an unlikely number of objectives")
 	}
 	var objectives []Objective
-	if objectives, err = api.ObjectiveIds("en", testObjectives[0], testObjectives[1]); err != nil || len(objectives) != 2 {
+	if objectives, err = api.ObjectiveIds("en", testObjectives[0:2]...); err != nil || len(objectives) != 2 {
 		t.Error("Failed to parse the objective data: ", err)
 	}
 }

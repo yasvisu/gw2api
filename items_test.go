@@ -17,7 +17,7 @@ func TestItems(t *testing.T) {
 	} else if len(items) < 1 {
 		t.Error("Failed to fetch existing items")
 	}
-	if items, err = api.ItemDetails(0, 0, "en", testItems[0], testItems[1]); err != nil {
+	if items, err = api.ItemDetails(0, 0, "en", testItems[0:2]...); err != nil {
 		t.Error("Failed to parse the item data: ", err)
 	} else if len(items) != 2 {
 		t.Error("Failed to fetch existing items")

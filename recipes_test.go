@@ -12,7 +12,7 @@ func TestRecipesIds(t *testing.T) {
 	}
 
 	var recipes []Recipe
-	if recipes, err = api.RecipeIds(testRecipes[0], testRecipes[1]); err != nil {
+	if recipes, err = api.RecipeIds(testRecipes[0:2]...); err != nil {
 		t.Error("Failed to parse the recipe data: ", err)
 	} else if len(recipes) != 2 {
 		t.Error("Failed to fetch existing recipes")

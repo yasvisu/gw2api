@@ -15,7 +15,7 @@ func TestCommerceListings(t *testing.T) {
 	}
 
 	var listings []ArticleListing
-	if listings, err = api.CommerceListingIds(testCommerceListings[0], testCommerceListings[1]); err != nil {
+	if listings, err = api.CommerceListingIds(testCommerceListings[0:2]...); err != nil {
 		t.Error("Failed to parse the listing data: ", err)
 	} else if len(listings) != 2 {
 		t.Error("Failed to fetch existing listings")
@@ -51,7 +51,7 @@ func TestCommercePrices(t *testing.T) {
 	}
 
 	var prices []ArticlePrice
-	if prices, err = api.CommercePriceIds(testCommercePrices[0], testCommercePrices[1]); err != nil {
+	if prices, err = api.CommercePriceIds(testCommercePrices[0:2]...); err != nil {
 		t.Error("Failed to parse the listing data: ", err)
 	} else if len(prices) != 2 {
 		t.Error("Failed to fetch existing prices")

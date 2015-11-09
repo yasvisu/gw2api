@@ -12,7 +12,7 @@ func TestQuaggans(t *testing.T) {
 	}
 
 	var quaggans []Quaggan
-	if quaggans, err = api.QuagganIds(testQuaggans[0], testQuaggans[1]); err != nil {
+	if quaggans, err = api.QuagganIds(testQuaggans[0:2]...); err != nil {
 		t.Error("Failed to parse the quaggan data: ", err)
 	} else if len(quaggans) != 2 {
 		t.Error("Failed to fetch existing quaggans")
@@ -29,7 +29,7 @@ func TestWorlds(t *testing.T) {
 	}
 
 	var worlds []World
-	if worlds, err = api.WorldIds("en", testWorlds[0], testWorlds[1]); err != nil {
+	if worlds, err = api.WorldIds("en", testWorlds[0:2]...); err != nil {
 		t.Error("Failed to parse the world data: ", err)
 	} else if len(worlds) != 2 {
 		t.Error("Failed to fetch existing worlds")
@@ -46,7 +46,7 @@ func TestAchievements(t *testing.T) {
 	}
 
 	var achievements []Achievement
-	if achievements, err = api.AchievementIds("en", testAchievements[0], testAchievements[1]); err != nil {
+	if achievements, err = api.AchievementIds("en", testAchievements[0:2]...); err != nil {
 		t.Error("Failed to parse the achievement data: ", err)
 	} else if len(achievements) != 2 {
 		t.Error("Failed to fetch existing achievements")
@@ -63,7 +63,7 @@ func TestColors(t *testing.T) {
 	}
 
 	var colors []Color
-	if colors, err = api.ColorIds("en", testColors[0], testColors[1]); err != nil {
+	if colors, err = api.ColorIds("en", testColors[0:2]...); err != nil {
 		t.Error("Failed to parse the color data: ", err)
 	} else if len(colors) != 2 {
 		t.Error("Failed to fetch existing colors")
@@ -80,7 +80,7 @@ func TestCurrencies(t *testing.T) {
 	}
 
 	var currencies []Currency
-	if currencies, err = api.CurrencyIds("en", testCurrencies[0], testCurrencies[1]); err != nil {
+	if currencies, err = api.CurrencyIds("en", testCurrencies[0:2]...); err != nil {
 		t.Error("Failed to parse the currency data: ", err)
 	} else if len(currencies) != 2 {
 		t.Error("Failed to fetch existing currencies")
@@ -97,7 +97,7 @@ func TestFiles(t *testing.T) {
 	}
 
 	var files []File
-	if files, err = api.FileIds("en", testFiles[0], testFiles[1]); err != nil {
+	if files, err = api.FileIds(testFiles[0:2]...); err != nil {
 		t.Error("Failed to parse the file data: ", err)
 	} else if len(files) != 2 {
 		t.Error("Failed to fetch existing files")

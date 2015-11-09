@@ -12,7 +12,7 @@ func TestTraits(t *testing.T) {
 	}
 
 	var traits []Trait
-	if traits, err = api.TraitIds("en", testTraits[0], testTraits[1]); err != nil {
+	if traits, err = api.TraitIds("en", testTraits[0:2]...); err != nil {
 		t.Error("Failed to parse the trait data: ", err)
 	} else if len(traits) != 2 {
 		t.Error("Failed to fetch existing traits")
@@ -29,7 +29,7 @@ func TestSpecializations(t *testing.T) {
 	}
 
 	var specializations []Specialization
-	if specializations, err = api.SpecializationIds("en", testSpecializations[0], testSpecializations[1]); err != nil {
+	if specializations, err = api.SpecializationIds("en", testSpecializations[0:2]...); err != nil {
 		t.Error("Failed to parse the specialization data: ", err)
 	} else if len(specializations) != 2 {
 		t.Error("Failed to fetch existing specializations")

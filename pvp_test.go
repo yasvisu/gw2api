@@ -46,7 +46,7 @@ func TestPvPGames(t *testing.T) {
 		t.Error("Fetched an unlikely number of pvp game ids")
 	}
 	var games []PvPGameStats
-	if games, err = api.PvPGameIds(testGames[0], testGames[1]); err != nil || len(games) != 2 {
+	if games, err = api.PvPGameIds(testGames[0:2]...); err != nil || len(games) != 2 {
 		t.Error("Failed to parse the pvp game data: ", err)
 	}
 }
