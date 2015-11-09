@@ -25,8 +25,7 @@ type RecipeIngredient struct {
 }
 
 //Returns list of recipe ids.
-func (gw2 *GW2Api) Recipes(lang string) (res []int, err error) {
-	_ = lang
+func (gw2 *GW2Api) Recipes() (res []int, err error) {
 	ver := "v2"
 	tag := "recipes"
 	err = gw2.fetchEndpoint(ver, tag, nil, &res)
@@ -34,38 +33,32 @@ func (gw2 *GW2Api) Recipes(lang string) (res []int, err error) {
 }
 
 //Returns list of recipes.
-func (gw2 *GW2Api) RecipesIds(lang string, ids ...int) (recipes []Recipe, err error) {
+func (gw2 *GW2Api) RecipeIds(ids ...int) (recipes []Recipe, err error) {
 	ver := "v2"
 	tag := "recipes"
 	params := url.Values{}
-	if lang != "" {
-		params.Add("lang", lang)
-	}
 	params.Add("ids", commaList(stringSlice(ids)))
 	err = gw2.fetchEndpoint(ver, tag, params, &recipes)
 	return
 }
 
 //Internal recipes search (combined)
-func (gw2 *GW2Api) recipesSearch(mode string, lang string, n int) (res []int, err error) {
+func (gw2 *GW2Api) recipesSearch(mode string, n int) (res []int, err error) {
 	ver := "v2"
 	tag := "recipes/search"
 
 	params := url.Values{}
-	if lang != "" {
-		params.Add("lang", lang)
-	}
 	params.Add(mode, strconv.Itoa(n))
 	err = gw2.fetchEndpoint(ver, tag, params, &res)
 	return
 }
 
 //A search interface for recipes - by input.
-func (gw2 *GW2Api) RecipesSearchInput(lang string, input int) ([]int, error) {
-	return gw2.recipesSearch("input", lang, input)
+func (gw2 *GW2Api) RecipeSearchInput(input int) ([]int, error) {
+	return gw2.recipesSearch("input", input)
 }
 
 //A search interface for recipes - by output.
-func (gw2 *GW2Api) RecipesSearchOutput(lang string, output int) ([]int, error) {
-	return gw2.recipesSearch("output", lang, output)
+func (gw2 *GW2Api) RecipeSearchOutput(output int) ([]int, error) {
+	return gw2.recipesSearch("output", output)
 }
