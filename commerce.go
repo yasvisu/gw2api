@@ -15,7 +15,7 @@ func (gw2 *GW2Api) CommerceListings() (res []int, err error) {
 }
 
 //Article type to contain listings of an item.
-type ArticleListings struct {
+type ArticleListing struct {
 	ID    int       `json:"id"`
 	Buys  []Listing `json:"buys"`
 	Sells []Listing `json:"sells"`
@@ -29,7 +29,7 @@ type Listing struct {
 }
 
 //Returns list of articles.
-func (gw2 *GW2Api) CommerceListingsIds(ids ...int) (articles []ArticleListings, err error) {
+func (gw2 *GW2Api) CommerceListingIds(ids ...int) (articles []ArticleListing, err error) {
 	ver := "v2"
 	tag := "commerce/listings"
 	params := url.Values{}
@@ -39,7 +39,7 @@ func (gw2 *GW2Api) CommerceListingsIds(ids ...int) (articles []ArticleListings, 
 }
 
 //Returns page of articles.
-func (gw2 *GW2Api) CommerceListingsPages(page int, pageSize int) (res []ArticleListings, err error) {
+func (gw2 *GW2Api) CommerceListingPages(page int, pageSize int) (res []ArticleListing, err error) {
 	if page < 0 {
 		return nil, fmt.Errorf("Page parameter cannot be a negative number!")
 	}
@@ -96,7 +96,7 @@ func (gw2 *GW2Api) CommerceExchangeCoins(quantity int64) (res Exchange, err erro
 //Returns buy and sell listing information.
 
 //Article type to contain prices of an item.
-type ArticlePrices struct {
+type ArticlePrice struct {
 	ID    int   `json:"id"`
 	Buys  Price `json:"buys"`
 	Sells Price `json:"sells"`
@@ -117,7 +117,7 @@ func (gw2 *GW2Api) CommercePrices() (res []int, err error) {
 }
 
 //Returns list of articles.
-func (gw2 *GW2Api) CommercePricesIds(ids ...int) (artprices []ArticlePrices, err error) {
+func (gw2 *GW2Api) CommercePriceIds(ids ...int) (artprices []ArticlePrice, err error) {
 	ver := "v2"
 	tag := "commerce/prices"
 	params := url.Values{}
