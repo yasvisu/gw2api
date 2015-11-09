@@ -113,7 +113,7 @@ type Specialization struct {
 	MajorTraits []int  `json:"major_traits"`
 }
 
-func (gw2 *GW2Api) Specializations() (res []string, err error) {
+func (gw2 *GW2Api) Specializations() (res []int, err error) {
 	ver := "v2"
 	tag := "specializations"
 	err = gw2.fetchEndpoint(ver, tag, nil, &res)
