@@ -3,7 +3,7 @@ package gw2api
 import "net/url"
 
 //Parent type for all Quaggan Resources.
-type QuagganResource struct {
+type Quaggan struct {
 	ID  string `json:"id"`
 	URL string `json:"url"`
 }
@@ -17,7 +17,7 @@ func (gw2 *GW2Api) Quaggans() (res []string, err error) {
 }
 
 //Returns list of quaggan resources.
-func (gw2 *GW2Api) QuaggansIds(ids ...string) (quag []QuagganResource, err error) {
+func (gw2 *GW2Api) QuagganIds(ids ...string) (quag []Quaggan, err error) {
 	ver := "v2"
 	tag := "quaggans"
 	params := url.Values{}
@@ -27,14 +27,13 @@ func (gw2 *GW2Api) QuaggansIds(ids ...string) (quag []QuagganResource, err error
 }
 
 //Parent type for all -Names endpoints.
-type Name struct {
+type World struct {
 	ID   int    `json:"id"`
 	Name string `json:"name"`
 }
 
 //Returns list of world ids.
-func (gw2 *GW2Api) Worlds(lang string) (res []int, err error) {
-	_ = lang
+func (gw2 *GW2Api) Worlds() (res []int, err error) {
 	ver := "v2"
 	tag := "worlds"
 	err = gw2.fetchEndpoint(ver, tag, nil, &res)
@@ -42,7 +41,7 @@ func (gw2 *GW2Api) Worlds(lang string) (res []int, err error) {
 }
 
 //Returns list of world names.
-func (gw2 *GW2Api) WorldsIds(lang string, ids ...int) (worlds []Name, err error) {
+func (gw2 *GW2Api) WorldIds(lang string, ids ...int) (worlds []World, err error) {
 	ver := "v2"
 	tag := "worlds"
 	params := url.Values{}
@@ -69,7 +68,7 @@ func (gw2 *GW2Api) Build() (v int, err error) {
 	return res.ID, nil
 }
 
-func (gw2 *GW2Api) Achievements() (res []string, err error) {
+func (gw2 *GW2Api) Achievements() (res []int, err error) {
 	ver := "v2"
 	tag := "achievements"
 	err = gw2.fetchEndpoint(ver, tag, nil, &res)
@@ -135,7 +134,7 @@ func (gw2 *GW2Api) ColorIds(lang string, ids ...int) (colors []Color, err error)
 	return
 }
 
-func (gw2 *GW2Api) Currencies() (res []string, err error) {
+func (gw2 *GW2Api) Currencies() (res []int, err error) {
 	ver := "v2"
 	tag := "currencies"
 	err = gw2.fetchEndpoint(ver, tag, nil, &res)
