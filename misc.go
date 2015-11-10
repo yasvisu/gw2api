@@ -206,7 +206,7 @@ func (gw2 *GW2Api) Minis() (res []int, err error) {
 
 // Mini has the basic information and the associated item id for the mini
 type Mini struct {
-	ID     string `json:"id"`
+	ID     int    `json:"id"`
 	Name   string `json:"name"`
 	Icon   string `json:"icon"`
 	Order  int    `json:"order"`
@@ -217,7 +217,7 @@ type Mini struct {
 // lang
 func (gw2 *GW2Api) MiniIds(lang string, ids ...int) (minis []Mini, err error) {
 	ver := "v2"
-	tag := "mini"
+	tag := "minis"
 	params := url.Values{}
 	if lang != "" {
 		params.Add("lang", lang)
