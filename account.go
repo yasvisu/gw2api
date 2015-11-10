@@ -204,3 +204,11 @@ func (gw2 *GW2Api) CharactersPage(page, pageSize int) (chars []Character, err er
 	err = gw2.fetchAuthenticatedEndpoint(ver, tag, PermCharacter, params, &chars)
 	return
 }
+
+// AccountMinis returns the ids of all unlocked minis in the accounts collection
+func (gw2 *GW2Api) AccountMinis() (minis []int, err error) {
+	ver := "v2"
+	tag := "account/minis"
+	err = gw2.fetchAuthenticatedEndpoint(ver, tag, PermUnlocks, nil, &minis)
+	return
+}

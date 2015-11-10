@@ -156,3 +156,24 @@ func TestCharactersPage(t *testing.T) {
 		t.Error("Fetched an unlikely number characters")
 	}
 }
+
+func TestAccountMinis(t *testing.T) {
+	var apikey string
+	if apikey = os.Getenv("APIKEY"); len(apikey) < 1 {
+		t.Skip("Cannot test without APIKEY")
+	}
+	var api *GW2Api
+	var err error
+	if api, err = NewAuthenticatedGW2Api(apikey); err != nil {
+		t.Error(err)
+	}
+	if !api.HasPermission(PermUnlocks) {
+		t.Skip("API-Key does not have required permission for the test")
+	}
+	var minis []int
+	if minis, err = api.AccountMinis(); err != nil {
+		t.Error("Failed to parse the mini unlock data: ", err)
+	} else if len(minis) < 1 {
+		t.Error("Fetched an unlikely number of mini unlocks")
+	}
+}

@@ -103,3 +103,20 @@ func TestFiles(t *testing.T) {
 		t.Error("Failed to fetch existing files")
 	}
 }
+
+func TestMinis(t *testing.T) {
+	var err error
+	api := NewGW2Api()
+
+	var testMinis []int
+	if testMinis, err = api.Minis(); err != nil {
+		t.Error("Failed to fetch minis")
+	}
+
+	var minis []Currency
+	if minis, err = api.CurrencyIds("en", testMinis[0:2]...); err != nil {
+		t.Error("Failed to parse the mini data: ", err)
+	} else if len(minis) != 2 {
+		t.Error("Failed to fetch existing minis")
+	}
+}
