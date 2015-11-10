@@ -45,6 +45,11 @@ func TestAchievements(t *testing.T) {
 		t.Error("Failed to fetch achievements")
 	}
 
+	var testDailyAchievments DailyAchievements
+	if testDailyAchievments, err = api.AchievementsDaily(); err != nil && len(testDailyAchievments.PvE) < 1 {
+		t.Error("Failed to parse daily achievements: ", err)
+	}
+
 	var achievements []Achievement
 	if achievements, err = api.AchievementIds("en", testAchievements[0:2]...); err != nil {
 		t.Error("Failed to parse the achievement data: ", err)

@@ -66,6 +66,7 @@ Documentation and examples hosted in [GoDoc](http://godoc.org/github.com/yasvisu
       * [x] Maps
     * [x] Misc
       * [x] Achievements
+			* [x] Achievements Daily
       * [x] Build
       * [x] Colors
       * [x] Currencies

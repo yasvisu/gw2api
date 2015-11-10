@@ -77,6 +77,34 @@ func (gw2 *GW2Api) Achievements() (res []int, err error) {
 	return
 }
 
+// DailyAchievementLevel range for the achievement. Determining if it is visible
+// to a character or not
+type DailyAchievementLevel struct {
+	Min int `json:"min"`
+	Max int `json:"max"`
+}
+
+// DailyAchievement for the gamemode
+type DailyAchievement struct {
+	ID    int                   `json:"id"`
+	Level DailyAchievementLevel `json:"level"`
+}
+
+// DailyAchievements structured by their gamemode
+type DailyAchievements struct {
+	PvE []DailyAchievement `json:"pve"`
+	PvP []DailyAchievement `json:"pvp"`
+	WvW []DailyAchievement `json:"wvw"`
+}
+
+// AchievementsDaily returns the daily achievements which can be completed today
+func (gw2 *GW2Api) AchievementsDaily() (achievs DailyAchievements, err error) {
+	ver := "v2"
+	tag := "achievements/daily"
+	err = gw2.fetchEndpoint(ver, tag, nil, &achievs)
+	return
+}
+
 // Achievement detailed achievement information
 type Achievement struct {
 	ID          int      `json:"id"`
