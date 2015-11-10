@@ -4,6 +4,7 @@ import (
 	"net/url"
 )
 
+// WinLoss includes the detailed information over all exit stati
 type WinLoss struct {
 	Wins       int `json:"wins"`
 	Losses     int `json:"losses"`
@@ -12,6 +13,7 @@ type WinLoss struct {
 	Forfeits   int `json:"forfeits"`
 }
 
+// ProfessionStats WinLoss per profession
 type ProfessionStats struct {
 	Elementalist WinLoss `json:"elementalist"`
 	Engineer     WinLoss `json:"engineer"`
@@ -24,11 +26,13 @@ type ProfessionStats struct {
 	Warrior      WinLoss `json:"warrior"`
 }
 
+// LadderStats WinLoss per queue
 type LadderStats struct {
 	Ranked   WinLoss `json:"ranked"`
 	UnRanked WinLoss `json:"unranked"`
 }
 
+// PvPStats Meta object for the stats
 type PvPStats struct {
 	PvPRank     int             `json:"pvp_rank"`
 	Aggregate   WinLoss         `json:"aggregate"`
@@ -36,6 +40,8 @@ type PvPStats struct {
 	Ladders     LadderStats     `json:"ladders"`
 }
 
+// PvPStats all current players stats.
+// Requires authentication
 func (gw2 *GW2Api) PvPStats() (stats PvPStats, err error) {
 	ver := "v2"
 	tag := "pvp/stats"
@@ -43,11 +49,13 @@ func (gw2 *GW2Api) PvPStats() (stats PvPStats, err error) {
 	return
 }
 
+// PvPGameScore single games final score
 type PvPGameScore struct {
 	Red  int `json:"red"`
 	Blue int `json:"blue"`
 }
 
+// PvPGameStats all information about a match
 type PvPGameStats struct {
 	ID         string       `json:"id"`
 	MapID      int          `json:"map_id"`
@@ -59,6 +67,7 @@ type PvPGameStats struct {
 	Scores     PvPGameScore `json:"scores"`
 }
 
+// PvPGames lists the last 10 match ids
 func (gw2 *GW2Api) PvPGames() (res []string, err error) {
 	ver := "v2"
 	tag := "pvp/games"
@@ -66,6 +75,7 @@ func (gw2 *GW2Api) PvPGames() (res []string, err error) {
 	return
 }
 
+// PvPGameIds fetches the details for the requested ids
 func (gw2 *GW2Api) PvPGameIds(ids ...string) (games []PvPGameStats, err error) {
 	ver := "v2"
 	tag := "pvp/games"

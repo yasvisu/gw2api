@@ -18,6 +18,7 @@ import (
 	"time"
 )
 
+// GW2Api is the state holder of the API. It includes authentication information
 type GW2Api struct {
 	timeout   time.Duration
 	client    http.Client
@@ -25,6 +26,7 @@ type GW2Api struct {
 	authFlags uint
 }
 
+// NewGW2Api returns a simple GW2Api with a HTTP timeout of 15 seconds
 func NewGW2Api() *GW2Api {
 	api := &GW2Api{
 		client: http.Client{},
@@ -33,12 +35,16 @@ func NewGW2Api() *GW2Api {
 	return api
 }
 
+// NewAuthenticatedGW2Api returns an authenticated GW2Api or an error if
+// authentication failed
 func NewAuthenticatedGW2Api(auth string) (api *GW2Api, err error) {
 	api = NewGW2Api()
 	err = api.SetAuthentication(auth)
 	return
 }
 
+// SetTimeout set HTTP timeout for all new HTTP connections started from this
+// instance
 func (gw2 *GW2Api) SetTimeout(t time.Duration) {
 	gw2.timeout = t
 	gw2.client.Transport = &http.Transport{
@@ -46,6 +52,8 @@ func (gw2 *GW2Api) SetTimeout(t time.Duration) {
 	}
 }
 
+// SetAuthentication adds authentication to a previously un-authenticated
+// instance of GW2Api
 func (gw2 *GW2Api) SetAuthentication(auth string) (err error) {
 	if m, err := regexp.Match(`^(?:[A-F\d]{4,20}-?){8,}$`, []byte(auth)); !m {
 		return fmt.Errorf("Provided API Key doesn't match expectations: %s", err)
@@ -59,7 +67,7 @@ func (gw2 *GW2Api) SetAuthentication(auth string) (err error) {
 		return fmt.Errorf("Failed to fetch Token Info: %s", err)
 	}
 	for _, perm := range token.Permissions {
-		if p, e := PermissionsMapping[perm]; e {
+		if p, e := permissionsMapping[perm]; e {
 			flagSet(&gw2.authFlags, uint(p))
 		} else {
 			log.Print("Found new permission: ", perm)
@@ -68,6 +76,7 @@ func (gw2 *GW2Api) SetAuthentication(auth string) (err error) {
 	return
 }
 
+// HasPermission checks for permissions of the API Key provided by the user
 func (gw2 *GW2Api) HasPermission(p Permission) bool {
 	return len(gw2.auth) > 1 && flagGet(gw2.authFlags, uint(p))
 }

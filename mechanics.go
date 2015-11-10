@@ -2,6 +2,7 @@ package gw2api
 
 import "net/url"
 
+// Trait overview with facts
 type Trait struct {
 	ID             int           `json:"id"`
 	Name           string        `json:"icon"`
@@ -15,6 +16,7 @@ type Trait struct {
 	Skills         []Skill       `json:"skills"`
 }
 
+// Skill with associated facts
 type Skill struct {
 	ID           int           `json:"id"`
 	Name         string        `json:"name"`
@@ -24,6 +26,8 @@ type Skill struct {
 	TraitedFacts []TraitedFact `json:"traited_facts"`
 }
 
+// FactType - One of the types a fact can be
+// Set fields depend on the Type
 type FactType struct {
 	//Common fields
 	Text        string `json:"text"`
@@ -71,6 +75,7 @@ type FactType struct {
 	// UnblockableFact
 }
 
+// Fact associated with a trait or skill
 type Fact struct {
 	Text  string     `json:"text"`
 	Icon  string     `json:"icon"`
@@ -82,8 +87,10 @@ type Fact struct {
 	Overrides     int `json:"overrides"`
 }
 
+// TraitedFact has some extra attributes
 type TraitedFact Fact
 
+// Traits a list of all traits
 func (gw2 *GW2Api) Traits() (res []int, err error) {
 	ver := "v2"
 	tag := "traits"
@@ -91,6 +98,7 @@ func (gw2 *GW2Api) Traits() (res []int, err error) {
 	return
 }
 
+// TraitIds details on the requested traits. Localized to lang
 func (gw2 *GW2Api) TraitIds(lang string, ids ...int) (traits []Trait, err error) {
 	ver := "v2"
 	tag := "traits"
@@ -103,7 +111,8 @@ func (gw2 *GW2Api) TraitIds(lang string, ids ...int) (traits []Trait, err error)
 	return
 }
 
-type Specialization struct {
+// DetailSpecialization spec lines and their traits
+type DetailSpecialization struct {
 	ID          int    `json:"id"`
 	Name        string `json:"name"`
 	Elite       bool   `json:"elite"`
@@ -113,6 +122,7 @@ type Specialization struct {
 	MajorTraits []int  `json:"major_traits"`
 }
 
+// Specializations returns the list of all
 func (gw2 *GW2Api) Specializations() (res []int, err error) {
 	ver := "v2"
 	tag := "specializations"
@@ -120,7 +130,8 @@ func (gw2 *GW2Api) Specializations() (res []int, err error) {
 	return
 }
 
-func (gw2 *GW2Api) SpecializationIds(lang string, ids ...int) (specs []Specialization, err error) {
+// SpecializationIds returns a localized detail object for the requested ids
+func (gw2 *GW2Api) SpecializationIds(lang string, ids ...int) (specs []DetailSpecialization, err error) {
 	ver := "v2"
 	tag := "specializations"
 	params := url.Values{}

@@ -6,7 +6,7 @@ import (
 	"strconv"
 )
 
-//Returns article ids.
+// CommerceListings returns a list of all current transactions ids
 func (gw2 *GW2Api) CommerceListings() (res []int, err error) {
 	ver := "v2"
 	tag := "commerce/listings"
@@ -14,21 +14,22 @@ func (gw2 *GW2Api) CommerceListings() (res []int, err error) {
 	return
 }
 
-//Article type to contain listings of an item.
+// ArticleListing includes the id of the listing and a list of buys and sells
 type ArticleListing struct {
 	ID    int       `json:"id"`
 	Buys  []Listing `json:"buys"`
 	Sells []Listing `json:"sells"`
 }
 
-//Listing type for each listing.
+// Listing includes number of listings at the unit price with respective
+// quantity
 type Listing struct {
 	Listings  int `json:"listings"`
 	UnitPrice int `json:"unit_price"`
 	Quantity  int `json:"quantity"`
 }
 
-//Returns list of articles.
+// CommerceListingIds returns the article listings for the provided ids
 func (gw2 *GW2Api) CommerceListingIds(ids ...int) (articles []ArticleListing, err error) {
 	ver := "v2"
 	tag := "commerce/listings"
@@ -38,7 +39,7 @@ func (gw2 *GW2Api) CommerceListingIds(ids ...int) (articles []ArticleListing, er
 	return
 }
 
-//Returns page of articles.
+// CommerceListingPages for paginating through all existing listings
 func (gw2 *GW2Api) CommerceListingPages(page int, pageSize int) (res []ArticleListing, err error) {
 	if page < 0 {
 		return nil, fmt.Errorf("Page parameter cannot be a negative number!")
@@ -55,16 +56,14 @@ func (gw2 *GW2Api) CommerceListingPages(page int, pageSize int) (res []ArticleLi
 	return
 }
 
-//COMMERCE/EXCHANGE
-//Returns coins and gems exchange information.
-
-//Exchange type for all coin/gem exchanges.
+// Exchange with CoinsPerGem and Quantity. Varies on request
 type Exchange struct {
 	CoinsPerGem int `json:"coins_per_gem"`
 	Quantity    int `json:"quantity"`
 }
 
-//Returns gem exchange prices.
+// CommerceExchangeGems returns the amount of gold given for the quantity of
+// coin
 func (gw2 *GW2Api) CommerceExchangeGems(quantity int) (res Exchange, err error) {
 	if quantity < 1 {
 		return res, fmt.Errorf("Required parameter too low.")
@@ -78,7 +77,8 @@ func (gw2 *GW2Api) CommerceExchangeGems(quantity int) (res Exchange, err error) 
 	return
 }
 
-//Returns coin exchange prices.
+// CommerceExchangeCoins returns the amount of gems given for the quantity of
+// gems
 func (gw2 *GW2Api) CommerceExchangeCoins(quantity int64) (res Exchange, err error) {
 	if quantity < 1 {
 		return res, fmt.Errorf("Required parameter too low.")
@@ -92,23 +92,20 @@ func (gw2 *GW2Api) CommerceExchangeCoins(quantity int64) (res Exchange, err erro
 	return
 }
 
-//COMMERCE/PRICES
-//Returns buy and sell listing information.
-
-//Article type to contain prices of an item.
+// ArticlePrice Listings for a specific item (highest buy, lowest sell)
 type ArticlePrice struct {
 	ID    int   `json:"id"`
 	Buys  Price `json:"buys"`
 	Sells Price `json:"sells"`
 }
 
-//Price type for each buy/sell price.
+// Price includes quantity and the high/low price
 type Price struct {
 	Quantity  int `json:"quantity"`
 	UnitPrice int `json:"unit_price"`
 }
 
-//Returns list of article ids.
+// CommercePrices returns a list of all ids
 func (gw2 *GW2Api) CommercePrices() (res []int, err error) {
 	ver := "v2"
 	tag := "commerce/prices"
@@ -116,7 +113,7 @@ func (gw2 *GW2Api) CommercePrices() (res []int, err error) {
 	return
 }
 
-//Returns list of articles.
+// CommercePriceIds returns price information about the requested ids
 func (gw2 *GW2Api) CommercePriceIds(ids ...int) (artprices []ArticlePrice, err error) {
 	ver := "v2"
 	tag := "commerce/prices"
@@ -126,6 +123,7 @@ func (gw2 *GW2Api) CommercePriceIds(ids ...int) (artprices []ArticlePrice, err e
 	return
 }
 
+// Transaction represents one of the accounts listed buy or sell orders
 type Transaction struct {
 	ID        int    `json:"id"`
 	ItemID    int    `json:"item_id"`
@@ -135,6 +133,7 @@ type Transaction struct {
 	Purchased string `json:"purchased"`
 }
 
+// CommerceTransactionsCurrentBuys returns all current buy orders of the account
 func (gw2 *GW2Api) CommerceTransactionsCurrentBuys() (trans []Transaction, err error) {
 	ver := "v2"
 	tag := "commerce/transactions/current/buys"
@@ -142,6 +141,7 @@ func (gw2 *GW2Api) CommerceTransactionsCurrentBuys() (trans []Transaction, err e
 	return
 }
 
+// CommerceTransactionsCurrentSells returns all current sell orders of the account
 func (gw2 *GW2Api) CommerceTransactionsCurrentSells() (trans []Transaction, err error) {
 	ver := "v2"
 	tag := "commerce/transactions/current/sells"
@@ -149,6 +149,8 @@ func (gw2 *GW2Api) CommerceTransactionsCurrentSells() (trans []Transaction, err 
 	return
 }
 
+// CommerceTransactionsHistoryBuys returns all past buy orders of the account
+// for the last 90 days
 func (gw2 *GW2Api) CommerceTransactionsHistoryBuys() (trans []Transaction, err error) {
 	ver := "v2"
 	tag := "commerce/transactions/current/buys"
@@ -156,6 +158,8 @@ func (gw2 *GW2Api) CommerceTransactionsHistoryBuys() (trans []Transaction, err e
 	return
 }
 
+// CommerceTransactionsHistorySells returns all past sell orders of the account
+// for the last 90 days
 func (gw2 *GW2Api) CommerceTransactionsHistorySells() (trans []Transaction, err error) {
 	ver := "v2"
 	tag := "commerce/transactions/history/sells"

@@ -2,13 +2,13 @@ package gw2api
 
 import "net/url"
 
-//Parent type for all Quaggan Resources.
+// Quaggan id and url of the image
 type Quaggan struct {
 	ID  string `json:"id"`
 	URL string `json:"url"`
 }
 
-//Returns list of quaggan ids.
+// Quaggans list of all quaggan ids
 func (gw2 *GW2Api) Quaggans() (res []string, err error) {
 	ver := "v2"
 	tag := "quaggans"
@@ -16,7 +16,7 @@ func (gw2 *GW2Api) Quaggans() (res []string, err error) {
 	return
 }
 
-//Returns list of quaggan resources.
+// QuagganIds ids -> urls for the quaggan images
 func (gw2 *GW2Api) QuagganIds(ids ...string) (quag []Quaggan, err error) {
 	ver := "v2"
 	tag := "quaggans"
@@ -26,13 +26,13 @@ func (gw2 *GW2Api) QuagganIds(ids ...string) (quag []Quaggan, err error) {
 	return
 }
 
-//Parent type for all -Names endpoints.
+// World id <-> name
 type World struct {
 	ID   int    `json:"id"`
 	Name string `json:"name"`
 }
 
-//Returns list of world ids.
+// Worlds list of all worlds
 func (gw2 *GW2Api) Worlds() (res []int, err error) {
 	ver := "v2"
 	tag := "worlds"
@@ -40,7 +40,7 @@ func (gw2 *GW2Api) Worlds() (res []int, err error) {
 	return
 }
 
-//Returns list of world names.
+// WorldIds localized names of the worlds requested
 func (gw2 *GW2Api) WorldIds(lang string, ids ...int) (worlds []World, err error) {
 	ver := "v2"
 	tag := "worlds"
@@ -53,21 +53,23 @@ func (gw2 *GW2Api) WorldIds(lang string, ids ...int) (worlds []World, err error)
 	return
 }
 
-type Version struct {
+type version struct {
 	ID int `json:"id"`
 }
 
+// Build returns the current Guild Wars 2 build
 func (gw2 *GW2Api) Build() (v int, err error) {
 	ver := "v2"
 	tag := "build"
 
-	var res Version
+	var res version
 	if err = gw2.fetchEndpoint(ver, tag, nil, &res); err != nil {
 		return 0, err
 	}
 	return res.ID, nil
 }
 
+// Achievements - List of all achievement ids
 func (gw2 *GW2Api) Achievements() (res []int, err error) {
 	ver := "v2"
 	tag := "achievements"
@@ -75,6 +77,7 @@ func (gw2 *GW2Api) Achievements() (res []int, err error) {
 	return
 }
 
+// Achievement detailed achievement information
 type Achievement struct {
 	ID          int      `json:"id"`
 	Icon        string   `json:"icon"`
@@ -85,6 +88,7 @@ type Achievement struct {
 	Flags       []string `json:"flags"`
 }
 
+// AchievementIds localized achievement details via ids
 func (gw2 *GW2Api) AchievementIds(lang string, ids ...int) (achievs []Achievement, err error) {
 	ver := "v2"
 	tag := "achievements"
@@ -97,6 +101,7 @@ func (gw2 *GW2Api) AchievementIds(lang string, ids ...int) (achievs []Achievemen
 	return
 }
 
+// Colors list of color ids
 func (gw2 *GW2Api) Colors() (res []int, err error) {
 	ver := "v2"
 	tag := "colors"
@@ -104,6 +109,7 @@ func (gw2 *GW2Api) Colors() (res []int, err error) {
 	return
 }
 
+// ColorDetail per armor type
 type ColorDetail struct {
 	Brightness int     `json:"brightness"`
 	Contrast   float32 `json:"contrast"`
@@ -113,6 +119,7 @@ type ColorDetail struct {
 	RGB        [3]int  `json:"rgb"`
 }
 
+// Color with specific values for the three armor types
 type Color struct {
 	ID      int         `json:"id"`
 	Name    string      `json:"name"`
@@ -122,6 +129,7 @@ type Color struct {
 	Metal   ColorDetail `json:"metal"`
 }
 
+// ColorIds fetch localized details on the requested colors
 func (gw2 *GW2Api) ColorIds(lang string, ids ...int) (colors []Color, err error) {
 	ver := "v2"
 	tag := "colors"
@@ -134,6 +142,7 @@ func (gw2 *GW2Api) ColorIds(lang string, ids ...int) (colors []Color, err error)
 	return
 }
 
+// Currencies list of them
 func (gw2 *GW2Api) Currencies() (res []int, err error) {
 	ver := "v2"
 	tag := "currencies"
@@ -141,6 +150,7 @@ func (gw2 *GW2Api) Currencies() (res []int, err error) {
 	return
 }
 
+// Currency detail struct
 type Currency struct {
 	ID          int    `json:"id"`
 	Name        string `json:"name"`
@@ -149,6 +159,7 @@ type Currency struct {
 	Order       int    `json:"order"`
 }
 
+// CurrencyIds localized currency information
 func (gw2 *GW2Api) CurrencyIds(lang string, ids ...int) (currencies []Currency, err error) {
 	ver := "v2"
 	tag := "colors"
@@ -161,6 +172,7 @@ func (gw2 *GW2Api) CurrencyIds(lang string, ids ...int) (currencies []Currency, 
 	return
 }
 
+// Files - List of available icons on the API
 func (gw2 *GW2Api) Files() (res []string, err error) {
 	ver := "v2"
 	tag := "files"
@@ -168,11 +180,13 @@ func (gw2 *GW2Api) Files() (res []string, err error) {
 	return
 }
 
+// File - Id <-> icon
 type File struct {
 	ID   string `json:"id"`
 	Icon string `json:"icon"`
 }
 
+// FileIds grabs the icon names to the id
 func (gw2 *GW2Api) FileIds(ids ...string) (files []File, err error) {
 	ver := "v2"
 	tag := "files"

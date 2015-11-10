@@ -5,7 +5,7 @@ import (
 	"strconv"
 )
 
-//Parent type for all Recipes endpoints.
+// Recipe meta object for the recipes
 type Recipe struct {
 	ID              int                `json:"id"`
 	Type            string             `json:"type"`
@@ -18,13 +18,13 @@ type Recipe struct {
 	Ingredients     []RecipeIngredient `json:"ingredients"`
 }
 
-//RecipeIngredient for Recipe.Ingredients.
+//RecipeIngredient for the ingredient list
 type RecipeIngredient struct {
 	ItemID int `json:"item_id"`
 	Count  int `json:"count"`
 }
 
-//Returns list of recipe ids.
+//Recipes returns list of recipe ids.
 func (gw2 *GW2Api) Recipes() (res []int, err error) {
 	ver := "v2"
 	tag := "recipes"
@@ -32,7 +32,7 @@ func (gw2 *GW2Api) Recipes() (res []int, err error) {
 	return
 }
 
-//Returns list of recipes.
+// RecipeIds returns the details on the requested recipes
 func (gw2 *GW2Api) RecipeIds(ids ...int) (recipes []Recipe, err error) {
 	ver := "v2"
 	tag := "recipes"
@@ -42,7 +42,6 @@ func (gw2 *GW2Api) RecipeIds(ids ...int) (recipes []Recipe, err error) {
 	return
 }
 
-//Internal recipes search (combined)
 func (gw2 *GW2Api) recipesSearch(mode string, n int) (res []int, err error) {
 	ver := "v2"
 	tag := "recipes/search"
@@ -53,12 +52,12 @@ func (gw2 *GW2Api) recipesSearch(mode string, n int) (res []int, err error) {
 	return
 }
 
-//A search interface for recipes - by input.
+// RecipeSearchInput searches for recipes which use the input item id
 func (gw2 *GW2Api) RecipeSearchInput(input int) ([]int, error) {
 	return gw2.recipesSearch("input", input)
 }
 
-//A search interface for recipes - by output.
+// RecipeSearchOutput searches for recipes which output the item id
 func (gw2 *GW2Api) RecipeSearchOutput(output int) ([]int, error) {
 	return gw2.recipesSearch("output", output)
 }

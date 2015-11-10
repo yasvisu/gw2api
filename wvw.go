@@ -2,20 +2,20 @@ package gw2api
 
 import "net/url"
 
-// Points/Kills/Deaths per team
+// TeamAssoc Points/Kills/Deaths per team
 type TeamAssoc struct {
 	Green int `json:"green"`
 	Blue  int `json:"blue"`
 	Red   int `json:"red"`
 }
 
-// Map bonuses and current owner indetified by Color/Neutral
+// Bonus - Map bonuses and current owner indetified by Color/Neutral
 type Bonus struct {
 	Owner string `json:"owner"`
 	Type  string `json:"type"`
 }
 
-// Map objectives such as towers, keeps, etc
+// MatchObjective - Map objectives such as towers, keeps, etc
 type MatchObjective struct {
 	ID          string `json:"id"`
 	Type        string `json:"type"`
@@ -25,7 +25,7 @@ type MatchObjective struct {
 	ClaimedAt   string `json:"claimed_at"`
 }
 
-// One of the four maps and their status
+// MapWvW - One of the four maps and their status
 type MapWvW struct {
 	ID         int              `json:"id"`
 	Type       string           `json:"type"`
@@ -48,7 +48,7 @@ type Match struct {
 	Maps      []MapWvW  `json:"maps"`
 }
 
-// Returns a list of all current match ids in the form of %d-%d
+// Matches returns a list of all current match ids in the form of %d-%d
 func (gw2 *GW2Api) Matches() (res []string, err error) {
 	ver := "v2"
 	tag := "wvw/matches"
@@ -56,7 +56,7 @@ func (gw2 *GW2Api) Matches() (res []string, err error) {
 	return
 }
 
-// Returns matches as per requested by ids in the form
+// MatchIds returns matches as requested by ids in the form
 // provided by Matches(). Use special id `all` for every match in US/EU
 func (gw2 *GW2Api) MatchIds(ids ...string) (match []Match, err error) {
 	ver := "v2"
@@ -67,7 +67,7 @@ func (gw2 *GW2Api) MatchIds(ids ...string) (match []Match, err error) {
 	return
 }
 
-// Map objectives such as towers, keeps, etc
+// Objective - Map objectives such as towers, keeps, etc
 type Objective struct {
 	ID       string    `json:"id"`
 	Name     string    `json:"name"`
@@ -79,7 +79,7 @@ type Objective struct {
 	Marker   string    `json:"marker"`
 }
 
-// Returns a list of all objectives on wvw maps
+// Objectives returns a list of all objectives on wvw maps
 func (gw2 *GW2Api) Objectives() (res []string, err error) {
 	ver := "v2"
 	tag := "wvw/objectives"
@@ -87,8 +87,8 @@ func (gw2 *GW2Api) Objectives() (res []string, err error) {
 	return
 }
 
-// Returns a list of objectives as request by ids. Use special id `all` to request
-// all objectives
+// ObjectiveIds returns a list of objectives as request by ids. Use special id
+// `all` to request all objectives
 func (gw2 *GW2Api) ObjectiveIds(lang string, ids ...string) (objs []Objective, err error) {
 	ver := "v2"
 	tag := "wvw/objectives"

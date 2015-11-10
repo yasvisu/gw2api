@@ -6,9 +6,7 @@ import (
 	"strconv"
 )
 
-/* ITEMS */
-
-//General Item type all items inherit from.
+// Item includes detailed information about items as requested by the endpoints
 type Item struct {
 	ID           int                    `json:"id"`
 	Name         string                 `json:"name"`
@@ -25,7 +23,7 @@ type Item struct {
 	Details      map[string]interface{} `json:"details"`
 }
 
-//Returns list of item ids.
+// Items returns a list of all item ids.
 func (gw2 *GW2Api) Items() (res []int, err error) {
 	ver := "v2"
 	tag := "items"
@@ -33,7 +31,8 @@ func (gw2 *GW2Api) Items() (res []int, err error) {
 	return
 }
 
-//Returns list of items.
+// ItemDetails returns a list of items depending on the parameters either with
+// pagination or as requested by ids
 func (gw2 *GW2Api) ItemDetails(page int, pageSize int, lang string, ids ...int) ([]Item, error) {
 	if ids != nil {
 		return gw2.ItemIds(lang, ids...)
@@ -44,7 +43,8 @@ func (gw2 *GW2Api) ItemDetails(page int, pageSize int, lang string, ids ...int) 
 	}
 }
 
-//Returns list of items.
+// ItemIds returns a list of detailed item description for the requested ids.
+// Names of the items are localized according to the lang parameter
 func (gw2 *GW2Api) ItemIds(lang string, ids ...int) (items []Item, err error) {
 	ver := "v2"
 	tag := "items"
@@ -57,7 +57,8 @@ func (gw2 *GW2Api) ItemIds(lang string, ids ...int) (items []Item, err error) {
 	return
 }
 
-//Returns page of items.
+// ItemPages returns a list of detailed item description for the requested page.
+// Names of the items are localized according to the lang parameter
 func (gw2 *GW2Api) ItemPages(page int, pageSize int, lang string) (items []Item, err error) {
 	if page < 0 {
 		return nil, fmt.Errorf("Page parameter cannot be a negative number!")

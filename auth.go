@@ -1,7 +1,9 @@
 package gw2api
 
+// Permission abstracts the bitmask containing permission information
 type Permission uint
 
+// Perm* represent the specific permission as required by the API
 const (
 	_                      = iota
 	PermAccount Permission = iota
@@ -15,8 +17,9 @@ const (
 	PermSize
 )
 
+//
 var (
-	PermissionsMapping = map[string]Permission{
+	permissionsMapping = map[string]Permission{
 		"account":     PermAccount,
 		"characters":  PermCharacter,
 		"inventories": PermInventory,
@@ -28,12 +31,17 @@ var (
 	}
 )
 
+// TokenInfo contains information about the provided API Key of the user.
+// Including the name of the key as set by the user and the permissions
+// associated with it
 type TokenInfo struct {
 	ID          string   `json:"id"`
 	Name        string   `json:"name"`
 	Permissions []string `json:"permissions"`
 }
 
+// TokenInfo requests the token information from the authenticated API
+// Requires authentication
 func (gw2 *GW2Api) TokenInfo() (token TokenInfo, err error) {
 	ver := "v2"
 	tag := "tokeninfo"
