@@ -113,7 +113,7 @@ func TestMinis(t *testing.T) {
 		t.Error("Failed to fetch minis")
 	}
 
-	var minis []Currency
+	var minis []Mini
 	if minis, err = api.MiniIds("en", testMinis[0:2]...); err != nil {
 		t.Error("Failed to parse the mini data: ", err)
 	} else if len(minis) != 2 {
