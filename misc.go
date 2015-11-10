@@ -195,3 +195,34 @@ func (gw2 *GW2Api) FileIds(ids ...string) (files []File, err error) {
 	err = gw2.fetchEndpoint(ver, tag, params, &files)
 	return
 }
+
+// Minis returns a list of all mini ids
+func (gw2 *GW2Api) Minis() (res []int, err error) {
+	ver := "v2"
+	tag := "minis"
+	err = gw2.fetchEndpoint(ver, tag, nil, &res)
+	return
+}
+
+// Mini has the basic information and the associated item id for the mini
+type Mini struct {
+	ID     int    `json:"id"`
+	Name   string `json:"name"`
+	Icon   string `json:"icon"`
+	Order  int    `json:"order"`
+	ItemID int    `json:"item_id"`
+}
+
+// MiniIds returns the detailed information about requested minis localized to
+// lang
+func (gw2 *GW2Api) MiniIds(lang string, ids ...int) (minis []Mini, err error) {
+	ver := "v2"
+	tag := "minis"
+	params := url.Values{}
+	if lang != "" {
+		params.Add("lang", lang)
+	}
+	params.Add("ids", commaList(stringSlice(ids)))
+	err = gw2.fetchEndpoint(ver, tag, params, &minis)
+	return
+}
