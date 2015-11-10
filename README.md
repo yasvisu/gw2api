@@ -12,7 +12,8 @@ ArenaNet has not finished development on [V2](http://wiki.guildwars2.com/wiki/AP
 
 ## Requirements
 
-* Developed with [Go](http://golang.org/) 1.3.3. 
+* Developed with [Go](http://golang.org/) 1.4.3 
+* CI tests done with Go 1.4 and 1.5
 
 ## Installation
 To get the gw2api package, simply hit in your console of choice:
@@ -31,45 +32,46 @@ Documentation and examples hosted in [GoDoc](http://godoc.org/github.com/yasvisu
 
 ## Development state
 ###[V2](http://wiki.guildwars2.com/wiki/API:2)
-
 * Polishing and debugging ongoing by default
-* New tests for the updated API
-* Examples for the updated API
-* [x] Account
-  * [x] Bank (Auth)
-  * [x] Dyes (Auth)
-  * [x] Materials (Auth)
-  * [x] Skins (Auth)
-  * [x] Characters (Auth)
-* [x] Commerce
-  * [x] Listings
-  * [x] Exchange
-  * [x] Prices
-  * [x] Transactions (Auth)
-* [x] PvP
-  * [x] Stats (Auth)
-  * [x] Games (Auth)
-* [x] Items
-  * [x] Recipes
-    * [x] Search
-  * [x] Items
-  * [x] Skins
-* [x] World vs World
-  * [x] Matches
-  * [x] Objectives
-* [x] Game Mechanics
-  * [x] Traits
-  * [x] Specializations
-* [x] Map Information
-  * [x] Continents
-  * [x] Maps
-* [x] Misc
-  * [x] Achievements
-  * [x] Build
-  * [x] Colors
-  * [x] Currencies
-  * [x] Quaggans
-  * [x] Worlds
+* [x] New tests for the updated API
+* [x] Examples for the updated API
+* [x] Endpoints
+    * [x] Account
+        * [x] Bank (Auth)
+        * [x] Dyes (Auth)
+        * [x] Materials (Auth)
+        * [x] Skins (Auth)
+        * [x] Characters (Auth)
+    * [x] Commerce
+      * [x] Listings
+      * [x] Exchange
+      * [x] Prices
+      * [x] Transactions (Auth)
+    * [x] PvP
+      * [x] Stats (Auth)
+      * [x] Games (Auth)
+    * [x] Items
+      * [x] Recipes
+        * [x] Search
+      * [x] Items
+      * [x] Skins
+    * [x] World vs World
+      * [x] Matches
+      * [x] Objectives
+    * [x] Game Mechanics
+      * [x] Traits
+      * [x] Specializations
+    * [x] Map Information
+      * [x] Continents
+      * [x] Maps
+    * [x] Misc
+      * [x] Achievements
+      * [x] Build
+      * [x] Colors
+      * [x] Currencies
+      * [x] Quaggans
+      * [x] Worlds
+      * [x] Minis
 
 
 ###[V1](http://wiki.guildwars2.com/wiki/API:1)
