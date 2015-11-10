@@ -28,7 +28,7 @@ func TestSpecializations(t *testing.T) {
 		t.Error("Failed to fetch specializations")
 	}
 
-	var specializations []Specialization
+	var specializations []DetailSpecialization
 	if specializations, err = api.SpecializationIds("en", testSpecializations[0:2]...); err != nil {
 		t.Error("Failed to parse the specialization data: ", err)
 	} else if len(specializations) != 2 {
