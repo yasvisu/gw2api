@@ -4,7 +4,7 @@
 //Further examples can be found with the function definitions
 //
 //   func main() {
-//     api := NewG2Api()
+//     api := NewGW2Api()
 //     b, _ := api.Build()
 //     fmt.Println(b)
 //   }
