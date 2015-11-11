@@ -62,7 +62,10 @@ func TestSetAuthentication(t *testing.T) {
 		t.Error("Should be able to call authenticated endpoint")
 	}
 
-	api.SetAuthentication(apikey)
+	if err = api.SetAuthentication(apikey); err != nil {
+		t.Error("Failed to authenticate")
+	}
+
 	if _, err := api.Account(); err != nil {
 		t.Error("Authentication should be available now")
 	}

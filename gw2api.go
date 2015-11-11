@@ -55,7 +55,8 @@ func (gw2 *GW2Api) SetTimeout(t time.Duration) {
 // SetAuthentication adds authentication to a previously un-authenticated
 // instance of GW2Api
 func (gw2 *GW2Api) SetAuthentication(auth string) (err error) {
-	if m, err := regexp.Match(`^(?:[A-F\d]{4,20}-?){8,}$`, []byte(auth)); !m {
+	var m bool
+	if m, err = regexp.Match(`^(?:[A-F\d]{4,20}-?){8,}$`, []byte(auth)); !m {
 		return fmt.Errorf("Provided API Key doesn't match expectations: %s", err)
 	}
 
