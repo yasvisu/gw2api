@@ -14,6 +14,7 @@ const (
 	PermUnlocks
 	PermPvP
 	PermBuilds
+	PermProgression
 	PermSize
 )
 
@@ -28,6 +29,7 @@ var (
 		"unlocks":     PermUnlocks,
 		"pvp":         PermPvP,
 		"builds":      PermBuilds,
+		"progression": PermProgression,
 	}
 )
 
