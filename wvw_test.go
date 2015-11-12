@@ -15,6 +15,9 @@ func TestMatches(t *testing.T) {
 	if matches, err = api.MatchIds(testMatches[0:2]...); err != nil || len(matches) != 2 {
 		t.Error("Failed to parse the match data: ", err)
 	}
+	if _, err := api.MatchWorld(1001); err != nil {
+		t.Error("Couldn't find match for world id: ", err)
+	}
 }
 
 func TestObjectives(t *testing.T) {

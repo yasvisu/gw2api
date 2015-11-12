@@ -1,6 +1,9 @@
 package gw2api
 
-import "net/url"
+import (
+	"net/url"
+	"strconv"
+)
 
 // TeamAssoc Points/Kills/Deaths per team
 type TeamAssoc struct {
@@ -63,6 +66,16 @@ func (gw2 *GW2Api) MatchIds(ids ...string) (match []Match, err error) {
 	tag := "wvw/matches"
 	params := url.Values{}
 	params.Add("ids", commaList(ids))
+	err = gw2.fetchEndpoint(ver, tag, params, &match)
+	return
+}
+
+// MatchWorld finds the match the server id is participating in
+func (gw2 *GW2Api) MatchWorld(worldId int) (match Match, err error) {
+	ver := "v2"
+	tag := "wvw/matches"
+	params := url.Values{}
+	params.Add("world", strconv.Itoa(worldId))
 	err = gw2.fetchEndpoint(ver, tag, params, &match)
 	return
 }
