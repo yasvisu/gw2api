@@ -71,11 +71,11 @@ func (gw2 *GW2Api) MatchIds(ids ...string) (match []Match, err error) {
 }
 
 // MatchWorld finds the match the server id is participating in
-func (gw2 *GW2Api) MatchWorld(worldId int) (match Match, err error) {
+func (gw2 *GW2Api) MatchWorld(worldID int) (match Match, err error) {
 	ver := "v2"
 	tag := "wvw/matches"
 	params := url.Values{}
-	params.Add("world", strconv.Itoa(worldId))
+	params.Add("world", strconv.Itoa(worldID))
 	err = gw2.fetchEndpoint(ver, tag, params, &match)
 	return
 }
