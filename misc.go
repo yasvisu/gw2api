@@ -1,6 +1,10 @@
 package gw2api
 
-import "net/url"
+import (
+	"fmt"
+	"net/url"
+	"strconv"
+)
 
 // Quaggan id and url of the image
 type Quaggan struct {
@@ -125,6 +129,26 @@ func (gw2 *GW2Api) AchievementIds(lang string, ids ...int) (achievs []Achievemen
 		params.Add("lang", lang)
 	}
 	params.Add("ids", commaList(stringSlice(ids)))
+	err = gw2.fetchEndpoint(ver, tag, params, &achievs)
+	return
+}
+
+// AchievementPages returns a paginated list of all achivements. Use it to grab
+// all achievements from the API. Return values are localized to lang
+func (gw2 *GW2Api) AchievementPages(lang string, page, pageSize int) (achievs []Achievement, err error) {
+	if page < 0 {
+		return nil, fmt.Errorf("Page parameter cannot be a negative number!")
+	}
+	ver := "v2"
+	tag := "achievements"
+	params := url.Values{}
+	if lang != "" {
+		params.Add("lang", lang)
+	}
+	params.Add("page", strconv.Itoa(page))
+	if pageSize >= 0 {
+		params.Add("page_size", strconv.Itoa(pageSize))
+	}
 	err = gw2.fetchEndpoint(ver, tag, params, &achievs)
 	return
 }

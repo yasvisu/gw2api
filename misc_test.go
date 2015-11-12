@@ -56,6 +56,12 @@ func TestAchievements(t *testing.T) {
 	} else if len(achievements) != 2 {
 		t.Error("Failed to fetch existing achievements")
 	}
+
+	if achievements, err = api.AchievementPages("en", 0, 20); err != nil {
+		t.Error("Failed to parse the achievement data: ", err)
+	} else if len(achievements) != 20 {
+		t.Error("Failed to fetch correct amount of achievements")
+	}
 }
 
 func TestColors(t *testing.T) {
