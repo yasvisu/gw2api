@@ -3,6 +3,7 @@ package gw2api
 import (
 	"encoding/json"
 	"fmt"
+	"io"
 	"io/ioutil"
 	"net"
 	"net/http"
@@ -12,6 +13,14 @@ import (
 //Timeout solution adapted from Volker on stackoverflow
 func (gw2 *GW2Api) dialTimeout(network, addr string) (net.Conn, error) {
 	return net.DialTimeout(network, addr, gw2.timeout)
+}
+
+func (gw2 *GW2Api) fetchRawEndpoint(url string) (io io.ReadCloser, err error) {
+	var resp *http.Response
+	if resp, err = gw2.client.Get(url); err != nil {
+		return
+	}
+	return resp.Body, nil
 }
 
 func (gw2 *GW2Api) fetchEndpoint(ver, tag string, params url.Values, result interface{}) (err error) {
