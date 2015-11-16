@@ -3,6 +3,7 @@ package gw2api
 import (
 	"net/url"
 	"strconv"
+	"time"
 )
 
 // TeamAssoc Points/Kills/Deaths per team
@@ -42,8 +43,8 @@ type MapWvW struct {
 // Match including overall stats and indivdual maps with stats
 type Match struct {
 	ID        string    `json:"id"`
-	StartTime string    `json:"start_time"`
-	EndTime   string    `json:"end_time"`
+	StartTime time.Time `json:"start_time"`
+	EndTime   time.Time `json:"end_time"`
 	Scores    TeamAssoc `json:"scores"`
 	Worlds    TeamAssoc `json:"worlds"`
 	Deaths    TeamAssoc `json:"deaths"`

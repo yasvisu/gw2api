@@ -2,6 +2,7 @@ package gw2api
 
 import (
 	"net/url"
+	"time"
 )
 
 // WinLoss includes the detailed information over all exit stati
@@ -59,8 +60,8 @@ type PvPGameScore struct {
 type PvPGameStats struct {
 	ID         string       `json:"id"`
 	MapID      int          `json:"map_id"`
-	Started    string       `json:"started"`
-	Ended      string       `json:"ended"`
+	Started    time.Time    `json:"started"`
+	Ended      time.Time    `json:"ended"`
 	Result     string       `json:"result"`
 	Team       string       `json:"team"`
 	Profession string       `json:"profession"`

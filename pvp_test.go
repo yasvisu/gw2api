@@ -3,6 +3,7 @@ package gw2api
 import (
 	"os"
 	"testing"
+	"time"
 )
 
 func TestPvPStats(t *testing.T) {
@@ -48,5 +49,9 @@ func TestPvPGames(t *testing.T) {
 	var games []PvPGameStats
 	if games, err = api.PvPGameIds(testGames[0:2]...); err != nil || len(games) != 2 {
 		t.Error("Failed to parse the pvp game data: ", err)
+	}
+
+	if time.Since(games[0].Started) < 0 {
+		t.Error("Impossible time difference since match start")
 	}
 }

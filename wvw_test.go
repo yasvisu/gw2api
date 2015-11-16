@@ -1,6 +1,9 @@
 package gw2api
 
-import "testing"
+import (
+	"testing"
+	"time"
+)
 
 func TestMatches(t *testing.T) {
 	var err error
@@ -14,6 +17,9 @@ func TestMatches(t *testing.T) {
 	var matches []Match
 	if matches, err = api.MatchIds(testMatches[0:2]...); err != nil || len(matches) != 2 {
 		t.Error("Failed to parse the match data: ", err)
+	}
+	if time.Since(matches[0].StartTime) < 0 {
+		t.Error("Impossbile time difference since match start")
 	}
 	if _, err := api.MatchWorld(1001); err != nil {
 		t.Error("Couldn't find match for world id: ", err)
