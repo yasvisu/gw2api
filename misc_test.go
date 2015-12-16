@@ -36,34 +36,6 @@ func TestWorlds(t *testing.T) {
 	}
 }
 
-func TestAchievements(t *testing.T) {
-	var err error
-	api := NewGW2Api()
-
-	var testAchievements []int
-	if testAchievements, err = api.Achievements(); err != nil {
-		t.Error("Failed to fetch achievements")
-	}
-
-	var testDailyAchievments DailyAchievements
-	if testDailyAchievments, err = api.AchievementsDaily(); err != nil && len(testDailyAchievments.PvE) < 1 {
-		t.Error("Failed to parse daily achievements: ", err)
-	}
-
-	var achievements []Achievement
-	if achievements, err = api.AchievementIds("en", testAchievements[0:2]...); err != nil {
-		t.Error("Failed to parse the achievement data: ", err)
-	} else if len(achievements) != 2 {
-		t.Error("Failed to fetch existing achievements")
-	}
-
-	if achievements, err = api.AchievementPages("en", 0, 20); err != nil {
-		t.Error("Failed to parse the achievement data: ", err)
-	} else if len(achievements) != 20 {
-		t.Error("Failed to fetch correct amount of achievements")
-	}
-}
-
 func TestColors(t *testing.T) {
 	var err error
 	api := NewGW2Api()

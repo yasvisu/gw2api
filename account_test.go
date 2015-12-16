@@ -177,24 +177,3 @@ func TestAccountMinis(t *testing.T) {
 		t.Error("Fetched an unlikely number of mini unlocks")
 	}
 }
-
-func TestAccountAchievements(t *testing.T) {
-	var apikey string
-	if apikey = os.Getenv("APIKEY"); len(apikey) < 1 {
-		t.Skip("Cannot test without APIKEY")
-	}
-	var api *GW2Api
-	var err error
-	if api, err = NewAuthenticatedGW2Api(apikey); err != nil {
-		t.Error(err)
-	}
-	if !api.HasPermission(PermProgression) {
-		t.Skip("API-Key does not have required permission for the test")
-	}
-	var achievements []AchievementProgress
-	if achievements, err = api.AccountAchievements(); err != nil {
-		t.Error("Failed to parse the achievement unlock data: ", err)
-	} else if len(achievements) < 1 {
-		t.Error("Fetched an unlikely number of achievement unlocks")
-	}
-}

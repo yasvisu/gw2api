@@ -212,27 +212,3 @@ func (gw2 *GW2Api) AccountMinis() (minis []int, err error) {
 	err = gw2.fetchAuthenticatedEndpoint(ver, tag, PermUnlocks, nil, &minis)
 	return
 }
-
-// AchievementProgress represents detailed information about the accounts
-// progress on an achievement.
-type AchievementProgress struct {
-	ID      int `json:"id"`
-	Current int `json:"current"`
-	// Max - The amount needed to complete the achievement. Most WvW achievements
-	// have this set to -1.
-	Max  int  `json:"max"`
-	Done bool `json:"done"`
-	// Bits - This attribute contains an array of numbers from 0 to 7, giving more
-	// specific information on the progress for the achievement. The meaning of
-	// each 0-7 value varies with each achievement. (
-	Bits []int `json:"bits"`
-}
-
-// AccountAchievements returns a list of the accounts progress with all known
-// achievements in the game
-func (gw2 *GW2Api) AccountAchievements() (achievs []AchievementProgress, err error) {
-	ver := "v2"
-	tag := "account/achievements"
-	err = gw2.fetchAuthenticatedEndpoint(ver, tag, PermProgression, nil, &achievs)
-	return
-}
