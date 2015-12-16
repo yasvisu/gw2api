@@ -35,18 +35,29 @@ Documentation and examples hosted in [GoDoc](http://godoc.org/github.com/yasvisu
 * Polishing and debugging ongoing by default
 * [x] New tests for the updated API
 * [x] Examples for the updated API
-* [x] Endpoints
+* [ ] Endpoints
     * [x] Account
         * [x] Bank (Auth)
         * [x] Dyes (Auth)
         * [x] Materials (Auth)
         * [x] Skins (Auth)
         * [x] Characters (Auth)
+    * [x] Achievements
+      * [x] Achievements
+      * [x] Achievements Daily
+      * [x] Achievement Groups
+      * [x] Achievement Categories
     * [x] Commerce
       * [x] Listings
       * [x] Exchange
       * [x] Prices
       * [x] Transactions (Auth)
+    * [ ] Guilds
+      * [x] Guild Upgrades
+      * [x] Guild Permissions
+      * [x] Guild Members (Auth Guild Leader)
+      * [x] Guild Ranks (Auth Guild Leader)
+      * [ ] Emblems
     * [x] PvP
       * [x] Stats (Auth)
       * [x] Games (Auth)
@@ -65,8 +76,6 @@ Documentation and examples hosted in [GoDoc](http://godoc.org/github.com/yasvisu
       * [x] Continents
       * [x] Maps
     * [x] Misc
-      * [x] Achievements
-      * [x] Achievements Daily
       * [x] Build
       * [x] Colors
       * [x] Currencies
