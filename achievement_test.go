@@ -31,6 +31,27 @@ func TestAchievements(t *testing.T) {
 	} else if len(achievements) != 20 {
 		t.Error("Failed to fetch correct amount of achievements")
 	}
+
+	var testGroups []string
+	if testGroups, err = api.AchievementGroups(); err != nil {
+		t.Error("Failed to fetch achievement groups")
+	}
+	var achievementGroups []AchievementGroup
+	if achievementGroups, err = api.AchievementGroupIds("en", testGroups[0:2]...); err != nil {
+		t.Error("Failed to parse the achievement group data: ", err)
+	} else if len(achievementGroups) != 2 {
+		t.Error("Failed to fetch existing achievement groups")
+	}
+
+	if testAchievements, err = api.AchievementCategories(); err != nil {
+		t.Error("Failed to fetch achievement categories")
+	}
+	var achievementCats []AchievementCategory
+	if achievementCats, err = api.AchievementCategoryIds("en", testAchievements[0:2]...); err != nil {
+		t.Error("Failed to parse the achievement category data: ", err)
+	} else if len(achievementCats) != 2 {
+		t.Error("Failed to fetch existing achievement categories")
+	}
 }
 
 func TestAccountAchievements(t *testing.T) {

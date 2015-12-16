@@ -86,6 +86,67 @@ func (gw2 *GW2Api) AchievementPages(lang string, page, pageSize int) (achievs []
 	return
 }
 
+//AchievementGroups list of all achievement groups
+func (gw2 *GW2Api) AchievementGroups() (res []string, err error) {
+	ver := "v2"
+	tag := "achievements/groups"
+	err = gw2.fetchEndpoint(ver, tag, nil, &res)
+	return
+}
+
+// AchievementGroup Group description
+type AchievementGroup struct {
+	ID          string `json:"id"`
+	Name        string `json:"name"`
+	Description string `json:"description"`
+	Order       int    `json:"order"`
+	Categories  []int  `json:"categories"`
+}
+
+// AchievementGroupIds localized achievement groups by id
+func (gw2 *GW2Api) AchievementGroupIds(lang string, ids ...string) (achievs []AchievementGroup, err error) {
+	ver := "v2"
+	tag := "achievements/groups"
+	params := url.Values{}
+	if lang != "" {
+		params.Add("lang", lang)
+	}
+	params.Add("ids", commaList(ids))
+	err = gw2.fetchEndpoint(ver, tag, params, &achievs)
+	return
+}
+
+//AchievementCategories list of all achievement categories
+func (gw2 *GW2Api) AchievementCategories() (res []int, err error) {
+	ver := "v2"
+	tag := "achievements/categories"
+	err = gw2.fetchEndpoint(ver, tag, nil, &res)
+	return
+}
+
+// AchievementCategory Category description
+type AchievementCategory struct {
+	ID           int    `json:"id"`
+	Name         string `json:"name"`
+	Description  string `json:"description"`
+	Order        int    `json:"order"`
+	Icon         string `json:"icon"`
+	Achievements []int  `json:"achievements"`
+}
+
+// AchievementCategoryIds localized achievement categories by id
+func (gw2 *GW2Api) AchievementCategoryIds(lang string, ids ...int) (achievs []AchievementCategory, err error) {
+	ver := "v2"
+	tag := "achievements/categories"
+	params := url.Values{}
+	if lang != "" {
+		params.Add("lang", lang)
+	}
+	params.Add("ids", commaList(stringSlice(ids)))
+	err = gw2.fetchEndpoint(ver, tag, params, &achievs)
+	return
+}
+
 // AchievementProgress represents detailed information about the accounts
 // progress on an achievement.
 type AchievementProgress struct {
