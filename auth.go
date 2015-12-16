@@ -15,6 +15,7 @@ const (
 	PermPvP
 	PermBuilds
 	PermProgression
+	PermGuilds
 	PermSize
 )
 
@@ -30,6 +31,7 @@ var (
 		"pvp":         PermPvP,
 		"builds":      PermBuilds,
 		"progression": PermProgression,
+		"guilds":      PermGuilds,
 	}
 )
 
