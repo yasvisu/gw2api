@@ -102,3 +102,41 @@ func (gw2 *GW2Api) GuildMembers(id string) (member []GuildMember, err error) {
 	err = gw2.fetchAuthenticatedEndpoint(ver, tag, PermGuilds, nil, &member)
 	return
 }
+
+// GuildEmblems returns two lists for all emblem layers
+func (gw2 *GW2Api) GuildEmblems() (foreground []int, background []int, err error) {
+	ver := "v2"
+	tag := "emblem/foregrounds"
+	if err = gw2.fetchEndpoint(ver, tag, nil, &foreground); err != nil {
+		return
+	}
+	tag = "emblem/backgrounds"
+	err = gw2.fetchEndpoint(ver, tag, nil, &background)
+	return
+}
+
+// EmblemLayers for the requested Fore/Background
+type EmblemLayers struct {
+	ID     int      `json:"id"`
+	Layers []string `json:"layers"`
+}
+
+// GuildEmblemForegroundIds returns the layers for the requested foregrounds
+func (gw2 *GW2Api) GuildEmblemForegroundIds(ids ...int) (layers []EmblemLayers, err error) {
+	ver := "v2"
+	tag := "emblem/foregrounds"
+	params := url.Values{}
+	params.Add("ids", commaList(stringSlice(ids)))
+	err = gw2.fetchEndpoint(ver, tag, params, &layers)
+	return
+}
+
+// GuildEmblemBackgroundIds returns the layers for the requested backgrounds
+func (gw2 *GW2Api) GuildEmblemBackgroundIds(ids ...int) (layers []EmblemLayers, err error) {
+	ver := "v2"
+	tag := "emblem/backgrounds"
+	params := url.Values{}
+	params.Add("ids", commaList(stringSlice(ids)))
+	err = gw2.fetchEndpoint(ver, tag, params, &layers)
+	return
+}

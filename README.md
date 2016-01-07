@@ -35,7 +35,7 @@ Documentation and examples hosted in [GoDoc](http://godoc.org/github.com/yasvisu
 * Polishing and debugging ongoing by default
 * [x] New tests for the updated API
 * [x] Examples for the updated API
-* [ ] Endpoints
+* [x] Endpoints
     * [x] Account
         * [x] Bank (Auth)
         * [x] Dyes (Auth)
@@ -52,12 +52,12 @@ Documentation and examples hosted in [GoDoc](http://godoc.org/github.com/yasvisu
       * [x] Exchange
       * [x] Prices
       * [x] Transactions (Auth)
-    * [ ] Guilds
+    * [x] Guilds
       * [x] Guild Upgrades
       * [x] Guild Permissions
       * [x] Guild Members (Auth Guild Leader)
       * [x] Guild Ranks (Auth Guild Leader)
-      * [ ] Emblems
+      * [x] Emblems
     * [x] PvP
       * [x] Stats (Auth)
       * [x] Games (Auth)

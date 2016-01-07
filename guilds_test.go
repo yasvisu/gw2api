@@ -69,5 +69,26 @@ func TestAuthenticatedGuilds(t *testing.T) {
 		}
 		return
 	}
-	t.Error("Failed to parse private guild data or user is not guild leader in any guild: ", err)
+	t.Skip("Failed to parse private guild data or user is not guild leader in any guild: ", err)
+}
+
+func TestGuildEmblems(t *testing.T) {
+	var err error
+	api := NewGW2Api()
+
+	var foregrounds, backgrounds []int
+	if foregrounds, backgrounds, err = api.GuildEmblems(); err != nil {
+		t.Error("Failed to fetch list of emblem ids")
+	}
+	var testEmblems []EmblemLayers
+	if testEmblems, err = api.GuildEmblemForegroundIds(foregrounds[0:2]...); err != nil {
+		t.Error("Failed to parse the foreground emblem data: ", err)
+	} else if len(testEmblems) != 2 {
+		t.Error("Failed to fetch foreground emblems")
+	}
+	if testEmblems, err = api.GuildEmblemBackgroundIds(backgrounds[0:2]...); err != nil {
+		t.Error("Failed to parse the foreground emblem data: ", err)
+	} else if len(testEmblems) != 2 {
+		t.Error("Failed to fetch foreground emblems")
+	}
 }
