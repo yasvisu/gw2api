@@ -1,6 +1,7 @@
 package gw2api
 
 import (
+	"fmt"
 	"os"
 	"testing"
 )
@@ -55,6 +56,8 @@ func TestAuthenticatedGuilds(t *testing.T) {
 
 	var ranks []GuildRank
 	var members []GuildMember
+	var stash []GuildStash
+	var treasury []GuildTreasury
 	for _, g := range acc.Guilds {
 		if ranks, err = api.GuildRanks(g); err != nil {
 			continue
@@ -67,6 +70,21 @@ func TestAuthenticatedGuilds(t *testing.T) {
 		} else if len(members) < 1 {
 			t.Error("Fetched an unlikely number of members")
 		}
+
+		if stash, err = api.GuildStashes(g); err != nil {
+			fmt.Println(err)
+			continue
+		} else if len(stash) < 1 {
+			t.Error("Fetched an unlikely number of stashes")
+		}
+
+		if treasury, err = api.GuildTreasuries(g); err != nil {
+			fmt.Println(err)
+			continue
+		} else if len(treasury) < 1 {
+			t.Error("Fetched an unlikely number of treasury upgrade items")
+		}
+
 		return
 	}
 	t.Skip("Failed to parse private guild data or user is not guild leader in any guild: ", err)

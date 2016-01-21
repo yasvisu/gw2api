@@ -57,6 +57,8 @@ Documentation and examples hosted in [GoDoc](http://godoc.org/github.com/yasvisu
       * [x] Guild Permissions
       * [x] Guild Members (Auth Guild Leader)
       * [x] Guild Ranks (Auth Guild Leader)
+	    * [x] Guild Stash (Auth Guild Leader)
+	    * [x] Guild Treasury (Auth Guild Leader)
       * [x] Emblems
     * [x] PvP
       * [x] Stats (Auth)

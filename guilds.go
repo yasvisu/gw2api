@@ -103,6 +103,49 @@ func (gw2 *GW2Api) GuildMembers(id string) (member []GuildMember, err error) {
 	return
 }
 
+// GuildStashItem represents a single slot in one of the bank tabs
+type GuildStashItem struct {
+	ID    int `json:"id"`
+	Count int `json:"count"`
+}
+
+// GuildStash represents a bank tab in the guild bank
+type GuildStash struct {
+	UpgradeID int              `json:"upgrade_id"`
+	Size      int              `json:"size"`
+	Coins     int              `json:"coins"`
+	Inventory []GuildStashItem `json:"inventory"`
+}
+
+// GuildStashes returns a list of all guild bank tabs and their content
+func (gw2 *GW2Api) GuildStashes(id string) (stash []GuildStash, err error) {
+	ver := "v2"
+	tag := "guild/" + id + "/stash"
+	err = gw2.fetchAuthenticatedEndpoint(ver, tag, PermGuilds, nil, &stash)
+	return
+}
+
+// GuildTreasuryUpgrade represents an upgrade which requires the parent ressource
+type GuildTreasuryUpgrade struct {
+	UpgradeId int `json:"upgrade_id"`
+	Count     int `json:"count"`
+}
+
+// GuildTreasury represents the need for an item. NeededBy show the upgrades needing it
+type GuildTreasury struct {
+	ID       int                    `json:"id"`
+	Count    int                    `json:"count"`
+	NeededBy []GuildTreasuryUpgrade `json:"needed_by"`
+}
+
+// GuildTreasuries returns a list of all currently needed items for any guild upgrade
+func (gw2 *GW2Api) GuildTreasuries(id string) (treasury []GuildTreasury, err error) {
+	ver := "v2"
+	tag := "guild/" + id + "/treasury"
+	err = gw2.fetchAuthenticatedEndpoint(ver, tag, PermGuilds, nil, &treasury)
+	return
+}
+
 // GuildEmblems returns two lists for all emblem layers
 func (gw2 *GW2Api) GuildEmblems() (foreground []int, background []int, err error) {
 	ver := "v2"
