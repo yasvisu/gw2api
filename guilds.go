@@ -127,7 +127,7 @@ func (gw2 *GW2Api) GuildStashes(id string) (stash []GuildStash, err error) {
 
 // GuildTreasuryUpgrade represents an upgrade which requires the parent ressource
 type GuildTreasuryUpgrade struct {
-	UpgradeId int `json:"upgrade_id"`
+	UpgradeID int `json:"upgrade_id"`
 	Count     int `json:"count"`
 }
 

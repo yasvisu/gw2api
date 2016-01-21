@@ -70,3 +70,14 @@ func TestSetAuthentication(t *testing.T) {
 		t.Error("Authentication should be available now")
 	}
 }
+
+func TestAPIError(t *testing.T) {
+	type ProbablyError struct {
+		Foo int `json:"error"`
+	}
+	api := NewGW2Api()
+	var foo ProbablyError
+	if err := api.fetchEndpoint("v2", "foobar", nil, &foo); err == nil {
+		t.Error("Should not have been nil")
+	}
+}

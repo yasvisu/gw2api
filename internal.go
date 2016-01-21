@@ -42,11 +42,11 @@ func (gw2 *GW2Api) fetchEndpoint(ver, tag string, params url.Values, result inte
 	defer resp.Body.Close()
 
 	if err = json.Unmarshal(data, &result); err != nil {
-		var gwerr Error
+		var gwerr APIError
 		if err = json.Unmarshal(data, &gwerr); err != nil {
 			return err
 		}
-		return fmt.Errorf("Endpoint returned error: %s", gwerr.Error())
+		return fmt.Errorf("Endpoint returned error: %s", gwerr)
 	}
 	return
 }
