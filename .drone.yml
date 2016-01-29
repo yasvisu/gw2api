@@ -1,0 +1,20 @@
+build:
+  image: golang:$$GO_VERSION
+  commands:
+    - go get github.com/axw/gocov/gocov
+    - go get ./...
+    - go get -u github.com/golang/lint/golint
+    - go get -u golang.org/x/tools/cmd/goimports
+    - go vet .
+    - test -z "$(gofmt -s -l -w . | tee /dev/stderr)"
+    - test -z "$(golint . | tee /dev/stderr)"
+    - test -z "$(goimports -l -w . | tee /dev/stderr)"
+    - go test -v -cpu=2 .
+    - go test -v -cpu=1,2,4 -short -race .
+  environment:
+    - APIKEY=$$APIKEY
+
+matrix:
+  GO_VERSION:
+    - 1.4
+    - 1.5
