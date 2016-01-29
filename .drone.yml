@@ -9,8 +9,7 @@ build:
     - test -z "$(gofmt -s -l -w . | tee /dev/stderr)"
     - test -z "$(golint . | tee /dev/stderr)"
     - test -z "$(goimports -l -w . | tee /dev/stderr)"
-    - go test -v -cpu=2 .
-    - go test -v -cpu=1,2,4 -short -race .
+    - go test -v .
   environment:
     - APIKEY=$$APIKEY
 
