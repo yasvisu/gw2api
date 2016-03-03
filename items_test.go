@@ -11,6 +11,13 @@ func TestItems(t *testing.T) {
 		t.Error("Failed to fetch items")
 	}
 
+	if _, err = api.ItemDetails(-1, 0, "en"); err == nil {
+		t.Error("Failed to fetch error for impossible arguments")
+	}
+	if _, err = api.ItemPages(-1, 0, "en"); err == nil {
+		t.Error("Failed to fetch error for impossible arguments")
+	}
+
 	var items []Item
 	if items, err = api.ItemDetails(0, 2, "en"); err != nil {
 		t.Error("Failed to parse the item data: ", err)

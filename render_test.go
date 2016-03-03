@@ -9,6 +9,11 @@ func TestTile(t *testing.T) {
 	var err error
 	api := NewGW2Api()
 	var tile image.Image
+
+	if _, err = api.Tile(1024, 1024, 1024, 1024, 1024); err == nil {
+		t.Error("Failed to fetch error for not existant tile")
+	}
+
 	if tile, err = api.Tile(1, 1, 5, 15, 14); err != nil {
 		t.Error("Failed to fetch Lions Arch tile: ", err)
 	}
@@ -21,6 +26,11 @@ func TestRender(t *testing.T) {
 	var err error
 	api := NewGW2Api()
 	var render image.Image
+
+	if _, err = api.Render("FOOBAR", 123); err == nil {
+		t.Error("Failed to fetch error for non existant render")
+	}
+
 	if render, err = api.Render("943538394A94A491C8632FBEF6203C2013443555", 102478); err != nil {
 		t.Error("Failed to fetch icon render for dungeon: ", err)
 	}

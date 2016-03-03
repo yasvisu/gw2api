@@ -4,6 +4,12 @@ import "testing"
 
 func TestMaps(t *testing.T) {
 	api := NewGW2Api()
+
+	if maps, err := api.Maps(); err != nil {
+		t.Error("Failed to fetch map ids: ", err)
+	} else if len(maps) < 1 {
+		t.Error("Fetched an unlikely number of map ids")
+	}
 	var continent int
 	if conts, err := api.Continents(); err != nil {
 		t.Error("Failed to fetch continents: ", err)

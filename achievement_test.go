@@ -26,6 +26,10 @@ func TestAchievements(t *testing.T) {
 		t.Error("Failed to fetch existing achievements")
 	}
 
+	if _, err = api.AchievementPages("en", -1, 0); err == nil {
+		t.Error("Failed to fetch error with wrong arguments")
+	}
+
 	if achievements, err = api.AchievementPages("en", 0, 20); err != nil {
 		t.Error("Failed to parse the achievement data: ", err)
 	} else if len(achievements) != 20 {

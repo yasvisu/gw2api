@@ -149,6 +149,10 @@ func TestCharactersPage(t *testing.T) {
 		t.Skip("API-Key does not have required permission for the test")
 	}
 
+	if _, err = api.CharactersPage(-1, 0); err == nil {
+		t.Error("Failed to fetch error with wrong arguments")
+	}
+
 	var characters []Character
 	if characters, err = api.CharactersPage(0, 20); err != nil {
 		t.Error("Failed to parse the characters data: ", err)

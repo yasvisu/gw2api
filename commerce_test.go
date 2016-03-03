@@ -20,6 +20,10 @@ func TestCommerceListings(t *testing.T) {
 	} else if len(listings) != 2 {
 		t.Error("Failed to fetch existing listings")
 	}
+
+	if _, err = api.CommerceListingPages(-1, 0); err == nil {
+		t.Error("Failed to fetch wrong arguments")
+	}
 	if listings, err = api.CommerceListingPages(0, 2); err != nil {
 		t.Error("Failed to parse the listing data: ", err)
 	} else if len(listings) != 2 {
@@ -30,6 +34,13 @@ func TestCommerceListings(t *testing.T) {
 func TestCommerceExchange(t *testing.T) {
 	var err error
 	api := NewGW2Api()
+
+	if _, err = api.CommerceExchangeGems(0); err == nil {
+		t.Error("Failed to fetch wrong arguments")
+	}
+	if _, err = api.CommerceExchangeCoins(0); err == nil {
+		t.Error("Failed to fetch wrong arguments")
+	}
 
 	var ex Exchange
 	if ex, err = api.CommerceExchangeGems(100); err != nil || ex.CoinsPerGem <= 0 {

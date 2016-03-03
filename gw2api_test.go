@@ -62,6 +62,10 @@ func TestSetAuthentication(t *testing.T) {
 		t.Error("Should be able to call authenticated endpoint")
 	}
 
+	if err := api.SetAuthentication("FOOBAR"); err == nil {
+		t.Error("Failed to catch error for incorrectly formatted APIKEY")
+	}
+
 	if err := api.SetAuthentication(apikey); err != nil {
 		t.Error("Failed to authenticate: ", err)
 	}
