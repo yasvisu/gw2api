@@ -4,6 +4,7 @@
 [![GoDoc](https://godoc.org/github.com/yasvisu/gw2api?status.png)](https://godoc.org/github.com/yasvisu/gw2api)
 [![Travis](https://travis-ci.org/lhw/gw2api.svg)](https://travis-ci.org/lhw/gw2api)
 [![Coverage Status](https://coveralls.io/repos/lhw/gw2api/badge.svg?branch=master&service=github)](https://coveralls.io/github/lhw/gw2api?branch=master)
+[![Go Report Card](https://goreportcard.com/badge/github.com/yasvisu/gw2api)](https://goreportcard.com/report/github.com/yasvisu/gw2api)
 
 
 Note:
@@ -12,8 +13,8 @@ ArenaNet has not finished development on [V2](http://wiki.guildwars2.com/wiki/AP
 
 ## Requirements
 
-* Developed with [Go](http://golang.org/) 1.4.3 
-* CI tests done with Go 1.4 and 1.5
+* Developed with [Go](http://golang.org/) 1.6
+* CI tests done with Go 1.5 and 1.6
 
 ## Installation
 To get the gw2api package, simply hit in your console of choice:
@@ -42,6 +43,7 @@ Documentation and examples hosted in [GoDoc](http://godoc.org/github.com/yasvisu
         * [x] Materials (Auth)
         * [x] Skins (Auth)
         * [x] Characters (Auth)
+        * [x] Shared Inventory (Auth)
     * [x] Achievements
       * [x] Achievements
       * [x] Achievements Daily
@@ -59,6 +61,7 @@ Documentation and examples hosted in [GoDoc](http://godoc.org/github.com/yasvisu
       * [x] Guild Ranks (Auth Guild Leader)
       * [x] Guild Stash (Auth Guild Leader)
       * [x] Guild Treasury (Auth Guild Leader)
+      * [x] Log (Auth Guild Leader)
       * [x] Emblems
     * [x] PvP
       * [x] Stats (Auth)
@@ -88,6 +91,7 @@ Documentation and examples hosted in [GoDoc](http://godoc.org/github.com/yasvisu
 
 ###[V1](http://wiki.guildwars2.com/wiki/API:1)
 
+* DEPRECATED. Will soon be removed
 * Development stopped
   * I am stopping active development on the V1 of the API. If there is interest, I will continue along with my "not done" list. Otherwise, I will not be actively working on V1 unless requested.
 * Done:

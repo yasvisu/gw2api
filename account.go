@@ -212,3 +212,18 @@ func (gw2 *GW2Api) AccountMinis() (minis []int, err error) {
 	err = gw2.fetchAuthenticatedEndpoint(ver, tag, PermUnlocks, nil, &minis)
 	return
 }
+
+// SharedInventorySlot Self-explanatory
+type SharedInventorySlot struct {
+	ID      int    `json:"id"`
+	Count   int    `json:"count"`
+	Binding string `json:"binding"`
+}
+
+// SharedInventory returns the list of items currently in the shared inventory
+func (gw2 *GW2Api) SharedInventory() (slots []SharedInventorySlot, err error) {
+	ver := "v2"
+	tag := "account/inventory"
+	err = gw2.fetchAuthenticatedEndpoint(ver, tag, PermInventory, nil, &slots)
+	return
+}

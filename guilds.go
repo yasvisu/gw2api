@@ -183,3 +183,35 @@ func (gw2 *GW2Api) GuildEmblemBackgroundIds(ids ...int) (layers []EmblemLayers, 
 	err = gw2.fetchEndpoint(ver, tag, params, &layers)
 	return
 }
+
+// GuildLogEntry returns information about certain events in a guild's log
+type GuildLogEntry struct {
+	ID   int       `json:"id"`
+	Time time.Time `json:"time"`
+	Type string    `json:"type"`
+	//type = treasury
+	ItemID int `json:"item_id"`
+	Count  int `json:"count"`
+	//type = motd
+	Motd string `json:"motd"`
+	//type = (motd|joined|invited)
+	User string `json:"user"`
+	//type = influence
+	Activity          string   `json:"activity"`
+	TotalParticipants int      `json:"total_participants"`
+	Participants      []string `json:"participants"`
+	//type = rank_change
+	ChangedBy string `json:"changed_by"`
+	OldRank   string `json:"old_rank"`
+	NewRank   string `json:"new_rank"`
+	//type = invited
+	InvitedBy string `json:"invited_by"`
+}
+
+// GuildLog returns up to a 100 of each type of log entry
+func (gw2 *GW2Api) GuildLog(id string) (log []GuildLogEntry, err error) {
+	ver := "v2"
+	tag := "guild/" + id + "/log"
+	err = gw2.fetchAuthenticatedEndpoint(ver, tag, PermGuilds, nil, &log)
+	return
+}

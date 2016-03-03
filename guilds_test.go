@@ -1,7 +1,6 @@
 package gw2api
 
 import (
-	"fmt"
 	"os"
 	"testing"
 )
@@ -58,6 +57,7 @@ func TestAuthenticatedGuilds(t *testing.T) {
 	var members []GuildMember
 	var stash []GuildStash
 	var treasury []GuildTreasury
+	var log []GuildLogEntry
 	for _, g := range acc.Guilds {
 		if ranks, err = api.GuildRanks(g); err != nil {
 			continue
@@ -72,17 +72,21 @@ func TestAuthenticatedGuilds(t *testing.T) {
 		}
 
 		if stash, err = api.GuildStashes(g); err != nil {
-			fmt.Println(err)
 			continue
 		} else if len(stash) < 1 {
 			t.Error("Fetched an unlikely number of stashes")
 		}
 
 		if treasury, err = api.GuildTreasuries(g); err != nil {
-			fmt.Println(err)
 			continue
 		} else if len(treasury) < 1 {
 			t.Error("Fetched an unlikely number of treasury upgrade items")
+		}
+
+		if log, err = api.GuildLog(g); err != nil {
+			continue
+		} else if len(log) < 1 {
+			t.Error("Fetched an unlikely number of log entries")
 		}
 
 		return

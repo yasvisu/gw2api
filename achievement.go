@@ -66,7 +66,7 @@ func (gw2 *GW2Api) AchievementIds(lang string, ids ...int) (achievs []Achievemen
 	return
 }
 
-// AchievementPages returns a paginated list of all achivements. Use it to grab
+// AchievementPages returns a paginated list of all achievements. Use it to grab
 // all achievements from the API. Return values are localized to lang
 func (gw2 *GW2Api) AchievementPages(lang string, page, pageSize int) (achievs []Achievement, err error) {
 	if page < 0 {
