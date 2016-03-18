@@ -23,5 +23,7 @@ script:
  - go vet .
  - diff <(goimports -d .) <(printf "")
  - diff <(golint .) <(printf "")
- - go test -v .
- - $HOME/gopath/bin/goveralls -service=travis-ci
+ - "$HOME/gopath/bin/goveralls -service=travis-ci"
+env:
+  global:
+  - secure: Y6o8xA/B/U+zRNuXuMcuteAD16Amh/lHi5/lfTELeuXp3TIR6Enhb16kFglc+vMjCjoKxZWr2nOh2DQ+mQbMjfN4NvAk9Mz54fXq70o12xfEmwivjpfGIymQ4VIVM/mpHrnvPi/oF55nFal5JP/PGrxv2ecl7dJDTelWJGvAUIULzphYVunbDE1WnI2iMMTxURQvsQ+lDXd/K1Qu/IBCESRZHGvUCDFPcpxqpOMa+iblnN5x07GK5SU3QaGP64hObx/ha2nqifvxyUizNZR+s/QBZ2DAI5MjfbTaMf5FThnlQj/T1xNQgGY9rBkAdX3FjyAJRhKjiQ1VwhqKmy7te2OFkulbrHlqgUvTyEFsHz1rRFAROzrvMyQckkktwVMu1YWQIVnmmm7XjznjYIS2jE2SE+bEOD4bHQxiEBFMyluDcOsGHSJSxgXvBmvPniDppRwANB1ASGmoCLkJBZjznpzr1qUsQH6DPbOXQEDR1QCbEfVwOIfGiTVdBkv9L2vm2My30NYhHcjQFIU+35LtE5+/wlpy8S9Vu/rzB5VSobi3Wv1ItKeevhPXk+6e4Z2vqRJoZg+NZQegWZFmQ2d0Q3qH/Xes0KrzUx5MF0dvW0hZRVWyZ+LVQDWj2zNrQdacCOOVMBD7FLm3Uwp/IVJ/Adf3ImzUd9Jsup7+mJwkMlk=
