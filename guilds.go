@@ -93,6 +93,9 @@ type GuildMember struct {
 	Name   string    `json:"name"`
 	Rank   string    `json:"rank"`
 	Joined time.Time `json:"joined"`
+
+	// Only as part of guild team
+	Role string `json:"role"`
 }
 
 // GuildMembers returns a list of all members
@@ -206,6 +209,12 @@ type GuildLogEntry struct {
 	NewRank   string `json:"new_rank"`
 	//type = invited
 	InvitedBy string `json:"invited_by"`
+	//type = stash
+	Operation string `json:"operation"`
+	Coints    int    `json:"coins"`
+	//type = upgrade
+	UpgradeID int    `json:"upgrade_id"`
+	Action    string `json:"action"`
 }
 
 // GuildLog returns up to a 100 of each type of log entry
@@ -213,5 +222,22 @@ func (gw2 *GW2Api) GuildLog(id string) (log []GuildLogEntry, err error) {
 	ver := "v2"
 	tag := "guild/" + id + "/log"
 	err = gw2.fetchAuthenticatedEndpoint(ver, tag, PermGuilds, nil, &log)
+	return
+}
+
+// GuildTeam a designated team for PvP
+type GuildTeam struct {
+	ID        int           `json:"id"`
+	Members   []GuildMember `json:"members"`
+	Name      string        `json:"name"`
+	Aggregate WinLoss       `json:"aggregate"`
+	Ladders   LadderStats   `json:"ladders"`
+}
+
+// GuildPvPTeams returns a list of teams for a guild
+func (gw2 *GW2Api) GuildPvPTeams(id string) (teams []GuildTeam, err error) {
+	ver := "v2"
+	tag := "guild/" + id + "/teams"
+	err = gw2.fetchAuthenticatedEndpoint(ver, tag, PermGuilds, nil, &teams)
 	return
 }

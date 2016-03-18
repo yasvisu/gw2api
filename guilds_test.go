@@ -58,6 +58,7 @@ func TestAuthenticatedGuilds(t *testing.T) {
 	var stash []GuildStash
 	var treasury []GuildTreasury
 	var log []GuildLogEntry
+	var teams []GuildTeam
 	for _, g := range acc.Guilds {
 		if ranks, err = api.GuildRanks(g); err != nil {
 			continue
@@ -87,6 +88,12 @@ func TestAuthenticatedGuilds(t *testing.T) {
 			continue
 		} else if len(log) < 1 {
 			t.Error("Fetched an unlikely number of log entries")
+		}
+
+		if teams, err = api.GuildPvPTeams(g); err != nil {
+			continue
+		} else if len(teams) < 1 {
+			t.Log("Fetched no guild teams")
 		}
 
 		return

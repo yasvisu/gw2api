@@ -12,7 +12,13 @@ type Account struct {
 	Name    string   `json:"name"`
 	World   int      `json:"world"`
 	Guilds  []string `json:"guilds"`
+	Access  string   `json:"access"`
 	Created string   `json:"created"`
+
+	FractalLevel int `json:"fractal_level"`
+	DailyAP      int `json:"daily_ap"`
+	MonthlyAP    int `json:"monthly_ap"`
+	WvWRank      int `json:"wvw_rank"`
 }
 
 // Account fetches the general account information

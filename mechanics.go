@@ -10,6 +10,7 @@ type Trait struct {
 	Description    string        `json:"description"`
 	Specialization int           `json:"specialization"`
 	Tier           int           `json:"tier"`
+	Order          int           `josn:"order"`
 	Slot           string        `json:"slot"`
 	Facts          []Fact        `json:"facts"`
 	TraitedFacts   []TraitedFact `json:"traited_facts"`

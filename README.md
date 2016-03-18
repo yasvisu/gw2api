@@ -63,9 +63,12 @@ Documentation and examples hosted in [GoDoc](http://godoc.org/github.com/yasvisu
       * [x] Guild Treasury (Auth Guild Leader)
       * [x] Log (Auth Guild Leader)
       * [x] Emblems
+      *  [x] Teams
     * [x] PvP
       * [x] Stats (Auth)
       * [x] Games (Auth)
+      * [x] Standings (Auth)
+      * [x] Season
     * [x] Items
       * [x] Recipes
         * [x] Search
