@@ -94,16 +94,5 @@ Documentation and examples hosted in [GoDoc](http://godoc.org/github.com/yasvisu
 
 ###[V1](http://wiki.guildwars2.com/wiki/API:1)
 
-* DEPRECATED. Will soon be removed
-* Development stopped
-  * I am stopping active development on the V1 of the API. If there is interest, I will continue along with my "not done" list. Otherwise, I will not be actively working on V1 unless requested.
-* Done:
-  * All endpoints wrapped
-  * Basic tests for all endpoints
-  * Documented code
-  * [MIT license-d](https://github.com/yasvisu/gw2api/blob/master/LICENSE)
-* Not done:
-  * Make more thorough tests
-   * Check for deep struct Unmarshalling
-  * Write usage examples
-  * Get feedback
+* Deprecated
+* Removed as all old features are now present in API v2
