@@ -13,6 +13,13 @@ type TeamAssoc struct {
 	Red   int `json:"red"`
 }
 
+// TeamMulti Used in multi association for teams
+type TeamMulti struct {
+	Green []int `json:"green"`
+	Blue  []int `json:"blue"`
+	Red   []int `json:"red"`
+}
+
 // Bonus - Map bonuses and current owner indetified by Color/Neutral
 type Bonus struct {
 	Owner string `json:"owner"`
@@ -47,6 +54,7 @@ type Match struct {
 	EndTime   time.Time `json:"end_time"`
 	Scores    TeamAssoc `json:"scores"`
 	Worlds    TeamAssoc `json:"worlds"`
+	AllWorlds TeamMulti `json:"all_worlds"`
 	Deaths    TeamAssoc `json:"deaths"`
 	Kills     TeamAssoc `json:"kills"`
 	Maps      []MapWvW  `json:"maps"`
