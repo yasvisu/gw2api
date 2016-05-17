@@ -68,6 +68,7 @@ type PvPGameStats struct {
 	Team       string       `json:"team"`
 	Profession string       `json:"profession"`
 	Scores     PvPGameScore `json:"scores"`
+	RatingType string       `json:"rating_type"`
 }
 
 // PvPGames lists the last 10 match ids

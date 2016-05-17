@@ -132,6 +132,8 @@ type AchievementCategory struct {
 	Order        int    `json:"order"`
 	Icon         string `json:"icon"`
 	Achievements []int  `json:"achievements"`
+	// Either GuildWars2 or HeartOfThorns
+	RequiredAccess []string `json:"required_access"`
 }
 
 // AchievementCategoryIds localized achievement categories by id

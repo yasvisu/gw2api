@@ -225,13 +225,23 @@ func (gw2 *GW2Api) GuildLog(id string) (log []GuildLogEntry, err error) {
 	return
 }
 
+// GuildTeamStats per season stats of a guild team
+type GuildTeamStats struct {
+	SeasonID string `json:"id"`
+	Wins     int    `json:"wins"`
+	Losses   int    `json:"losses"`
+	Rating   int    `json:"rating"`
+}
+
 // GuildTeam a designated team for PvP
 type GuildTeam struct {
-	ID        int           `json:"id"`
-	Members   []GuildMember `json:"members"`
-	Name      string        `json:"name"`
-	Aggregate WinLoss       `json:"aggregate"`
-	Ladders   LadderStats   `json:"ladders"`
+	ID        int            `json:"id"`
+	Members   []GuildMember  `json:"members"`
+	Name      string         `json:"name"`
+	Aggregate WinLoss        `json:"aggregate"`
+	Ladders   LadderStats    `json:"ladders"`
+	Games     PvPGameStats   `json:"games"`
+	Seasons   GuildTeamStats `json:"seasons"`
 }
 
 // GuildPvPTeams returns a list of teams for a guild

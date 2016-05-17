@@ -135,9 +135,9 @@ type Specialization struct {
 // Specalizations is a meta object which holds the specalizations associated
 // with the different game types
 type Specalizations struct {
-	PvE Specialization `json:"pve"`
-	PvP Specialization `json:"pvp"`
-	WvW Specialization `json:"wvw"`
+	PvE []Specialization `json:"pve"`
+	PvP []Specialization `json:"pvp"`
+	WvW []Specialization `json:"wvw"`
 }
 
 // InventoryItem Item in a characters inventory and their count
@@ -162,6 +162,37 @@ type Equipment struct {
 	Skin      int    `json:"skin"`
 }
 
+// PetSelection for rangers
+type PetSelection struct {
+	Terrestrial []int `json:"terrestrial"`
+	Aquatic     []int `json:"aquatic"`
+}
+
+// SkillSelection shows the currently selected heals, utility elite and legends
+type SkillSelection struct {
+	Legends []string     `json:"legends"`
+	Heal    int          `json:"heal"`
+	Utility []int        `json:"utility"`
+	Elite   int          `json:"elite"`
+	Pets    PetSelection `json:"pets"`
+}
+
+// Skills per game type
+type Skills struct {
+	PvE SkillSelection `json:"pve"`
+	PvP SkillSelection `json:"pvp"`
+	WvW SkillSelection `json:"wvw"`
+}
+
+// EquipmentPvP selected items in PvP mode
+type EquipmentPvP struct {
+	// references PvPAmulets
+	Amulet int `json:"amulet"`
+	Rune   int `json:"rune"`
+	// UI order left to right
+	Sigils []int `json:"sigils"`
+}
+
 // Character combines all information about the character
 type Character struct {
 	Name          string               `json:"name"`
@@ -175,8 +206,10 @@ type Character struct {
 	Deaths        int                  `json:"deaths"`
 	Crafting      []CraftingDiscipline `json:"crafting"`
 	Specalization Specalizations       `json:"specalization"`
+	Skill         Skills               `json:"skills"`
 	Bags          []Bag                `json:"bags"`
 	Equipment     []Equipment          `json:"equipment"`
+	EquipmentPvP  EquipmentPvP         `json:"equipment_pvp"`
 }
 
 // CharacterIds requests detailed information about the characters requested via
