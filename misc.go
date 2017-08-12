@@ -130,7 +130,7 @@ type Currency struct {
 // CurrencyIds localized currency information
 func (gw2 *GW2Api) CurrencyIds(lang string, ids ...int) (currencies []Currency, err error) {
 	ver := "v2"
-	tag := "colors"
+	tag := "currencies"
 	params := url.Values{}
 	if lang != "" {
 		params.Add("lang", lang)
