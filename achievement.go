@@ -45,6 +45,14 @@ func (gw2 *GW2Api) AchievementsDaily() (achievs DailyAchievements, err error) {
 	return
 }
 
+// AchievementsTomorrow returns the daily achievements which can be completed tomorrow
+func (gw2 *GW2Api) AchievementsDailyTomorrow() (achievs DailyAchievements, err error) {
+	ver := "v2"
+	tag := "achievements/daily/tomorrow"
+	err = gw2.fetchEndpoint(ver, tag, nil, &achievs)
+	return
+}
+
 // Achievement detailed achievement information
 type Achievement struct {
 	ID          int      `json:"id"`
