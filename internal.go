@@ -46,7 +46,7 @@ func (gw2 *GW2Api) fetchEndpoint(ver, tag string, params url.Values, result inte
 		if err = json.Unmarshal(data, &gwerr); err != nil {
 			return err
 		}
-		return fmt.Errorf("Endpoint returned error: %s", gwerr)
+		return fmt.Errorf("Endpoint returned error: %v", gwerr)
 	}
 	return
 }

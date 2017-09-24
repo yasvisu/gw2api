@@ -23,21 +23,32 @@ type DailyAchievementLevel struct {
 
 // DailyAchievement for the gamemode
 type DailyAchievement struct {
-	ID    int                   `json:"id"`
-	Level DailyAchievementLevel `json:"level"`
+	ID          int                   `json:"id"`
+	Level       DailyAchievementLevel `json:"level"`
+	Requirement []string              `json:"required_access"`
 }
 
 // DailyAchievements structured by their gamemode
 type DailyAchievements struct {
-	PvE []DailyAchievement `json:"pve"`
-	PvP []DailyAchievement `json:"pvp"`
-	WvW []DailyAchievement `json:"wvw"`
+	PvE      []DailyAchievement `json:"pve"`
+	PvP      []DailyAchievement `json:"pvp"`
+	WvW      []DailyAchievement `json:"wvw"`
+	Fractals []DailyAchievement `json:"fractals"`
+	Special  []DailyAchievement `json:"special"`
 }
 
 // AchievementsDaily returns the daily achievements which can be completed today
 func (gw2 *GW2Api) AchievementsDaily() (achievs DailyAchievements, err error) {
 	ver := "v2"
 	tag := "achievements/daily"
+	err = gw2.fetchEndpoint(ver, tag, nil, &achievs)
+	return
+}
+
+// AchievementsTomorrow returns the daily achievements which can be completed tomorrow
+func (gw2 *GW2Api) AchievementsDailyTomorrow() (achievs DailyAchievements, err error) {
+	ver := "v2"
+	tag := "achievements/daily/tomorrow"
 	err = gw2.fetchEndpoint(ver, tag, nil, &achievs)
 	return
 }
