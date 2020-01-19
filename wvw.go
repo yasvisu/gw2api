@@ -49,16 +49,17 @@ type MapWvW struct {
 
 // Match including overall stats and individual maps with stats
 type Match struct {
-	ID            string    `json:"id"`
-	StartTime     time.Time `json:"start_time"`
-	EndTime       time.Time `json:"end_time"`
-	Scores        TeamAssoc `json:"scores"`
-	Worlds        TeamAssoc `json:"worlds"`
-	AllWorlds     TeamMulti `json:"all_worlds"`
-	Deaths        TeamAssoc `json:"deaths"`
-	Kills         TeamAssoc `json:"kills"`
-	Maps          []MapWvW  `json:"maps"`
-	VictoryPoints TeamAssoc `json:"victory_points"`
+	ID            string     `json:"id"`
+	StartTime     time.Time  `json:"start_time"`
+	EndTime       time.Time  `json:"end_time"`
+	Scores        TeamAssoc  `json:"scores"`
+	Worlds        TeamAssoc  `json:"worlds"`
+	AllWorlds     TeamMulti  `json:"all_worlds"`
+	Deaths        TeamAssoc  `json:"deaths"`
+	Kills         TeamAssoc  `json:"kills"`
+	Maps          []MapWvW   `json:"maps"`
+	VictoryPoints TeamAssoc  `json:"victory_points"`
+	Skirmishes    []Skirmish `json:"skirmishes"`
 }
 
 // Match including overall stats and individual maps with stats
