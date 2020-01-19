@@ -47,7 +47,7 @@ type MapWvW struct {
 	Objectives []MatchObjective `json:"objectives"`
 }
 
-// Match including overall stats and indivdual maps with stats
+// Match including overall stats and individual maps with stats
 type Match struct {
 	ID            string    `json:"id"`
 	StartTime     time.Time `json:"start_time"`
@@ -59,6 +59,19 @@ type Match struct {
 	Kills         TeamAssoc `json:"kills"`
 	Maps          []MapWvW  `json:"maps"`
 	VictoryPoints TeamAssoc `json:"victory_points"`
+}
+
+// Match including overall stats and individual maps with stats
+type Skirmish struct {
+	ID        string        `json:"id"`
+	Scores    TeamAssoc     `json:"scores"`
+	MapScores []SkirmishMap `json:"map_scores"`
+}
+
+type SkirmishMap struct {
+	ID     int       `json:"id"`
+	Type   string    `json:"type"`
+	Scores TeamAssoc `json:"scores"`
 }
 
 // Matches returns a list of all current match ids in the form of %d-%d
