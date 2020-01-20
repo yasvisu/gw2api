@@ -47,6 +47,13 @@ type MapWvW struct {
 	Objectives []MatchObjective `json:"objectives"`
 }
 
+type MapWvWStats struct {
+	ID     int       `json:"id"`
+	Type   string    `json:"type"`
+	Deaths TeamAssoc `json:"deaths"`
+	Kills  TeamAssoc `json:"kills"`
+}
+
 // Match including overall stats and individual maps with stats
 type Match struct {
 	ID            string     `json:"id"`
@@ -60,6 +67,14 @@ type Match struct {
 	Maps          []MapWvW   `json:"maps"`
 	VictoryPoints TeamAssoc  `json:"victory_points"`
 	Skirmishes    []Skirmish `json:"skirmishes"`
+}
+
+// Match including overall stats and individual maps with stats
+type MatchStats struct {
+	ID     string        `json:"id"`
+	Deaths TeamAssoc     `json:"deaths"`
+	Kills  TeamAssoc     `json:"kills"`
+	Maps   []MapWvWStats `json:"maps"`
 }
 
 // Match including overall stats and individual maps with stats
@@ -98,6 +113,16 @@ func (gw2 *GW2Api) MatchIds(ids ...string) (match []Match, err error) {
 func (gw2 *GW2Api) MatchWorld(worldID int) (match Match, err error) {
 	ver := "v2"
 	tag := "wvw/matches"
+	params := url.Values{}
+	params.Add("world", strconv.Itoa(worldID))
+	err = gw2.fetchEndpoint(ver, tag, params, &match)
+	return
+}
+
+// MatchWorld finds the match the server id is participating in
+func (gw2 *GW2Api) MatchWorldStats(worldID int) (match MatchStats, err error) {
+	ver := "v2"
+	tag := "wvw/matches/stats"
 	params := url.Values{}
 	params.Add("world", strconv.Itoa(worldID))
 	err = gw2.fetchEndpoint(ver, tag, params, &match)
