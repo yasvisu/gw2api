@@ -79,7 +79,7 @@ type MatchStats struct {
 
 // Match including overall stats and individual maps with stats
 type Skirmish struct {
-	ID        string        `json:"id"`
+	ID        int           `json:"id"`
 	Scores    TeamAssoc     `json:"scores"`
 	MapScores []SkirmishMap `json:"map_scores"`
 }
