@@ -119,8 +119,16 @@ func (gw2 *GW2Api) MatchWorld(worldID int) (match Match, err error) {
 	return
 }
 
-// MatchWorld finds the match the server id is participating in
-func (gw2 *GW2Api) MatchWorldStats(worldID int) (match MatchStats, err error) {
+// MatchStats gets the stats by the match id
+func (gw2 *GW2Api) MatchStats(matchId string) (match MatchStats, err error) {
+	ver := "v2"
+	tag := "wvw/matches/stats/" + matchId
+	err = gw2.fetchEndpoint(ver, tag, nil, &match)
+	return
+}
+
+// MatchStatsWorld finds the match the server id is participating in
+func (gw2 *GW2Api) MatchStatsWorld(worldID int) (match MatchStats, err error) {
 	ver := "v2"
 	tag := "wvw/matches/stats"
 	params := url.Values{}
