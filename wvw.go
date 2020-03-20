@@ -47,17 +47,47 @@ type MapWvW struct {
 	Objectives []MatchObjective `json:"objectives"`
 }
 
-// Match including overall stats and indivdual maps with stats
+type MapWvWStats struct {
+	ID     int       `json:"id"`
+	Type   string    `json:"type"`
+	Deaths TeamAssoc `json:"deaths"`
+	Kills  TeamAssoc `json:"kills"`
+}
+
+// Match including overall stats and individual maps with stats
 type Match struct {
-	ID        string    `json:"id"`
-	StartTime time.Time `json:"start_time"`
-	EndTime   time.Time `json:"end_time"`
-	Scores    TeamAssoc `json:"scores"`
-	Worlds    TeamAssoc `json:"worlds"`
-	AllWorlds TeamMulti `json:"all_worlds"`
-	Deaths    TeamAssoc `json:"deaths"`
-	Kills     TeamAssoc `json:"kills"`
-	Maps      []MapWvW  `json:"maps"`
+	ID            string     `json:"id"`
+	StartTime     time.Time  `json:"start_time"`
+	EndTime       time.Time  `json:"end_time"`
+	Scores        TeamAssoc  `json:"scores"`
+	Worlds        TeamAssoc  `json:"worlds"`
+	AllWorlds     TeamMulti  `json:"all_worlds"`
+	Deaths        TeamAssoc  `json:"deaths"`
+	Kills         TeamAssoc  `json:"kills"`
+	Maps          []MapWvW   `json:"maps"`
+	VictoryPoints TeamAssoc  `json:"victory_points"`
+	Skirmishes    []Skirmish `json:"skirmishes"`
+}
+
+// Match including overall stats and individual maps with stats
+type MatchStats struct {
+	ID     string        `json:"id"`
+	Deaths TeamAssoc     `json:"deaths"`
+	Kills  TeamAssoc     `json:"kills"`
+	Maps   []MapWvWStats `json:"maps"`
+}
+
+// Match including overall stats and individual maps with stats
+type Skirmish struct {
+	ID        int           `json:"id"`
+	Scores    TeamAssoc     `json:"scores"`
+	MapScores []SkirmishMap `json:"map_scores"`
+}
+
+type SkirmishMap struct {
+	ID     int       `json:"id"`
+	Type   string    `json:"type"`
+	Scores TeamAssoc `json:"scores"`
 }
 
 // Matches returns a list of all current match ids in the form of %d-%d
@@ -83,6 +113,24 @@ func (gw2 *GW2Api) MatchIds(ids ...string) (match []Match, err error) {
 func (gw2 *GW2Api) MatchWorld(worldID int) (match Match, err error) {
 	ver := "v2"
 	tag := "wvw/matches"
+	params := url.Values{}
+	params.Add("world", strconv.Itoa(worldID))
+	err = gw2.fetchEndpoint(ver, tag, params, &match)
+	return
+}
+
+// MatchStats gets the stats by the match id
+func (gw2 *GW2Api) MatchStats(matchId string) (match MatchStats, err error) {
+	ver := "v2"
+	tag := "wvw/matches/stats/" + matchId
+	err = gw2.fetchEndpoint(ver, tag, nil, &match)
+	return
+}
+
+// MatchStatsWorld finds the match the server id is participating in
+func (gw2 *GW2Api) MatchStatsWorld(worldID int) (match MatchStats, err error) {
+	ver := "v2"
+	tag := "wvw/matches/stats"
 	params := url.Values{}
 	params.Add("world", strconv.Itoa(worldID))
 	err = gw2.fetchEndpoint(ver, tag, params, &match)
