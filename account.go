@@ -12,7 +12,7 @@ type Account struct {
 	Name    string   `json:"name"`
 	World   int      `json:"world"`
 	Guilds  []string `json:"guilds"`
-	Access  string   `json:"access"`
+	Access  []string `json:"access"`
 	Created string   `json:"created"`
 
 	FractalLevel int `json:"fractal_level"`
