@@ -8,17 +8,18 @@ import (
 
 // Account includes all general information
 type Account struct {
-	ID      string   `json:"id"`
-	Name    string   `json:"name"`
-	World   int      `json:"world"`
-	Guilds  []string `json:"guilds"`
-	Access  []string `json:"access"`
-	Created string   `json:"created"`
-
-	FractalLevel int `json:"fractal_level"`
-	DailyAP      int `json:"daily_ap"`
-	MonthlyAP    int `json:"monthly_ap"`
-	WvWRank      int `json:"wvw_rank"`
+	ID           string   `json:"id"`
+	Age          int      `json:"age"`
+	Name         string   `json:"name"`
+	World        int      `json:"world"`
+	Guilds       []string `json:"guilds"`
+	GuildLeader  []string `json:"guild_leader"`
+	Access       []string `json:"access"`
+	Created      string   `json:"created"`
+	FractalLevel int      `json:"fractal_level"`
+	DailyAP      int      `json:"daily_ap"`
+	MonthlyAP    int      `json:"monthly_ap"`
+	WvWRank      int      `json:"wvw_rank"`
 }
 
 // Account fetches the general account information
